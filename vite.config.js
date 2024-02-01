@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [
     vue(),
   ],
-  base: "/ACTAM-project-2023/",
+  base: "/RPGator/",
 
   resolve: {
     alias: {
