@@ -1,6 +1,6 @@
 <template>
   <div class="q-py-sm inline">
-    <Knob id="frequency" :color="color" :min="100" :max="12000" :inner-max="1" :value="vibrato.frequency" :step="10" :thickness="0.1" @updateValue="updateEnvelope" />
+    <Knob id="frequency" :color="color" :min="100" :max="12000" :inner-max="1" :value="vibrato.frequency" :step="10" :thickness="0.1" @updateValue="update" />
 
 <!--    <q-knob-->
 <!--        v-model="vibrato.frequency"-->
@@ -16,7 +16,7 @@
   </div>
 
  <div class="q-py-sm inline">
-   <Knob id="depth" :color="color" :min="0" :max="1" :inner-max="1" :value="vibrato.depth" :step="0.01" :thickness="0.1" @updateValue="updateEnvelope" />
+   <Knob id="depth" :color="color" :min="0" :max="1" :inner-max="1" :value="vibrato.depth" :step="0.01" :thickness="0.1" @updateValue="update" />
 
 <!--   <q-knob-->
 <!--        v-model="vibrato.depth"-->

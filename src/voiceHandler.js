@@ -140,10 +140,8 @@ class VoiceHandler {
 
     setOscillator(id,osc){
       console.log('osc',osc)
-      this.voices.get(id).voice.synth.set({oscillator : { harmonicity: osc.harmonicity,
-                                                          modulationType: osc.modulationType,
+      this.voices.get(id).voice.synth.set({oscillator : { modulationType: osc.modulationType,
                                                           baseType: osc.baseType,
-                                                          phase: osc.phase,
                                                           sourceType: osc.sourceType,
                                                                   }})
       console.log(this.voices.get(id).voice.synth.get())

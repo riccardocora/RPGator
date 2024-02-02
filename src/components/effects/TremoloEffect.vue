@@ -1,6 +1,6 @@
 <template>
     <div class="q-py-sm inline">
-      <Knob id="frequency" :color="color" :min="50" :max="10000" :inner-max="10000" :value="tremolo.frequency" :step="1" :thickness="0.1" @updateValue="updateEnvelope" />
+      <Knob id="frequency" :color="color" :min="50" :max="10000" :inner-max="10000" :value="tremolo.frequency" :step="1" :thickness="0.1" @updateValue="update" />
 
 <!--      <q-knob-->
 <!--        v-model="tremolo.frequency"-->
@@ -16,7 +16,7 @@
     </div>
 
     <div class="q-py-sm inline">
-      <Knob id="depth" :color="color" :min="0" :max="1" :inner-max="1" :value="tremolo.depth" :step="0.01" :thickness="0.1" @updateValue="updateEnvelope" />
+      <Knob id="depth" :color="color" :min="0" :max="1" :inner-max="1" :value="tremolo.depth" :step="0.01" :thickness="0.1" @updateValue="update" />
 <!--      <q-knob-->
 <!--        v-model="tremolo.depth"-->
 <!--        :step="0.01"-->

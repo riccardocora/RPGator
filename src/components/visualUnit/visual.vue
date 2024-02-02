@@ -25,7 +25,7 @@ export default defineComponent({
 
 <style scoped>
 .card{
-  background-image: url("assets/images/metal.png");
+  background-image: url("@/assets/images/metal.png");
   border-radius: 50%;
 
 }

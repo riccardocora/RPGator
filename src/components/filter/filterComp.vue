@@ -23,7 +23,6 @@
             no-caps
             text-color="white"
             :toggle-color="color"
-            ripple='false'
             size="sm"
             class="checkbox-container q-py-sm q-px-none border full-height"
             style="flex-direction: column"

@@ -94,36 +94,6 @@
         </template>
       </q-btn-toggle>
     </div>
-<!--    <div class="row inline">-->
-<!--      <div>-->
-<!--        <Knob id="harmonicity" :color="color" :min="0" :max="10" :inner-max="10" :value="oscillator.harmonicity" :step="0.01" :thickness="0.1" @updateValue="update" />-->
-<!--        <q-badge outline :color="color" label="harm" class="q-pa-xs"/>-->
-<!--        &lt;!&ndash;      <q-knob&ndash;&gt;-->
-<!--        &lt;!&ndash;        v-model="oscillator.harmonicity"&ndash;&gt;-->
-<!--        &lt;!&ndash;        :min="0"&ndash;&gt;-->
-<!--        &lt;!&ndash;        :max="10"&ndash;&gt;-->
-<!--        &lt;!&ndash;        :step="1"&ndash;&gt;-->
-<!--        &lt;!&ndash;        show-value&ndash;&gt;-->
-<!--        &lt;!&ndash;        size="lg"&ndash;&gt;-->
-<!--        &lt;!&ndash;        :color="color"&ndash;&gt;-->
-<!--        &lt;!&ndash;        @update:model-value="update"&ndash;&gt;-->
-<!--        &lt;!&ndash;      />&ndash;&gt;-->
-<!--      </div>-->
-<!--      <div>-->
-<!--        <Knob id="phase" :color="color" :min="0" :max="360" :inner-max="360" :value="oscillator.phase" :step="1" :thickness="0.1" @updateValue="update" />-->
-<!--        <q-badge outline :color="color" label="phase" class="q-pa-xs"/>-->
-<!--        &lt;!&ndash;      <q-knob&ndash;&gt;-->
-<!--        &lt;!&ndash;        v-model="oscillator.phase"&ndash;&gt;-->
-<!--        &lt;!&ndash;        :min="0"&ndash;&gt;-->
-<!--        &lt;!&ndash;        :max="360"&ndash;&gt;-->
-<!--        &lt;!&ndash;        :step="1"&ndash;&gt;-->
-<!--        &lt;!&ndash;        show-value&ndash;&gt;-->
-<!--        &lt;!&ndash;        size="lg"&ndash;&gt;-->
-<!--        &lt;!&ndash;        :color="color"&ndash;&gt;-->
-<!--        &lt;!&ndash;        @update:model-value="update"&ndash;&gt;-->
-<!--        &lt;!&ndash;      />&ndash;&gt;-->
-<!--      </div>-->
-<!--    </div>-->
 
   </q-card-section>
 
@@ -144,9 +114,6 @@ export default {
     const oscillator = reactive({
       baseType: "sine",
       sourceType: "oscillator",
-      // partialCount: 0,
-      // harmonicity: 1,
-      // phase: 0,
       modulationType: "sine",
     })
     const baseTypeOptions = ([

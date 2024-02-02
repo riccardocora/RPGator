@@ -1,6 +1,6 @@
 <template>
   <div class="q-py-sm inline">
-    <Knob id="distortion" :color="color" :min="0" :max="1" :inner-max="1" :value="distortion.distortion" :step="0.1" :thickness="0.1" @updateValue="updateEnvelope" />
+    <Knob id="distortion" :color="color" :min="0" :max="1" :inner-max="1" :value="distortion.distortion" :step="0.1" :thickness="0.1" @updateValue="update" />
 
 <!--    <q-knob-->
 <!--          v-model="distortion.distortion"-->
