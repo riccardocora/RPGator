@@ -109,7 +109,6 @@ export default {
   display: flex;
   flex-direction: row;
   height: 80%;
-  background-color: #40c4ff;
   justify-content: space-around;
   align-items: center;
 }
@@ -129,6 +128,6 @@ export default {
 .voice-controls{
   height: 100%;
   width: 100%;
-  background-color: #ff6d00;
+
 }
 </style>

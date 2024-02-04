@@ -104,8 +104,7 @@ name: 'Effects',
 <style scoped lang="scss">
 .effects-container{
   width: 100%;
-  height: 100%;
-  background-color: pink;
+  height: 90%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -115,7 +114,8 @@ name: 'Effects',
   display: flex;
   flex-direction: column;
   height: 100%;
-  border: 1px solid black;
+  border-right: 1px solid rgba(0, 0, 0, 0.11);
+  border-left: 1px solid rgba(0, 0, 0, 0.11);
   width: 25%;
 }
 

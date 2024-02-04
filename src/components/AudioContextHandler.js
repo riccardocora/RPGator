@@ -79,7 +79,7 @@ import AudioKeys from "audiokeys";
     this.effectChain.connect(this.outputGain)
     console.log(`Connected effects chain to output gain.`);
 
-    const limiter = new Tone.Limiter(-50).toDestination();
+    const limiter = new Tone.Limiter(-10).toDestination();
     this.outputGain.connect(limiter);
     limiter.toDestination();
     console.log(`Connected effects chain to destination`);

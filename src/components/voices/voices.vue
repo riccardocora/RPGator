@@ -5,13 +5,14 @@
           swipeable
           animated
           keep-alive
-          class="carousel"
+          color="$r2d-container"
+          class="carousel transparent"
           ref="carousel"
       >
-        <q-carousel-slide :name="0" class="evidence slide">
+        <q-carousel-slide  :name="0" class=" slide">
           <voice-module id="0" color="primary"></voice-module>
         </q-carousel-slide>
-        <q-carousel-slide :name="1" class="evidence slide">
+        <q-carousel-slide :name="1" class=" slide">
           <voice-module id="1" color="secondary"></voice-module>
         </q-carousel-slide>
 
@@ -78,20 +79,27 @@ export default{
 
 <style lang="scss" scoped>
 .voices-container{
-  width: 80%;
+  max-width: 80%;
   height: 100%;
-  background-color: pink;
+  display: flex;
+  background-color: $r2d-inner;
 }
+
 .control-container{
-  background-color: fuchsia;
   max-height: 100%;
   height: 100%;
-  width: 20%;
+  width: 18%;
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+  justify-content: space-between;
 }
 
 .carousel{
   height: 100%;
-
+  width: 100%;
+  max-height: 100%;
+  max-width: 100%;
 }
 .slide{
   display: flex ;
@@ -99,7 +107,7 @@ export default{
   overflow: hidden;
 }
 .carousel-control{
-  background-color: #7b807d;
+
   flex-direction: row;
   display: flex;
   width:4%;
@@ -111,17 +119,20 @@ export default{
 }
 
 .control0{
-  height: 50%;
-  max-height: 50%;
-  background-color: #6016ff;
+  height: 49.5%;
+  max-height: 49.5%;
   display: flex;
   flex-direction: column;
+  background-color: $r2d-inner;
 }
 .control1{
-  height: 50%;
-  max-height: 50%;
-  background-color: #18962d;
+  height: 49.5%;
+  max-height: 49.5%;
   display: flex;
   flex-direction: column;
+  background-color: $r2d-inner;
 }
+
+
+
 </style>

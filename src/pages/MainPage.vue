@@ -42,13 +42,13 @@ export default{
 
 }
 </script>
-<style>
+<style lang="scss">
 :root{
   --border_color: rgba(255, 255, 255, 0.45);
 }
 
 .main-container{
-  background-color: #21BA45;
+  background-color: $background;
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -63,13 +63,15 @@ export default{
   display:none;
 }
 
+/*
+.body{
+  font-family: 'Courier Prime', monospace;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}*/
 
-.background_metal{
-/*  background-image: url("assets/images/metal.png");*/
-  background:
-    /*url("assets/images/grid-noise.png"),*/
-    linear-gradient(to right, transparent 0%, transparent 1.6%, rgb(40, 40, 40) 1.6%, rgb(45, 45, 45) 98.4%, transparent 98.4%, transparent 100%);
-}
+
+
 
 /*.background_metal::before {
   content: '';
@@ -82,11 +84,6 @@ export default{
   border-radius: inherit;
 }*/
 
-
-.wood{
-  background: url("@/assets/images/wood-pattern.png"), rgba(164, 90, 19, 0.51);
-  border-radius: 10px;
-}
 
 
 .border_all{

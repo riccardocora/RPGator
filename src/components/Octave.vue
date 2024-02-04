@@ -61,13 +61,14 @@ export default {
   grid-template-columns: repeat(2, 1fr);
   height: 100%;
   background-color: #7c4dff;
-  width: 100%;
+  width: 90%;
+
 }
 .octave{
   width: 100%;
   height: 100%;
   display: flex;
-  position:relative;
+  position: relative;
 }
 .woctave{
   position: relative;

@@ -184,7 +184,7 @@ export default {
   justify-content: space-around;
   align-items: center;
   height: 25%;
-  background-color: #004d99;
+
 }
 //.slide
 //  //max-height: 9em;
