@@ -48,21 +48,15 @@ class VoiceHandler {
 
 
     toggleChain(id){
-      console.log('toggle chain',id)
-      console.log('voice',this.voices.get(id))
-      console.log('chained',this.voices.get(id).chained)
       const voice = this.voices.get(id).voice[this.voices.get(id).voiceType]
       if(this.voices.get(id).chained) {
-        console.log('disconnect',this.voices.get(id).chained)
          voice.disconnect()
 
       }else{
         voice.connect(this.voices.get(id).gain)
-        console.log('connect')
 
       }
       this.voices.get(id).chained = !this.voices.get(id).chained
-      console.log('chained',this.voices.get(id).chained)
 
     }
 
@@ -100,7 +94,6 @@ class VoiceHandler {
       //let filteredVoices = Array.from(this.voices.values()).filter(voiceObj => voiceObj.chained);
       this.voices.forEach(voiceObj => {
         if (voiceObj.voiceType === 'sampler' && voiceObj.voice.sampler.loaded === false){
-          console.log('return')
           return
         }
         voiceObj.voice[voiceObj.voiceType].triggerAttackRelease(note+(octave+voiceObj.octave).toString(),duration)
@@ -139,20 +132,16 @@ class VoiceHandler {
     }
 
     setOscillator(id,osc){
-      console.log('osc',osc)
       this.voices.get(id).voice.synth.set({oscillator : { modulationType: osc.modulationType,
                                                           baseType: osc.baseType,
                                                           sourceType: osc.sourceType,
                                                                   }})
-      console.log(this.voices.get(id).voice.synth.get())
     }
     setSynth(id,synth) {
-      console.log('synth', synth)
       this.voices.get(id).voice.synth.set({
         portamento: synth.portamento,
         detune: synth.detune,
       })
-      console.log(this.voices.get(id).voice.synth.get())
 
     }
 

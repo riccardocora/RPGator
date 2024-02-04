@@ -1,5 +1,10 @@
 <template>
-  <canvas class="canvas" ref="visualizerCanvas"></canvas>
+  <div class="column full-height justify-center" >
+
+    <div class="screen-container " ref="screenContainer">
+      <canvas class="canvas" ref="visualizerCanvas"></canvas>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -148,14 +153,31 @@ export default {
 
 </script>
 
-<style scoped>
-.canvas {
-  height: 150px;
-  width: 250px;
-  border-radius: 0.5em;
-  background: radial-gradient(100% 175% at 50% 50%, #0000 32%, rgba(201, 201, 201, 0.11) 60%),
-  radial-gradient(175% 100% at 50% 53%, #0000 32%, rgba(203, 203, 203, 0.09) 60%);
-  box-shadow: 0 0 1px 7px rgb(150, 150, 150) inset; /*NOT WORKING*/
+<style lang="scss" scoped>
+//.canvas {
+//  height: 100%;
+//  width: 100%;
+//  border-radius: 2%;
+//  background: radial-gradient(100% 175% at 50% 50%, #0000 32%, rgba(201, 201, 201, 0.11) 60%),
+//  radial-gradient(175% 100% at 50% 53%, #0000 32%, rgba(203, 203, 203, 0.09) 60%);
+//  box-shadow: 0 0 1px 7px rgb(150, 150, 150) inset; /*NOT WORKING*/
+//}
+.canvas{
+  width: 100%;
+  height: 100%;
+  align-self: center;
 }
 
+.screen-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #bcb;
+  margin: 0 0 0;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  align-self: center;
+}
 </style>

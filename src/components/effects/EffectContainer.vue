@@ -1,13 +1,14 @@
 <template>
+    <div class="effect-switch">
+      <q-checkbox v-model="active" @update:model-value="toggleChain(active)" checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
+        <template v-slot:default>
+          <q-badge  :label="name" :color="active?'yellow':'black'" />
+        </template>
+      </q-checkbox>
+    </div>
 
-    <q-checkbox v-model="active" @update:model-value="toggleChain(active)" checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
-      <template v-slot:default>
-        <q-badge  :label="name" :color="active?'yellow':'black'" />
-      </template>
-
-    </q-checkbox>
-
-    <div v-if="name === 'tremolo'">
+    <div class="effect">
+      <div v-if="name === 'tremolo'">
         <tremolo-effect></tremolo-effect>
       </div>
       <div v-else-if="name === 'vibrato'">
@@ -25,6 +26,8 @@
       <div v-else-if="name === 'delay'">
         <delay-effect></delay-effect>
       </div>
+    </div>
+
 
 
 
@@ -73,12 +76,18 @@ export default {
   },
 }
 </script>
-<style >
-.q-checkbox__icon-container{
-  display:none;
-}
-.q-checkbox__inner{
-  display:none;
+<style scoped>
+.effect-switch{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  //margin: 10px;
 }
 
+.effect{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
 </style>

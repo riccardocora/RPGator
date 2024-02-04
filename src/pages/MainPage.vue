@@ -1,31 +1,13 @@
 <template>
-  <q-page>
-    <div class="q-pa-none ">
+  <q-page >
+    <div class="main-container">
       <div v-if="started">
-        <div class="wood q-px-lg q-py-none">
-          <div class="q-pa-md background_metal" style="display: flex; flex-direction: column;">
-            <div class="row q-px-lg justify-between" style="flex: 1;">
-              <div class="column border_all" style="flex: 1;">
-                <voices></voices>
-              </div>
-              <div class="column border_right_top_bottom" >
-                <visual-trip></visual-trip>
-              </div>
-            </div>
-            <div class="row q-px-lg justify-between" style="flex: 1;">
-              <div class="column border_side_bottom" style="flex: 1;">
-<!--                <arpeggiator ></arpeggiator>-->
-              </div>
-              <div class="column border_right_bottom">
-                <effects></effects>
-              </div>
-            </div>
-          </div>
-        </div>
+        <RPGator></RPGator>
       </div>
       <q-btn v-else color="white" text-color="black" label="Start" @click="start"></q-btn>
-    </div>
 
+
+    </div>
 
   </q-page>
 </template>
@@ -33,24 +15,13 @@
 <script>
 import {ref} from "vue";
 import AudioContextHandler from "../components/AudioContextHandler";
-import Voices from "../components/voices/voices.vue";
-import FilterComp from "../components/filter/filterComp.vue";
-import Filters from "../components/filter/filters.vue";
-import Effects from "../components/effects/effects.vue";
-// import Arpeggiator from "../components/arpeggio/Arpeggiator.vue";
-// import Visual from "../components/visual.vue";
-import VisualTrip from "../components/visualUnit/visual.vue";
+import RPGator from "@/components/RPGator.vue";
 
 export default{
   name: 'MainHost',
   components: {
-    VisualTrip,
-    // Visual,
-    // Arpeggiator,
-    Effects,
-    Filters,
-    FilterComp,
-    Voices,
+    RPGator
+
   },
   setup(){
     return{
@@ -75,12 +46,23 @@ export default{
 :root{
   --border_color: rgba(255, 255, 255, 0.45);
 }
-.main{
-  background-image: url("@/assets/images/dark-leather.png");
-  background-color: #151515;
-  border-radius: 30px;
 
+.main-container{
+  background-color: #21BA45;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+.q-checkbox__icon-container{
+  display:none;
+}
+.q-checkbox__inner{
+  display:none;
+}
+
 
 .background_metal{
 /*  background-image: url("assets/images/metal.png");*/
@@ -263,6 +245,8 @@ export default{
 }
 
 
-
+.q-carousel--navigation-left.q-carousel {
+  padding-left: 2vw;
+}
 
 </style>

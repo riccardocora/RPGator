@@ -62,7 +62,7 @@ import AudioKeys from "audiokeys";
 
 
     this.effectChain = new EffectChain();
-    this.effectChain.addEffect("chorus");
+    // this.effectChain.addEffect("chorus");
     this.effectChain.addEffect("delay");
     this.effectChain.addEffect("vibrato");
     this.effectChain.addEffect("distortion");
@@ -79,7 +79,9 @@ import AudioKeys from "audiokeys";
     this.effectChain.connect(this.outputGain)
     console.log(`Connected effects chain to output gain.`);
 
-    this.outputGain.toDestination();
+    const limiter = new Tone.Limiter(-50).toDestination();
+    this.outputGain.connect(limiter);
+    limiter.toDestination();
     console.log(`Connected effects chain to destination`);
 
 

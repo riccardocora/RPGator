@@ -1,70 +1,72 @@
 <template>
-    <q-card-actions class="justify-between q-pa-none actions ">
-<!--      <q-btn-toggle v-model="voiceType"
-                    :toggle-color="color"
-                    color="blue-grey-8"
-                    dense
-                    outline
-                    no-caps
-                    size="sm"
-                    :options="[
-                      {label: 'synth', value: 'synth'},
-                      {label: 'sampler', value: 'sampler'},
-                    ]"
-                    @update:model-value="setVoiceType"
-                  />-->
-      <div>
+  <div class="voice-container">
+    <div class="button-row">
+              <q-btn-toggle
+                v-model="voiceType"
+                :toggle-color="color"
+                color="black"
+                dense
+                outline
+                push
+                class="q-pa-xs flip "
+                size="xs"
+                :options="[
+                  {label: 'synth', value: 'synth'},
+                  {label: 'sampler', value: 'sampler'},
+                ]"
+                @update:model-value="setVoiceType"
+              />
+              <q-badge outline :color="color" label="chain"/>
+              <q-btn round
+                     size="xs"
+                     class="q-ma-sm"
+                     :outline="!chained"
+                     color="accent"
+                     :style="[chained ? 'background: accent' : 'color: accent]']"
+                     :class="chained? 'shadow-10': ''"
+                     @click="toggleChain"
+              >
+              </q-btn>
+    </div>
+    <div class="inner-voice">
+      <synth-comp v-if="voiceType==='synth'" :id="id" :color="color"></synth-comp>
+      <sampler-comp :id="id" v-else></sampler-comp>
+    </div>
 
-      </div>
-    </q-card-actions>
-  <q-card-section horizontal >
-    <q-card-section class="q-px-xs">
-      <div class="background_metal full-height rounded-borders">
-        <q-btn-toggle
-          v-model="voiceType"
-          :toggle-color="color"
-          color="black"
-          dense
-          outline
-          push
-          class="q-pa-xs flip "
-          size="sm"
-          :options="[
-            {label: 'synth', value: 'synth'},
-            {label: 'sampler', value: 'sampler'},
-          ]"
-          @update:model-value="setVoiceType"
-        />
-        <q-badge outline :color="color" label="chain"/>
-        <q-btn round
-               size="xs"
-               class="q-ma-sm"
-               :outline="!chained"
-               color="accent"
-               :style="[chained ? 'background: accent' : 'color: accent]']"
-               :class="chained? 'shadow-10': ''"
-               @click="toggleChain"
-        >
-        </q-btn>
-        <div class="voiceContainer transparent">
-          <synth-comp v-if="voiceType==='synth'" :id="id" :color="color"></synth-comp>
-          <sampler-comp :id="id" v-else></sampler-comp>
-        </div>
-      </div>
+  </div>
 
-    </q-card-section>
+  <div class="envelope-container">
+    <div class="button-row">
 
-    <q-card-section class="q-px-xs">
-      <envelope-container :id="id" :color="color"></envelope-container>
-    </q-card-section>
-    <q-card-section class="q-px-xs">
-      <filter-comp :id="id" color="primary">
-      </filter-comp>
-    </q-card-section>
-    <q-card-section class="q-px-xs">
-      <voice-controls :id="id" ></voice-controls>
-    </q-card-section>
-  </q-card-section>
+    </div>
+    <div class="envelope">
+      <envelope-comp :id="id" env-type="amp" :color="color"></envelope-comp>
+    </div>
+
+  </div>
+
+  <div class="filter-container">
+    <div class="button-row">
+
+    </div>
+    <div class="filter">
+        <filter-comp :id="id" :color="color">
+        </filter-comp>
+    </div>
+  </div>
+
+<!--      <div class="background_metal full-height rounded-borders">-->
+
+<!--        <div class="voiceContainer transparent">-->
+<!--          <synth-comp v-if="voiceType==='synth'" :id="id" :color="color"></synth-comp>-->
+<!--          <sampler-comp :id="id" v-else></sampler-comp>-->
+<!--        </div>-->
+<!--      </div>-->
+
+
+<!--      <filter-comp :id="id" color="primary">-->
+<!--      </filter-comp>-->
+
 
 
     <!--      <q-card-section>-->
@@ -209,21 +211,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.slide {
-  padding-left: 0
-}
 
-.slider {
-  width: 100%;
-}
-.pan-container {
-  width: 100%;
-}
 
-.q-slider-thumb--h{
-  background-image: url("assets/images/knob.png");
-  border-radius: 10px;
-}
 
 //.slider::-webkit-slider-thumb {
 //    -webkit-appearance: none !important;
@@ -242,10 +231,6 @@ export default {
 //}
 
 
-.q-carousel--navigation-left.q-carousel--with-padding .q-carousel__slide, .q-carousel--navigation-left .q-carousel--padding, .q-carousel--arrows-horizontal.q-carousel--with-padding .q-carousel__slide, .q-carousel--arrows-horizontal .q-carousel--padding{
-  padding-left: 0
-}
-
 .key{
   border-radius: 1.25px;
   background-image: radial-gradient(#544947 40%, transparent 70%), radial-gradient(#1D191A 30%, #483F40 45%, transparent 65%),
@@ -256,14 +241,61 @@ export default {
   background-repeat: no-repeat;
   box-shadow: 0 -2.5px 2px -1.25px #131315 inset, 0 -2.75px 2.25px -1.25px #232426 inset, 0 10px 10px -10px #8C8280 inset
 }
-.actions{
-  //background-image: url("assets/images/metal.png");
-  border-radius: 10px;
+
+
+.voice-container{
+  background-color: #5e35b1;
+  width: 30%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-.voiceContainer{
-  //background-image: url("assets/images/metal.png");
-  border-radius: 0.5em;
+.envelope-container{
+  background-color: #4f9b41;
+  width: 35%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
+
+.filter-container{
+  background-color: #c59f85;
+  width: 35%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.button-row{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  height: 15%;
+  background-color: #004d99;
+}
+
+.inner-voice{
+  height: 85%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.envelope{
+  height: 85%;
+  display: flex;
+  flex-direction: column;
+  background-color: #1de9b6;
+}
+
+.filter{
+  height: 85%;
+  display: flex;
+  flex-direction: column;
+  background-color: #b6e91d;
+}
 </style>

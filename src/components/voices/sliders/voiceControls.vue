@@ -1,37 +1,29 @@
 
 
 <template>
-  <div class="background_metal rounded-borders full-height">
-    <div class="row">
-      <div class="col q-pl-lg q-pt-lg q-pr-md">
-        <div>
-          <q-badge outline :color="color" label="oct." class="q-pa-xs"/>
-        </div>
+  <div class="voice-controls">
+    <div class="vertical-sliders">
         <q-slider
-          v-model="octave"
-          :min="-2"
-          :max="2"
-          :step="1"
-          markers
-          vertical
-          reverse
-          :color="color"
-          :thumb-color="color"
-          label-color="black"
-          :label-text-color="color"
-          marker-labels
-          :marker-labels-class="'text-'+color"
-          selection-color="transparent"
-          class="q-py-md"
-          @update:model-value="updateOctave"
+            v-model="octave"
+            :min="-2"
+            :max="2"
+            :step="1"
+            markers
+            vertical
+            reverse
+            class="control-slider"
+            switch-marker-labels-side
+            :color="color"
+            :thumb-color="color"
+            label-color="black"
+            :label-text-color="color"
+            marker-labels
+            :marker-labels-class="'text-'+color"
+            selection-color="transparent"
+            @update:model-value="updateOctave"
         />
 
-      </div>
-      <div class="col q-pr-lg q-pt-lg q-pl-md">
-        <div>
-          <q-badge outline :color="color" label="volume" class="q-pa-xs"/>
-        </div>
-        <q-slider
+      <q-slider
           v-model="volume"
           :min="0"
           :max="1"
@@ -46,18 +38,13 @@
           :label-text-color="color"
           :marker-labels-class="'text-'+color"
           selection-color="transparent"
-          class="q-py-md"
+          class="control-slider"
           @change="updateVolume"
-        />
-
-      </div>
+      />
     </div>
-    <div class="row inline full-width q-px-md">
-      <div>
-        <q-badge outline :color="color" label="pan" class=""/>
-      </div>
-      <div class="col">
-        <q-slider
+
+    <div class="horizontal-slider">
+      <q-slider
           v-model="pan"
           :min="-1"
           :max="1"
@@ -67,13 +54,12 @@
           label-color="black"
           :label-text-color="color"
           :marker-labels-class="'text-'+color"
-          class="q-px-sm"
+          class="control-slider"
           @update:model-value="updatePan"
-        />
-      </div>
-
+      />
     </div>
   </div>
+
 </template>
 <script>
 import { ref } from "vue";
@@ -96,17 +82,14 @@ export default {
     const pan = ref(AudioContextHandler.voices.getVoice(props.id).pan.pan.value);
 
     const updatePan = (newPan) => {
-      console.log("updatePan", newPan);
       AudioContextHandler.voices.setVoicePan(props.id, newPan);
     }
 
     const updateOctave = (newOctave) => {
-      console.log("updateOctave", newOctave);
       AudioContextHandler.voices.setVoiceOctave(props.id, newOctave);
     }
 
     const updateVolume = (newVolume) => {
-      console.log("updateVolume", newVolume);
       AudioContextHandler.voices.setVoiceVolume(props.id, newVolume);
     }
     return {
@@ -122,5 +105,30 @@ export default {
 
 </script>
 <style scoped>
+.vertical-sliders{
+  display: flex;
+  flex-direction: row;
+  height: 80%;
+  background-color: #40c4ff;
+  justify-content: space-around;
+  align-items: center;
+}
+.horizontal-slider{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 20%;
+}
 
+.control-slider{
+  max-height: 80%;
+  max-width: 80%;
+
+}
+.voice-controls{
+  height: 100%;
+  width: 100%;
+  background-color: #ff6d00;
+}
 </style>

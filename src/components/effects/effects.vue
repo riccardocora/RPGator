@@ -1,116 +1,35 @@
 
 <template>
-  <div class="q-pa-xs">
-    <q-card class="card transparent">
-      <q-card-section horizontal>
-        <q-list bordered class="" v-for="effect in effects" v-bind:key="effect" :key="effect">
-        <q-card-section class="q-px-md ">
-          <q-item class="q-px-none">
-            <div class="justify-center">
-              <div>
-                <q-item-section> <effect-container :name="effect"></effect-container></q-item-section>
-              </div>
-              <div>
-                <q-item-section>
-                  <q-btn-group>
-                    <q-btn
-                      @click="moveLeft(effect)"
-                      icon="mdi-arrow-left"
-                      flat
-                      round
-                      dense
-                      color="primary"
-                      size="sm"
-                    />
-                    <q-btn
-                      @click="moveRight(effect)"
-                      icon="mdi-arrow-right"
-                      flat
-                      round
-                      dense
-                      color="primary"
-                      size="sm"
-                    />
-                  </q-btn-group>
-                </q-item-section>
-              </div>
-
-            </div>
+  <div class="effects-container">
+    <div v-for="effect in effects" v-bind:key="effect" :key="effect" class="effect-container">
+      <div class="arrows">
+        <q-btn-group flat>
+          <q-btn
+              @click="moveLeft(effect)"
+              icon="mdi-arrow-left"
+              flat
+              round
+              dense
+              color="primary"
+              size="sm"
+          />
+          <q-btn
+              @click="moveRight(effect)"
+              icon="mdi-arrow-right"
+              flat
+              round
+              dense
+              color="primary"
+              size="sm"
+          />
+        </q-btn-group>
+      </div>
 
 
-          </q-item>
-        </q-card-section>
-        </q-list>
-      </q-card-section>
-
-<!--      <q-card-section horizontal>-->
-<!--          <div v-for="effect in effects" :key="effect" >-->
-<!--            <q-card-section  class="column q-pa-none">-->
-<!--              &lt;!&ndash;<            <chorus-effect></chorus-effect>&ndash;&gt;-->
-<!--              <q-card-section>-->
-<!--                <q-btn-group>-->
-<!--                  <q-btn-->
-<!--                    @click="moveLeft(effect)"-->
-<!--                    icon="mdi-arrow-left"-->
-<!--                    flat-->
-<!--                    round-->
-<!--                    dense-->
-<!--                    color="primary"-->
-<!--                  />-->
-<!--                  <q-btn-->
-<!--                    @click="moveRight(effect)"-->
-<!--                    icon="mdi-arrow-right"-->
-<!--                    flat-->
-<!--                    round-->
-<!--                    dense-->
-<!--                    color="primary"-->
-<!--                  />-->
-<!--                </q-btn-group>-->
-<!--              </q-card-section>-->
-<!--              <effect-container :name="effect"></effect-container>-->
-<!--            </q-card-section>-->
-<!--          </div>-->
-
-<!--        <-->
-<!--          <q-separator vertical inset/>-->
-<!--          <q-card-section class="column q-pa-none">-->
-<!--            <tremolo-effect></tremolo-effect>-->
-<!--          </q-card-section>-->
-<!--          <q-separator vertical inset/>-->
-<!--          <q-card-section class="column q-pa-none">-->
-<!--            <vibrato-effect></vibrato-effect>-->
-<!--          </q-card-section>-->
-<!--        <q-separator vertical inset/>-->
-<!--        <q-card-section class="column q-pa-none">-->
-<!--            <distortion-effect></distortion-effect>-->
-<!--          </q-card-section>-->
-<!--      </q-card-section>-->
-<!--        <q-card-section class="column">-->
-
-
-<!--        <q-tabs-->
-<!--          v-model="tab"-->
-<!--          dense-->
-<!--          class="text-grey"-->
-<!--          active-color="primary"-->
-<!--          indicator-color="primary"-->
-<!--          align="justify"-->
-<!--        >-->
-<!--          <q-tab name="vibrato" label="Mails" />-->
-<!--          <q-tab name="distortion" label="Alarms" />-->
-<!--          <q-tab name="tremolo" label="Movies" />-->
-<!--        </q-tabs>-->
-
-<!--        <q-separator />-->
-
-<!--        <q-tab-panels v-model="tab" animated>-->
-<!--          <q-tab-panel name="vibrato" class="q-pa-none">-->
-<!--            -->
-<!--          </q-tab-panel>-->
-<!--        </q-tab-panels>-->
-    </q-card>
-
+           <effect-container :name="effect"></effect-container>
+    </div>
   </div>
+
 </template>
 <script>
 import ChorusEffect from "../effects/ChorusEffect.vue";
@@ -182,7 +101,26 @@ name: 'Effects',
 }
 </script>
 
-<style scoped lang="sass">
-.card
-  background-image: url("assets/images/metal.png")
+<style scoped lang="scss">
+.effects-container{
+  width: 100%;
+  height: 100%;
+  background-color: pink;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.effect-container{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: 1px solid black;
+  width: 25%;
+}
+
+.arrows{
+  display: flex;
+  justify-content: center;
+}
 </style>

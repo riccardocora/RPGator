@@ -1,15 +1,6 @@
 
 <template>
-  <div class="q-pa-md">
-    <q-card class="card">
-      <q-card-section>
-        <OscillatorCurve color="primary">
-        </OscillatorCurve>
-      </q-card-section>
-
-    </q-card>
-  </div>
-
+    <OscillatorCurve color="primary"/>
 </template>
 <script>
 

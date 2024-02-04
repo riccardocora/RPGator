@@ -1,97 +1,55 @@
 
 <template>
-  <div class="q-py-md">
-    <q-card class="arp-card" flat>
-      <div class="row q-px-md q-pt-md justify-between">
-        <div class="q-gutter-y-md column" style="max-width: 300px">
-          <div class="q-pa-xxs q-ma-sm select">
-            <q-select outlined class="" dense hide-dropdown-icon hide-bottom-space v-model="type" :options="types" @update:model-value="updatePattern"/>
-          </div>
-          <div class="q-pa-xxs q-ma-sm select">
-            <q-select outlined class="" dense v-model="length" :options="lengths" hide-dropdown-icon hide-bottom-space @update:model-value="updatePattern"/>
-          </div>
-          <div class="q-pa-xxs q-ma-sm">
-            <q-select outlined class="select" dense hide-dropdown-icon hide-bottom-space v-model="interval" :options="lengths"  @update:model-value="updatePattern"/>
-          </div>
-        </div>
-<!--        <div class="row justify-between">-->
-<!--          <div v-for="note in notes" :key="note.value">-->
-<!--            <q-checkbox-->
-<!--              v-model="group"-->
-<!--              :val="note.value"-->
-<!--              label-position="left"-->
-<!--              size="xs"-->
-<!--              @update:model-value="updatePattern"-->
-<!--            >-->
-<!--            <template v-slot:default>-->
-<!--             <q-badge outline  :label="note.label" />-->
-<!--            </template>-->
+  <div class="arp-control">
+    <div class="select-controls">
+      <q-select dense outlined dark class="select" v-model="type" :options="types" @update:model-value="updatePattern"/>
 
-<!--            </q-checkbox>-->
+      <q-select dense outlined dark class="select" v-model="length" :options="lengths" @update:model-value="updatePattern"/>
 
-
-<!--          </div>-->
-<!--        </div>-->
-        <div class="column q-px-lg">
-          <q-slider
-            v-model="octave"
-            :min="1"
-            :max="8"
-            :step="1"
-            label
-            vertical
-            reverse
-            @update:model-value="updatePattern"
-          >
-          </q-slider>
-          <div>
-            <q-badge outline label="octave"/>
-          </div>
-        </div>
-        <div class="column">
-          <q-slider
-            v-model="bpm"
-            :min="40"
-            :max="200"
-            :step="1"
-            label
-            @update:model-value="updateBpm"
-            vertical
-            reverse
-          >
-          </q-slider>
-          <div>
-            <q-badge outline label="bpm"/>
-
-          </div>
-
-        </div>
-          <div class="column">
-            <Keyboard></Keyboard>
-          </div>
-
-
-        </div>
-      <q-card-actions>
-        <div class="col">
-          <q-checkbox v-model="playing" @update:model-value="togglePlay" checked-icon="radio_button_checked"
-                      unchecked-icon="radio_button_unchecked" color="yellow">
-            <template v-slot:default>
-              <q-badge outline  label="play" :color="playing?'yellow':'primary'" />
-            </template>
-          </q-checkbox>
-        </div>
-      </q-card-actions>
-    </q-card>
+      <q-select dense outlined  dark class="select" v-model="interval" :options="lengths"  @update:model-value="updatePattern"/>
+    </div>
+    <div class="slider-controls">
+      <q-slider
+          class="arp-slider"
+          v-model="octave"
+          :min="1"
+          :max="8"
+          :step="1"
+          label
+          @update:model-value="updatePattern"
+      >
+      </q-slider>
+      <q-slider
+          class="arp-slider"
+          v-model="bpm"
+          :min="40"
+          :max="200"
+          :step="1"
+          label
+          @update:model-value="updateBpm"
+      >
+      </q-slider>
+    </div>
+    <div class="buttons">
+      <q-checkbox v-model="playing" @update:model-value="togglePlay" checked-icon="radio_button_checked"
+                  unchecked-icon="radio_button_unchecked" color="yellow">
+        <template v-slot:default>
+          <q-badge outline  label="play" :color="playing?'yellow':'primary'" />
+        </template>
+      </q-checkbox>
+    </div>
   </div>
+  <div class="keyboard-container">
+    <Keyboard></Keyboard>
+  </div>
+
 </template>
 
 <script>
 import { ref } from 'vue'
 import AudioContextHandler from "@/components/AudioContextHandler.js";
 import * as Tone from "tone";
-import audioContextHandler from "@/components/AudioContextHandler.js";
-import Keyboard from "../keyboard.vue";
+import Keyboard from "../Octave.vue";
 
 export default {
   name:'Arpeggiator',
@@ -112,8 +70,7 @@ export default {
 
 
     const updatePattern = () => {
-      console.log("group", group.value)
-      console.log("type", type.value)
+
       pattern.set({
         values: group.value,
         pattern: type.value,
@@ -125,10 +82,8 @@ export default {
 
     }
     const togglePlay = (playing) => {
-      console.log("playing", playing)
       if (playing){
         Tone.Transport.start();
-        console.log("pattern",pattern)
         pattern.start("0.05")
       } else {
         pattern.stop(0)
@@ -207,20 +162,52 @@ export default {
 }
 </script>
 
-<style scoped lang="sass">
-.select
-  background-image: url("assets/images/metal.png")
-  border-radius: 3px
+<style scoped lang="scss">
 
-.arp-card
-  background-color: transparent
-  //background-image: url("assets/images/metal.png")
+.arp-control{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  background-color: #4e342e;
+  width: 20%;
+}
 
+.select-controls{
+  display: flex;
+  flex-direction: column;
+  height: 55%;
+  width: 100%;
+  align-items: center;
+  background-color: #3d5afe;
+}
+.select{
+  width:80%;
+  padding: 3%;
+}
+.slider-controls{
+  width: 100%;
+  height: 30%;
+  background-color: #529b55;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+.buttons{
 
-.q-option-group .q-field__control
-  flex-direction: column-reverse
+}
+.arp-slider{
+  width: 80%;
+}
 
-.q-option-group .q-field__control .q-field__native
-  order: 2
+.keyboard-container{
+  width: 80%;
+  height: 100%;
+  background-color: #1a93ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 </style>
 

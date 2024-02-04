@@ -74,7 +74,7 @@ export default defineComponent({
 .slider {
   -webkit-appearance: none;
   width: 100%;
-  height: 5px;
+  height: 10px;
   border-radius: 10px;
   background: var(--slider-line);
 
@@ -95,7 +95,7 @@ export default defineComponent({
   //-webkit-appearance: none;
   border: 0.1px inset rgba(0, 0, 0, 0.446);
   border-radius: 5%;
-  background-image: url("assets/images/knob.png");
+  background-image: url("@/assets/images/knob.png");
     //linear-gradient(to right, rgba(0, 0, 0, 0.25),  rgba(255, 255, 255, 0.25) 100%),
     //linear-gradient(to right,$slider-thumb-darkshade 18%,
     //  transparent 20%,transparent 48.5%,

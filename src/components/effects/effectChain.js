@@ -6,7 +6,6 @@ class EffectChain {
         this.order = [];
         this.input = new Tone.Gain()
         this.output = new Tone.Gain()
-        //this.input.connect(this.output)
       return this
     }
 
@@ -55,7 +54,6 @@ class EffectChain {
         }
         this.input.disconnect()
         if(this.effects.size>0){
-          console.log("this.effects.get(this.order[0])",this.effects.get(this.order[0]))
           effObj.gainOut.connect(this.effects.get(this.order[0]).gainIn)
         }else{
          effObj.gainOut.connect(this.output)
@@ -72,7 +70,7 @@ class EffectChain {
 
     chainEffect(effect) {
         const eff = this.effects.get(effect)
-        if(!eff.chained){console.log("chaining effect",eff)
+        if(!eff.chained){
           // eff.effect.disconnect()
           // eff.gainIn.disconnect()
           eff.gainIn.chain(eff.effect,eff.gainOut)
@@ -82,7 +80,7 @@ class EffectChain {
     //each effect is independent, so we can turn them on and off
     unchainEffect(effect) {
         const eff = this.effects.get(effect)
-        if(eff.chained){console.log("unchaining effect",eff)
+        if(eff.chained){
           eff.effect.disconnect()
           eff.gainIn.disconnect()
           eff.chained=false
@@ -95,24 +93,18 @@ class EffectChain {
     }
 
     moveEffectRight(effect) {
-      console.log("moveEffectRight START")
-      console.log("this.effects.size",this.effects.size)
-      console.log("this.order.length",this.order.length)
+
 
       if(this.effects.size > 1 && this.order.length === this.effects.size) {
         const index = this.order.indexOf(effect)
-        console.log("index",index)
         const eff = this.effects.get(effect)
         if (index < this.order.length - 1) {
           const nextEffect = this.effects.get(this.order[index + 1])
-          console.log("nextEffect",nextEffect )
 
-          console.log("eff.gainIn.input",eff.gainIn.input)
           const input = index>0?this.effects.get(this.order[index - 1]).gainOut: this.input;
           const output = index<this.order.length-2?this.effects.get(this.order[index + 2]).gainIn: this.output;
           input.disconnect();
           input.connect(nextEffect.gainIn);
-          console.log("input",input)
 
           eff.gainOut.disconnect();
           eff.gainOut.connect(output)
@@ -122,10 +114,6 @@ class EffectChain {
 
           this.order[index] = this.order[index + 1]
           this.order[index + 1] = effect
-          console.log("final order",this.order)
-          console.log("moveEffectRight END")
-
-
         }
       }
     }
@@ -144,13 +132,6 @@ class EffectChain {
           eff.gainOut.connect(prevEffect.gainIn);
           prevEffect.gainOut.disconnect();
           prevEffect.gainOut.connect(output);
-
-            // prevEffect.gainIn.disconnect()
-          // prevEffect.gainIn.connect(eff.gainIn.input)
-          // eff.gainIn.disconnect()
-          // eff.gainOut.connect(prevEffect.gainOut.output)
-          // prevEffect.gainOut.disconnect()
-          // prevEffect.gainOut.connect(eff.gainIn)
           this.order[index] = this.order[index -1]
           this.order[index -1] = effect
         }
@@ -159,7 +140,6 @@ class EffectChain {
 
 
     connect(node) {
-      console.log("connecting effect chain to node",node)
       this.output.connect(node)
     }
 

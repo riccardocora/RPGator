@@ -1,99 +1,101 @@
 
 <template>
   <q-card-section>
-    <div class="row items-center no-wrap">
-      <q-btn-toggle
-        v-model="oscillator.baseType"
-        color="dark"
-        toggle-color=""
-        class="checkbox-container transparent "
-        size="xs"
-        unelevated
-        stack
-        stretch
-        :ripple="false"
-        :options="baseTypeOptions"
-        @update:model-value="update">
-        <template v-slot:sine>
-          <div class="row items-center no-wrap ">
-            <q-icon name="mdi-sine-wave" />
-          </div>
-        </template>
+    <div class="row">
+      <div class="column">
+        <q-btn-toggle
+            v-model="oscillator.baseType"
+            color="dark"
+            toggle-color=""
+            class="checkbox-container transparent "
+            size="xs"
+            unelevated
+            style="flex-direction: column"
+            :ripple="false"
+            :options="baseTypeOptions"
+            @update:model-value="update">
+          <template v-slot:sine>
+            <div class="row items-center no-wrap ">
+              <q-icon name="mdi-sine-wave" />
+            </div>
+          </template>
 
-        <template v-slot:square>
-          <div class="row items-center no-wrap">
-            <q-icon name="mdi-square-wave" />
-          </div>
-        </template>
+          <template v-slot:square>
+            <div class="row items-center no-wrap">
+              <q-icon name="mdi-square-wave" />
+            </div>
+          </template>
 
-        <template v-slot:triangle>
-          <div class="row items-center no-wrap">
-            <q-icon name="mdi-triangle-wave" />
-          </div>
-        </template>
+          <template v-slot:triangle>
+            <div class="row items-center no-wrap">
+              <q-icon name="mdi-triangle-wave" />
+            </div>
+          </template>
 
-        <template v-slot:sawtooth>
-          <div class="row items-center no-wrap">
-            <q-icon name="mdi-sawtooth-wave" />
-          </div>
-        </template>
-      </q-btn-toggle>
+          <template v-slot:sawtooth>
+            <div class="row items-center">
+              <q-icon name="mdi-sawtooth-wave" />
+            </div>
+          </template>
+        </q-btn-toggle>
+      </div>
+      <div class="col">
+        <q-btn-toggle
+            v-model="oscillator.sourceType"
+            color="dark"
+            text-color="white"
+            toggle-color=""
+            size="xs"
+            spread
+            unelevated
+            style="flex-direction: column"
+            clearable
+            :options="sourceTypeOptions"
+            @update:model-value="update"
+            @clear="update"/>
+      </div>
+      <div class="col">
+        <q-btn-toggle
+            v-model="oscillator.modulationType"
+            color="dark"
+            text-color="white"
+            toggle-color=""
+            size="xs"
+            spread
+            unelevated
+            style="flex-direction: column"
+            clearable
+            :options="baseTypeOptions"
+            @update:model-value="update"
+            @clear="update">
+          <template v-slot:sine>
+            <div class="row items-center no-wrap">
+              <q-icon name="mdi-sine-wave" />
+            </div>
+          </template>
+
+          <template v-slot:square>
+            <div class="row items-center no-wrap">
+
+              <q-icon name="mdi-square-wave" />
+            </div>
+          </template>
+
+          <template v-slot:triangle>
+            <div class="row items-center no-wrap">
+              <q-icon name="mdi-triangle-wave" />
+            </div>
+          </template>
+
+          <template v-slot:sawtooth>
+            <div class="row items-center no-wrap">
+              <q-icon name="mdi-sawtooth-wave" />
+            </div>
+          </template>
+        </q-btn-toggle>
+      </div>
     </div>
-    <div class="items-center no-wrap">
-      <q-btn-toggle
-        v-model="oscillator.sourceType"
-        color="dark"
-        text-color="white"
-        toggle-color=""
-        size="xs"
-        class="q-py-sm "
-        spread
-        unelevated
-        clearable
-        :options="sourceTypeOptions"
-        @update:model-value="update"
-        @clear="update"/>
-    </div>
-    <div class="row items-center no-wrap">
-      <q-btn-toggle
-        v-model="oscillator.modulationType"
-        color="dark"
-        text-color="white"
-        toggle-color=""
-        size="xs"
-        class="q-py-sm "
-        spread
-        unelevated
-        clearable
-        :options="baseTypeOptions"
-        @update:model-value="update"
-        @clear="update">
-        <template v-slot:sine>
-          <div class="row items-center no-wrap">
-            <q-icon name="mdi-sine-wave" />
-          </div>
-        </template>
 
-        <template v-slot:square>
-          <div class="row items-center no-wrap">
-
-            <q-icon name="mdi-square-wave" />
-          </div>
-        </template>
-
-        <template v-slot:triangle>
-          <div class="row items-center no-wrap">
-            <q-icon name="mdi-triangle-wave" />
-          </div>
-        </template>
-
-        <template v-slot:sawtooth>
-          <div class="row items-center no-wrap">
-            <q-icon name="mdi-sawtooth-wave" />
-          </div>
-        </template>
-      </q-btn-toggle>
-    </div>
 
   </q-card-section>
 

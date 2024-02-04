@@ -10,9 +10,5 @@ export default defineComponent({
 })
 </script>
 <style>
-#app{
-  max-width: 100vw;
-  display: flex;
-  max-height: 100vh;
-}
+
 </style>

@@ -1,12 +1,8 @@
 <template>
 
-    <q-layout view="lHh Lpr lFf">
-      <q-header elevated>
+    <q-layout view="lHh Lpr lFf" >
 
-      </q-header>
-
-
-    <q-page-container>
+    <q-page-container class="page-container">
       <MainHost />
     </q-page-container>
   </q-layout>
@@ -30,3 +26,8 @@ export default defineComponent({
   }
 })
 </script>
+
+<style>
+.page-container{
+}
+</style>

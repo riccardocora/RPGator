@@ -27,9 +27,7 @@ export default{
     t.instruments = t.instruments || this.list;
     t.baseUrl = t.baseUrl || this.baseUrl;
     t.onload = t.onload || this.onload;
-    console.log("load(): instruments ", t.instruments)
-    console.log("load(): baseUrl ", t.baseUrl)
-    console.log("load(): onload ", t.onload)
+
     // update extensions if arg given
     if (t.ext) {
       if (t.ext !== this.ext) {
@@ -43,10 +41,8 @@ export default{
 
     // if an array of instruments is passed...
     if (Array.isArray(t.instruments)) {
-      console.log("here")
       for (i = 0; i <= t.instruments.length - 1; i++) {
         var newT = this[t.instruments[i]];
-        console.log("newT",newT)
         //Minimize the number of samples to load
         if (this.minify === true || t.minify === true) {
           var minBy = 1;
@@ -69,8 +65,7 @@ export default{
 
         }
 
-        console.log("load(): loading ", t.instruments[i])
-        console.log("newT",newT)
+
 
         rt[t.instruments[i]] = new Tone.Sampler(
           newT, {
@@ -79,14 +74,12 @@ export default{
           }
         )
       }
-      console.log("rt",rt)
 
       return rt
 
       // if a single instrument name is passed...
     } else {
       newT = this[t.instruments];
-      console.log("newT",newT)
       //Minimize the number of samples to load
       if (this.minify === true || t.minify === true) {
         minBy = 1;
@@ -115,7 +108,6 @@ export default{
           onload: t.onload
         }
       )
-      console.log("s",s)
       return s
     }
 
