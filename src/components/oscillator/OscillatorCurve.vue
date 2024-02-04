@@ -1,6 +1,4 @@
 <template>
-  <div class="column full-height justify-center" >
-
     <div class="screen-container" ref="screenContainer">
 
         <canvas class="canvas" ref="visualizerCanvas"></canvas>
@@ -10,7 +8,6 @@
     <!--        <div class="screen-inset"></div>-->
     <!--      </div>-->
       </div>
-    </div>
 
 </template>
 
@@ -129,7 +126,6 @@ export default {
   width: 85%;
   height: 85%;
   border-radius: 50%;
-  align-self: center;
 }
 //.screen, .screen-inset, .screen-frame, canvas, img {
 //  position: absolute

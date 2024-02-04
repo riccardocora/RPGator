@@ -6,7 +6,7 @@
           <voices></voices>
         </div>
         <div class="visual" >
-<!--          <visual-trip></visual-trip>-->
+          <visual-trip></visual-trip>
         </div>
       </div>
       <div class="row bottom-row" >
@@ -50,27 +50,33 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center; /* Add this line */
-  padding: 20px;
+  padding: 1%;
 }
 
 .r2d{
   height: 100%;
+  max-height: 100%;
   width: 100%;
   background-color: #1e88e5;
 }
 .top-row{
   height: 50%;
+  max-height: 50%;
   background-color: #4e342e;
   justify-content: space-between;
 }
 .bottom-row{
   height: 50%;
+  max-height: 50%;
+
   background-color: #4e356e;
   justify-content: space-between;
 }
 .voices{
   background-color: yellow;
   width: 75%;
+  height: 100%;
+  max-height: 100%;
   display: flex;
   flex-direction: row;
 }
@@ -78,12 +84,16 @@ export default {
 .visual{
   background-color: orange;
   width: 25%;
+  justify-content: center;
+  display: flex;
+  align-items: center;
 }
 
 .arp{
   width: 70%;
   background-color: blue;
   height: 100%;
+  max-height: 100%;
   display: flex;
   flex-direction: row;
 }
@@ -91,6 +101,7 @@ export default {
 .effects{
   width: 30%;
   height: 100%;
+  max-height: 100%;
   background-color: green;
 }
 </style>

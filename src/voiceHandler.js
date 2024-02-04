@@ -6,7 +6,7 @@ class VoiceHandler {
     constructor() {
         this.voices= new Map();
         this.output = new Tone.Gain()
-        this.keyboard = new AudioKeys({polyphony: 8});
+        this.keyboard = new AudioKeys({polyphony: 4});
     }
     addVoice(id){
       const voiceObj = {
