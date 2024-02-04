@@ -42,7 +42,7 @@ export default{
 
 }
 </script>
-<style>
+<style lang="scss">
 :root{
   --border_color: rgba(255, 255, 255, 0.45);
 }
@@ -63,7 +63,9 @@ export default{
   display:none;
 }
 
-
+span.q-btn__content.text-center.col.items-center.q-anchor--skip.justify-center.row{
+  z-index:0;
+}
 .background_metal{
 /*  background-image: url("assets/images/metal.png");*/
   background:

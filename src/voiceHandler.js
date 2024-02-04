@@ -1,12 +1,10 @@
 import * as Tone from 'tone'
 import SoundLoader from "./SoundLoader";
-import AudioKeys from "audiokeys";
 
 class VoiceHandler {
     constructor() {
         this.voices= new Map();
         this.output = new Tone.Gain()
-        this.keyboard = new AudioKeys({polyphony: 4});
     }
     addVoice(id){
       const voiceObj = {
@@ -22,27 +20,26 @@ class VoiceHandler {
       voiceObj.voice.sampler.connect(voiceObj.gain);
       voiceObj.gain.connect(voiceObj.pan)
       this.voices.set(id,voiceObj)
-      this.connectKeyboard()
     }
 
     getVoice(id){
       return this.voices.get(id)
     }
-    connectKeyboard(){
+
+
+    connectKeyboard(keyboard){
       function map(value, sourceMin, sourceMax, targetMin, targetMax) {
         // Scale the input value from the source range to the target range
         return (value - sourceMin) / (sourceMax - sourceMin) * (targetMax - targetMin) + targetMin;
       }
-      this.keyboard.down(note => {
+      keyboard.down(note => {
         const velToGain = map(note.velocity, 0, 127, 0, 1);
-        this.voices.forEach(voiceObj => {
-          voiceObj.voice[voiceObj.voiceType].triggerAttack(note.frequency, Tone.now(), velToGain);
-        });
+        this.noteDown(note,velToGain)
+
       })
-      this.keyboard.up(note => {
-        this.voices.forEach(voiceObj => {
-          voiceObj.voice[voiceObj.voiceType].triggerRelease(note.frequency, Tone.now())
-        })
+
+      keyboard.up(note => {
+        this.noteUp(note)
       });
     }
 
@@ -67,6 +64,7 @@ class VoiceHandler {
         this.voices.get(id).voiceType = 'synth'
       }
     }
+
     getVoiceType(id){
       return this.voices.get(id).voiceType
     }
@@ -111,6 +109,7 @@ class VoiceHandler {
     connectVoice(id,node){
       this.voices.get(id).gain.connect(node)
     }
+
     setSynthEnvelope(id,envType,env) {
       switch (envType) {
           case 'amp':
@@ -137,12 +136,33 @@ class VoiceHandler {
                                                           sourceType: osc.sourceType,
                                                                   }})
     }
-    setSynth(id,synth) {
-      this.voices.get(id).voice.synth.set({
-        portamento: synth.portamento,
-        detune: synth.detune,
-      })
 
+
+
+    noteDown(note,velToGain) {
+        let noteFreq;
+        if(note.hasOwnProperty('frequency')) {
+            noteFreq = note.frequency;
+        }else{
+            noteFreq = note;
+        }
+
+        this.voices.forEach(voiceObj => {
+            voiceObj.voice[voiceObj.voiceType].triggerAttack(noteFreq, Tone.now(), velToGain);
+        });
+    }
+
+    noteUp(note){
+        let noteFreq;
+        if(note.hasOwnProperty('frequency')) {
+            noteFreq = note.frequency;
+        }else{
+            noteFreq = note;
+        }
+
+        this.voices.forEach(voiceObj => {
+            voiceObj.voice[voiceObj.voiceType].triggerRelease(noteFreq, Tone.now())
+        })
     }
 
 
