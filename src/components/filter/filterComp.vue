@@ -1,10 +1,18 @@
 <template>
+  <div class="button-row">
+    <q-checkbox v-model="chain" @update:model-value="toggleChain" >
+
+      <template v-slot:default>
+        <q-badge outline  label="chain" :color="chain?'yellow':'primary'" />
+      </template>
+    </q-checkbox>
+  </div>
   <div class="curve-container">
     <filter-curve :id="id" :cutoff="filterLogFreq" :rolloff="filter.rolloff" :type="filter.type" :color="color"></filter-curve>
 
   </div>
   <div class="knob-container">
-    <Knob id="cutoff" :color="color" :min="1" :max="4" :inner-max="4" :value="filterLogFreq" :step="0.01" :thickness="0.1" @updateValue="updateFilter" />
+    <Knob id="cutoff" :color="color" :min="1" :max="4" :value="filterLogFreq" :step="0.01" :thickness="0.1" @updateValue="updateFilter" />
 
     <Knob id="q" :color="color" :min="0.01" :max="18" :inner-max="18" :value="filter.Q" :step="0.1" :thickness="0.1" @updateValue="updateFilter" />
 
@@ -61,12 +69,7 @@
 <!--      <q-card-section class="column q-pa-none">-->
 <!--        &lt;!&ndash;    <q-card-actions class="justify-between q-pa-none">&ndash;&gt;-->
 <!--        <div>-->
-<!--          <q-checkbox v-model="chain" @update:model-value="toggleChain" >-->
 
-<!--            <template v-slot:default>-->
-<!--              <q-badge outline  label="chain" :color="chain?'yellow':'primary'" />-->
-<!--            </template>-->
-<!--          </q-checkbox>-->
 
 <!--        </div>-->
 <!--      </q-card-section>-->
@@ -164,17 +167,18 @@ export default {
 .button-toggles-top {
   position: absolute;
   top: 5%; // adjust as needed
-  //left: 40px; // adjust as needed
 }
 .button-toggles-side {
   position: absolute;
   top: 15%; // adjust as needed
-  //left: 0; // adjust as needed
 }
 
-
+.button-row{
+  height: 15%;
+  background-color: #2e7d32;
+}
 .curve-container{
-  height: 75%;
+  height: 63.75%;
   padding: 10px;
 }
 

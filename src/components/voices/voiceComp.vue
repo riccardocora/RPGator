@@ -46,9 +46,7 @@
   </div>
 
   <div class="filter-container">
-    <div class="button-row">
 
-    </div>
     <div class="filter">
         <filter-comp :id="id" :color="color">
         </filter-comp>
@@ -134,7 +132,6 @@ import EnvelopeComp from "../envelope/EnvelopeControl.vue";
 import EnvelopeContainer from "../envelope/EnvelopeContainer.vue";
 import Knob from "../controls/Knob.vue";
 import FilterComp from "../filter/filterComp.vue";
-import ToggleSwitch from "../controls/ToggleSwitch.vue";
 
 import VoiceControls from "../voices/sliders/voiceControls.vue";
 
@@ -293,7 +290,7 @@ export default {
 }
 
 .filter{
-  height: 85%;
+  height: 100%;
   display: flex;
   flex-direction: column;
 

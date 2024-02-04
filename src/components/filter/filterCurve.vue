@@ -65,8 +65,7 @@ export default {
       const ctx = canvas.getContext("2d");
       let start = props.type==="lowpass"? 0: canvas.width;
       const tot_x = 4;
-      console.log("props.rolloff",props.rolloff);
-      console.log("props.type",props.type);
+
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -81,8 +80,7 @@ export default {
         (props.cutoff/tot_x)*canvas.width,
         canvas.height/2
       )
-     console.log(canvas.height);
-     console.log(props.cutoff);
+
 
      //current+= props.type==="lowpass"? (props.cutoff/tot_x)*(canvas.width): canvas.width-(props.cutoff/tot_x)*(canvas.width);
       let current = (props.cutoff/tot_x)*canvas.width //+ (props.type==="lowpass" ? 0: -300);
@@ -108,7 +106,6 @@ export default {
       let x_i = current;
       let y = canvas.height/2;
       let x= x_i;
-      console.log("x_i:",x_i);
 
       while(y<canvas.height){
         x = x +(props.type==="lowpass" ? 1: -1);
