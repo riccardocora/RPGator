@@ -11,11 +11,14 @@
               push
               class="w"
               @mousedown="handleMouseDown"
+              @mouseleave="handleMouseLeave"
               @mouseup="handleMouseLeave"
               :ripple="false"
           >
 <!--            <template v-slot:default style="display: none">-->
-<!--              <span class="">{{note}}</span>-->
+<!--              <span class="insideBtn">-->
+<!--                <q-checkbox model-value="true" color="white" label="true" />-->
+<!--              </span>-->
 <!--            </template>-->
           </q-btn>
         </div>

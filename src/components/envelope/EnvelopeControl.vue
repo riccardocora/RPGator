@@ -102,7 +102,7 @@
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = "black";
         ctx.shadowColor = "white";
-        ctx.shadowBlur = 15;
+        ctx.shadowBlur = 5;
         // // Stroke
         ctx.lineWidth = 3;
         ctx.fillRect(0, 0, canvas.width, canvas.height)
@@ -135,7 +135,8 @@
         //current+=100;
         // Release
         ctx.lineTo(canvas.width, canvas.height);
-
+        ctx.fillStyle= getCssVar(props.color);
+        ctx.fill();
         ctx.stroke();
         ctx.closePath();
 
