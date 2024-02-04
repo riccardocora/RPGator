@@ -1,7 +1,7 @@
 <template>
   <div class="knob-wrapper">
     <Knob id="distortion" :color="color" :min="0" :max="1" :inner-max="1" :value="distortion.distortion" :step="0.1" :thickness="0.1" @updateValue="update" />
-    <q-badge outline :color="color" label="value" class="q-ma-xs"/>
+    <div class="writings">Value</div>
   </div>
 </template>
 <script>

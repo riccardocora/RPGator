@@ -1,15 +1,15 @@
 <template>
   <div class="knob-wrapper">
     <Knob id="delayTime" :color="color" :min="0" :max="1" :inner-max="1" :value="delay.delayTime" :step="0.01" :thickness="0.1" @updateValue="update" />
-    <q-badge outline :color="color" label="delay" class="q-ma-xs"/>
+    <div class="writings">Delay</div>
   </div>
   <div class="knob-wrapper">
     <Knob id="feedback" :color="color" :min="0" :max="1" :inner-max="1" :value="delay.feedback" :step="0.1" :thickness="0.1" @updateValue="update" />
-    <q-badge outline :color="color" label="feedback" class="q-ma-xs"/>
+    <div class="writings">Feedback</div>
   </div>
   <div class="knob-wrapper">
      <Knob id="wet" :color="color" :min="0" :max="1" :inner-max="1" :value="delay.wet" :step="0.1" :thickness="0.1" @updateValue="update" />
-     <q-badge outline :color="color" label="wet" class="q-ma-xs"/>
+    <div class="writings">Wet</div>
   </div>
 </template>
 <script>

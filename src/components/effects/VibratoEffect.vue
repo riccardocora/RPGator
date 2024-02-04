@@ -2,12 +2,12 @@
   <div class="knob-wrapper">
     <Knob id="frequency" :color="color" :min="100" :max="12000" :inner-max="1" :value="vibrato.frequency" :step="10" :thickness="0.1" @updateValue="update" />
 
-    <q-badge outline :color="color" label="freq." class="q-ma-xs"/>
+    <div class="writings">Freq.</div>
   </div>
 
   <div class="knob-wrapper">
     <Knob id="depth" :color="color" :min="0" :max="1" :inner-max="1" :value="vibrato.depth" :step="0.01" :thickness="0.1" @updateValue="update" />
-    <q-badge outline :color="color" label="depth" class="q-ma-xs"/>
+    <div class="writings">Depth</div>
   </div>
 </template>
 <script>
