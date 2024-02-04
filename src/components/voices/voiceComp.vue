@@ -16,14 +16,12 @@
                 ]"
                 @update:model-value="setVoiceType"
               />
-              <q-badge outline :color="color" label="chain"/>
+              <div>V.1</div>
               <q-btn round
                      size="xs"
-                     class="q-ma-sm"
-                     :outline="!chained"
-                     color="accent"
-                     :style="[chained ? 'background: accent' : 'color: accent]']"
-                     :class="chained? 'shadow-10': ''"
+                     class="q-ma-sm button_light"
+                     color=""
+                     :class="chained? 'light_on': ''"
                      @click="toggleChain"
               >
               </q-btn>

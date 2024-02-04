@@ -45,6 +45,11 @@ export default{
 <style lang="scss">
 :root{
   --border_color: rgba(255, 255, 255, 0.45);
+  --on-color: rgb(213, 0, 0);
+  --border-color_1: rgb(57, 56, 56);
+  --off-color: rgb(30, 30, 30);
+  --on-color-bright: rgb(255, 0, 0);
+  --selected-color: rgb(161, 161, 161);
 }
 
 .main-container{
@@ -61,6 +66,13 @@ export default{
 }
 .q-checkbox__inner{
   display:none;
+}
+
+.button_light{
+  background:
+    radial-gradient(ellipse, rgba(255, 255, 255, 0.15),rgba(0, 0, 0, 0.15)),
+    var(--off-color);
+    box-shadow: 0 0 0px 1px var(--border_color);
 }
 
 /*
@@ -244,6 +256,14 @@ export default{
 
 .q-carousel--navigation-left.q-carousel {
   padding-left: 2vw;
+}
+
+.light_on{
+  background:
+  radial-gradient(circle, rgba(255, 255, 255, 0.2),rgba(0, 0, 0, 0.05)),
+  linear-gradient(to right,rgba(0, 0, 0, 0.05) 0%, rgba(203, 203, 203, 0.2) 50%, rgba(0, 0, 0, 0.05) 100%),
+  red;
+  box-shadow: 0 0 15px 5px rgb(224, 84, 84), 0 0 0 2px var(--border_color);
 }
 
 </style>

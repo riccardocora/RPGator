@@ -174,8 +174,13 @@ export default {
 }
 
 .button-row{
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
   height: 15%;
-  background-color: #2e7d32;
+  padding: 10px;
+
 }
 .curve-container{
   height: 63.75%;
@@ -187,7 +192,7 @@ export default {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  height: 25%;
+  height: 21.25%;
 
 }
 //.slide
