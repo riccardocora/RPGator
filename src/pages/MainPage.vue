@@ -48,7 +48,7 @@ export default{
 }
 
 .main-container{
-  background-color: #21BA45;
+  background-color: $background;
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -63,9 +63,7 @@ export default{
   display:none;
 }
 
-span.q-btn__content.text-center.col.items-center.q-anchor--skip.justify-center.row{
-  z-index:0;
-}
+
 .background_metal{
 /*  background-image: url("assets/images/metal.png");*/
   background:
@@ -84,11 +82,6 @@ span.q-btn__content.text-center.col.items-center.q-anchor--skip.justify-center.r
   border-radius: inherit;
 }*/
 
-
-.wood{
-  background: url("@/assets/images/wood-pattern.png"), rgba(164, 90, 19, 0.51);
-  border-radius: 10px;
-}
 
 
 .border_all{

@@ -187,8 +187,8 @@ export default {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  height: 21.25%;
-  background-color: #004d99;
+  height: 25%;
+
 }
 //.slide
 //  //max-height: 9em;

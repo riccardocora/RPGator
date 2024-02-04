@@ -43,65 +43,68 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+
+
 .r2d-container{
   height: 90vh;
   width: 90vw;
-  background-color: #6DBCDB;
   display: flex;
   align-items: center;
   justify-content: center; /* Add this line */
-  padding: 1%;
 }
 
 .r2d{
   height: 100%;
   max-height: 100%;
   width: 100%;
-  background-color: #1e88e5;
+
 }
 .top-row{
   height: 50%;
   max-height: 50%;
-  background-color: #4e342e;
   justify-content: space-between;
+  background-color: $r2d-container;
+  padding: 2% 2% 1% 2%;
 }
 .bottom-row{
   height: 50%;
   max-height: 50%;
-
-  background-color: #4e356e;
   justify-content: space-between;
+  background-color: $r2d-container;
+  padding: 1% 2% 2% 2%;
 }
 .voices{
-  background-color: yellow;
   width: 75%;
   height: 100%;
   max-height: 100%;
   display: flex;
   flex-direction: row;
+  background-color: $r2d-container;
+  justify-content: space-between;
 }
 
 .visual{
-  background-color: orange;
-  width: 25%;
+  width: 23.5%;
   justify-content: center;
   display: flex;
   align-items: center;
+  background-color: $r2d-inner;
 }
 
 .arp{
   width: 70%;
-  background-color: blue;
   height: 100%;
   max-height: 100%;
   display: flex;
   flex-direction: row;
+  align-items: end;
+  background-color: $r2d-inner;
 }
 
 .effects{
-  width: 30%;
+  width: 29%;
   height: 100%;
   max-height: 100%;
-  background-color: green;
+  background-color: $r2d-inner;
 }
 </style>

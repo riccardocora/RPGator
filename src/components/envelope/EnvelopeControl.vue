@@ -185,7 +185,6 @@
   width: 100%;
   height: 75%;
   align-self: center;
-  background-color: #35b173;
   padding: 10px;
 }
 
@@ -195,7 +194,6 @@
   justify-content: space-around;
   align-items: center;
   height: 25%;
-  background-color: #004d99;
 }
 //.curve{
   //width: 100%;

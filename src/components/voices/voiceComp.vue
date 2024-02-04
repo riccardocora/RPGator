@@ -241,7 +241,7 @@ export default {
 
 
 .voice-container{
-  background-color: #5e35b1;
+
   width: 30%;
   height: 100%;
   display: flex;
@@ -249,7 +249,7 @@ export default {
 }
 
 .envelope-container{
-  background-color: #4f9b41;
+
   width: 35%;
   height: 100%;
   display: flex;
@@ -258,7 +258,7 @@ export default {
 
 
 .filter-container{
-  background-color: #c59f85;
+
   width: 35%;
   height: 100%;
   display: flex;
@@ -271,7 +271,7 @@ export default {
   justify-content: space-around;
   align-items: center;
   height: 15%;
-  background-color: #004d99;
+
 }
 
 .inner-voice{
@@ -286,13 +286,13 @@ export default {
   height: 85%;
   display: flex;
   flex-direction: column;
-  background-color: #1de9b6;
+
 }
 
 .filter{
   height: 100%;
   display: flex;
   flex-direction: column;
-  background-color: #b6e91d;
+
 }
 </style>

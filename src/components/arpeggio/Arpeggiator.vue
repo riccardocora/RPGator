@@ -3,9 +3,7 @@
   <div class="arp-control">
     <div class="select-controls">
       <q-select dense outlined dark class="select" v-model="type" :options="types" @update:model-value="updatePattern"/>
-
       <q-select dense outlined dark class="select" v-model="length" :options="lengths" @update:model-value="updatePattern"/>
-
       <q-select dense outlined  dark class="select" v-model="interval" :options="lengths"  @update:model-value="updatePattern"/>
     </div>
     <div class="slider-controls">
@@ -168,8 +166,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100%;
-  background-color: #4e342e;
+  height: 90%;
   width: 20%;
 }
 
@@ -179,7 +176,6 @@ export default {
   height: 55%;
   width: 100%;
   align-items: center;
-  background-color: #3d5afe;
 }
 .select{
   width:80%;
@@ -188,7 +184,6 @@ export default {
 .slider-controls{
   width: 100%;
   height: 30%;
-  background-color: #529b55;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -203,8 +198,7 @@ export default {
 
 .keyboard-container{
   width: 80%;
-  height: 100%;
-  background-color: #1a93ff;
+  height: 90%;
   display: flex;
   align-items: center;
   justify-content: center;

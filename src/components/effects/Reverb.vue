@@ -1,15 +1,15 @@
 <template>
   <div class="knob-wrapper">
     <Knob id="preDelay" :color="color" :min="0" :max="1" :inner-max="1" :value="reverb.preDelay" :step="0.01" :thickness="0.1" @updateValue="update" />
-    <q-badge outline :color="color" label="preDel." class="q-ma-xs"/>
+    <div class="writings">PreDel.</div>
   </div>
   <div class="knob-wrapper">
       <Knob id="decay" :color="color" :min="0" :max="5" :inner-max="5" :value="reverb.decay" :step="0.01" :thickness="0.1" @updateValue="update" />
-      <q-badge outline :color="color" label="decay" class="q-ma-xs"/>
+    <div class="writings">Decay</div>
   </div>
   <div class="knob-wrapper">
     <Knob id="wet" :color="color" :min="0" :max="1" :inner-max="1" :value="reverb.wet" :step="0.01" :thickness="0.1" @updateValue="update" />
-    <q-badge outline :color="color" label="wet" class="q-ma-xs"/>
+    <div class="writings">Wet</div>
   </div>
 
 </template>
