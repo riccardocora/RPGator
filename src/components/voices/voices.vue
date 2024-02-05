@@ -93,6 +93,7 @@ export default{
   flex-direction: column;
   align-content: space-between;
   justify-content: space-between;
+  border: 0.5px solid rgba(255, 255, 255, 0.37);
 }
 
 .carousel{
@@ -105,6 +106,7 @@ export default{
   display: flex ;
   flex-direction: row;
   overflow: hidden;
+  border: 0.5px solid rgba(255, 255, 255, 0.37);
 }
 .carousel-control{
 
@@ -131,6 +133,7 @@ export default{
   display: flex;
   flex-direction: column;
   background-color: $r2d-inner;
+  border-top: 0.3px solid rgba(255, 255, 255, 0.37);
 }
 
 

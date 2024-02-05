@@ -2,28 +2,30 @@
     <div class="effect-switch">
       <q-checkbox v-model="active" @update:model-value="toggleChain(active)" checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
         <template v-slot:default>
-          <q-badge flat :label="name" :class="active?'light_on':'button_light'" />
+          <q-btn size="40%" round :class="active?'light_on':'button_light'" />
         </template>
       </q-checkbox>
+      <div>{{name}}</div>
     </div>
 
+
     <div class="effect">
-      <div v-if="name === 'tremolo'">
+      <div class="effect-col" v-if="name === 'tremolo'">
         <tremolo-effect></tremolo-effect>
       </div>
-      <div v-else-if="name === 'vibrato'">
+      <div class="effect-col" id="vibrato" v-else-if="name === 'vibrato'">
         <vibrato-effect></vibrato-effect>
       </div>
-      <div v-else-if="name === 'distortion'">
+      <div class="effect-col" v-else-if="name === 'dist'">
         <distortion-effect></distortion-effect>
       </div>
-      <div v-else-if="name === 'chorus'">
+      <div class="effect-col" v-else-if="name === 'chorus'">
         <chorus-effect></chorus-effect>
       </div>
-      <div v-else-if="name === 'reverb'">
+      <div class="effect-col" v-else-if="name === 'reverb'">
         <reverb-effect></reverb-effect>
       </div>
-      <div v-else-if="name === 'delay'">
+      <div class="effect-col" v-else-if="name === 'delay'">
         <delay-effect></delay-effect>
       </div>
     </div>
@@ -77,17 +79,43 @@ export default {
 }
 </script>
 <style scoped>
+
 .effect-switch{
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  justify-content: space-evenly;
+  height: 20%;
+  color: white;
+
   //margin: 10px;
 }
 
 .effect{
+  height: 80%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 10%;
+  font-size: 11px;
+
+}
+
+.effect-col{
   height: 100%;
   width: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
+
+.light_on{
+  width: 10%;
+}
+
+.button_light{
+  width: 10%;
+}
+
 </style>

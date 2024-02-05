@@ -61,10 +61,10 @@ import VoiceHandler from "@/voiceHandler.js";
 
 
     this.effectChain = new EffectChain();
-    // this.effectChain.addEffect("chorus");
+    this.effectChain.addEffect("chorus");
     this.effectChain.addEffect("delay");
-    this.effectChain.addEffect("vibrato");
-    this.effectChain.addEffect("distortion");
+    /*this.effectChain.addEffect("vibrato");*/
+    this.effectChain.addEffect("dist");
     this.effectChain.addEffect("reverb");
 
 

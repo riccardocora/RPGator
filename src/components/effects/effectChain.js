@@ -37,7 +37,7 @@ class EffectChain {
           case 'vibrato':
             newEffect = new Tone.Vibrato()
             break
-          case 'distortion':
+          case 'dist':
             newEffect = new Tone.Distortion()
             break
           default:

@@ -196,6 +196,8 @@
   align-items: center;
   height: 25%;
 }
+
+
 //.curve{
   //width: 100%;
   //display: block;
@@ -217,7 +219,7 @@
 //  position: relative;
 //  height: 100%;
 //  width: 100%;
-//}
+
 //.screen, .screen-inset, .screen-frame, canvas, img {
 //  position: absolute
 //}
