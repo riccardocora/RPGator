@@ -73,6 +73,8 @@ export default{
     radial-gradient(ellipse, rgba(255, 255, 255, 0.15),rgba(0, 0, 0, 0.15)),
     var(--off-color) !important;
     box-shadow: 0 0 0 1px var(--border_color);
+
+
 }
 
 
