@@ -4,8 +4,7 @@
       <div v-if="started">
         <RPGator></RPGator>
       </div>
-      <q-btn v-else color="white" text-color="black" label="Start" @click="start"></q-btn>
-
+      <q-btn v-else class="evidence" text-color="black" label="Start" @click="start"></q-btn>
 
     </div>
 
@@ -49,7 +48,7 @@ export default{
   --border-color_1: rgb(57, 56, 56);
   --off-color: rgb(30, 30, 30);
   --on-color-bright: rgb(255, 0, 0);
-  --selected-color: rgb(161, 161, 161);
+  --selected-color: rgb(161,161, 161);
 }
 
 .main-container{
@@ -72,15 +71,8 @@ export default{
   background:
     radial-gradient(ellipse, rgba(255, 255, 255, 0.15),rgba(0, 0, 0, 0.15)),
     var(--off-color);
-    box-shadow: 0 0 0px 1px var(--border_color);
+    box-shadow: 0 0 0 1px var(--border_color);
 }
-
-/*
-.body{
-  font-family: 'Courier Prime', monospace;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-}*/
 
 
 .background_metal{
@@ -90,16 +82,7 @@ export default{
     linear-gradient(to right, transparent 0%, transparent 1.6%, rgb(40, 40, 40) 1.6%, rgb(45, 45, 45) 98.4%, transparent 98.4%, transparent 100%);
 }
 
-/*.background_metal::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: linear-gradient(to right, transparent 0%, transparent 1.6%, rgba(0, 0, 0, 0.8) 1.6%, rgba(0, 0, 0, 0.8) 98.4%, transparent 98.4%, transparent 100%);
-  border-radius: inherit;
-}*/
+
 
 
 
@@ -241,7 +224,7 @@ export default{
   color: hsl(210, 100%, 40%);
   text-shadow: hsla(210,100%,20%,.3) 0 -1px 0, hsl(210,100%,85%) 0 2px 1px, hsla(200,100%,80%,1) 0 0 5px, hsla(210,100%,50%,.6) 0 0 20px;
   box-shadow:
-    inset hsla(210,100%,30%,  1) 0  0px 0px 4px, /* border */
+    inset hsla(210,100%,30%,  1) 0  0 0 4px, /* border */
     inset hsla(210,100%,15%, .4) 0 -1px 5px 4px, /* soft SD */
     inset hsla(210,100%,20%,.25) 0 -1px 0px 7px, /* bottom SD */
     inset hsla(210,100%,100%,.7) 0  2px 1px 7px, /* top HL */
@@ -250,12 +233,13 @@ export default{
     hsla(210,50%,40%, .25) 0 -5px 6px 4px, /* outer SD */
     hsla(210,80%,95%,   1) 0  5px 6px 4px; /* outer HL */
 }
+
 .transparent{
   background: transparent;
 }
 
 .evidence{
-  background-color: yellow;
+  color: yellow;
 }
 
 

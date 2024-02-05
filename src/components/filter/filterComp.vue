@@ -7,51 +7,55 @@
       </template>
     </q-checkbox>
   </div>
-  <div class="curve-container">
-    <filter-curve :id="id" :cutoff="filterLogFreq" :rolloff="filter.rolloff" :type="filter.type" :color="color"></filter-curve>
+  <div class="parent">
+    <div class="button-toggles-top">
+      <q-btn-toggle
+          v-model="filter.rolloff"
+          color="dark"
+          text-color="white"
+          :toggle-color="color"
+          size="sm"
+          unelevated
+          stretch
+          spread
+          flat
+          :options="rolloffValues"
+          @update:model-value="updateFilter"
+      />
+    </div>
+    <div class="curve-row">
+      <div class="button-toggles-side">
+        <q-btn-toggle
+            v-model="filter.type"
+            color="dark"
+            no-caps
+            text-color="white"
+            :toggle-color="color"
+            size="sm"
+            stretch
+            style="flex-direction: column"
+            unelevated
+            flat
+            :options="[
+          {label: 'lp', value: 'lowpass'},
+          {label: 'hp', value: 'highpass'},
+          {label: 'bp', value: 'bandpass'},]"
+            @update:model-value="updateFilter"
+        />
+      </div>
+      <div class="curve-container">
+        <filter-curve :id="id" :cutoff="filterLogFreq" :rolloff="filter.rolloff" :type="filter.type" :color="color"></filter-curve>
+      </div>
+    </div>
 
   </div>
+
   <div class="knob-container">
     <Knob id="cutoff" :color="color" :min="1" :max="4" :value="filterLogFreq" :step="0.01" :thickness="0.1" @updateValue="updateFilter" />
 
     <Knob id="q" :color="color" :min="0.01" :max="18" :inner-max="18" :value="filter.Q" :step="0.1" :thickness="0.1" @updateValue="updateFilter" />
-
-
   </div>
-<!--    <div class="parent">-->
-<!--      <div class="row button-toggles-top justify-center">-->
-<!--        <q-btn-toggle-->
-<!--          v-model="filter.rolloff"-->
-<!--          color="dark"-->
-<!--          text-color="white"-->
-<!--          :toggle-color="color"-->
-<!--          size="sm"-->
-<!--          unelevated-->
-<!--          stretch-->
-<!--          flat-->
-<!--          :options="rolloffValues"-->
-<!--          @update:model-value="updateFilter"-->
-<!--        />-->
-<!--      </div>-->
-<!--        <div class="column button-toggles-side">-->
-<!--          <q-btn-toggle-->
-<!--            v-model="filter.type"-->
-<!--            color="dark"-->
-<!--            no-caps-->
-<!--            text-color="white"-->
-<!--            :toggle-color="color"-->
-<!--            size="sm"-->
-<!--            class="checkbox-container q-py-sm q-px-none border full-height"-->
-<!--            style="flex-direction: column"-->
-<!--            unelevated-->
-<!--            flat-->
-<!--            :options="[-->
-<!--            {label: 'lp', value: 'lowpass'},-->
-<!--            {label: 'hp', value: 'highpass'},-->
-<!--            {label: 'bp', value: 'bandpass'},]"-->
-<!--            @update:model-value="updateFilter"-->
-<!--          />-->
-<!--        </div>-->
+
 
 <!--      <div class="row justify-center">-->
 <!--        <div class="q-px-md">-->
@@ -117,10 +121,7 @@ export default {
         label: "-48",
         value: -48,
       },
-      {
-        label: "-96",
-        value: -96,
-      },
+
     ]);
 
 
@@ -163,14 +164,34 @@ export default {
 <style scoped lang="scss">
 .parent {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-height: 63.75%;
+  min-width: 100%;
+  min-height: 63.75%;
+  height: 63.75%;
+  padding: 10px;
 }
 .button-toggles-top {
-  position: absolute;
-  top: 5%; // adjust as needed
+  position: relative;
+  width: 100%;
+  height: 16%;
+  align-items: start;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: black;
 }
 .button-toggles-side {
-  position: absolute;
-  top: 15%; // adjust as needed
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: start;
+  width: 11%;
+  height: 100%;
+  background-color: black;
 }
 
 .button-row{
@@ -180,11 +201,16 @@ export default {
   align-items: center;
   height: 15%;
   padding: 10px;
-
+}
+.curve-row{
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
 }
 .curve-container{
-  height: 63.75%;
-  padding: 10px;
+  height: 100%;
+  width: 89%;
 }
 
 .knob-container{

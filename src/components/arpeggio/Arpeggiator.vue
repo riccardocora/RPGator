@@ -198,7 +198,7 @@ export default {
 
 .keyboard-container{
   width: 80%;
-  height: 90%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
