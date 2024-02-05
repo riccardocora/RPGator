@@ -171,6 +171,7 @@ export default {
 //  radial-gradient(175% 100% at 50% 53%, #0000 32%, rgba(203, 203, 203, 0.09) 60%);
 //  box-shadow: 0 0 1px 7px rgb(150, 150, 150) inset; /*NOT WORKING*/
 //}
+
 .canvas{
   width: 100%;
   height: 100%;

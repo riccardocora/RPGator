@@ -19,10 +19,10 @@ export default defineComponent({
   },
   setup(){
       const distortion = ref({
-          distortion: AudioContextHandler.effectChain.getEffect("distortion").distortion,
+          distortion: AudioContextHandler.effectChain.getEffect("dist").distortion,
       });
       const update = ()=>{
-          AudioContextHandler.effectChain.setEffect("distortion", distortion.value)
+          AudioContextHandler.effectChain.setEffect("dist", distortion.value)
       }
 
       return {

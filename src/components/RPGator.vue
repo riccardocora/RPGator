@@ -51,12 +51,15 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center; /* Add this line */
+  border: 10px solid $r2d-container;
+  border-radius: 2%;
 }
 
 .r2d{
   height: 100%;
   max-height: 100%;
   width: 100%;
+
 
 }
 .top-row{
@@ -65,6 +68,7 @@ export default {
   justify-content: space-between;
   background-color: $r2d-container;
   padding: 2% 2% 1% 2%;
+
 }
 .bottom-row{
   height: 50%;
@@ -89,6 +93,8 @@ export default {
   display: flex;
   align-items: center;
   background-color: $r2d-inner;
+  border-radius: 1%;
+  border: 0.5px solid rgba(255, 255, 255, 0.37);
 }
 
 .arp{
@@ -99,6 +105,8 @@ export default {
   flex-direction: row;
   align-items: end;
   background-color: $r2d-inner;
+  border-radius: 1%;
+  border: 0.5px solid rgba(255, 255, 255, 0.37);
 }
 
 .effects{
@@ -106,5 +114,7 @@ export default {
   height: 100%;
   max-height: 100%;
   background-color: $r2d-inner;
+  border-radius: 1%;
+  border: 0.5px solid rgba(255, 255, 255, 0.37);
 }
 </style>

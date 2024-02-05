@@ -62,10 +62,10 @@ export default {
         //console.log("waveform:", waveform); // Log the waveform data
         canvasContext.fillStyle = "black";
         canvasContext.shadowColor = "white";
-        canvasContext.shadowBlur = 15;
+        canvasContext.shadowBlur = 30;
         canvasContext.fillRect(0, 0, canvas.width, canvas.height);
-        canvasContext.lineWidth = 2;
-        canvasContext.strokeStyle = getCssVar(props.color)
+        canvasContext.lineWidth = 3;
+        canvasContext.strokeStyle = getCssVar(props.color);
           //getCssVar(props.color)
         canvasContext.beginPath();
 

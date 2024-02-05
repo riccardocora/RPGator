@@ -2,31 +2,29 @@
 <template>
   <div class="effects-container">
     <div v-for="effect in effects" v-bind:key="effect" :key="effect" class="effect-container">
+      <div class="col-effect">
+        <effect-container :name="effect"></effect-container>
+      </div>
       <div class="arrows">
-        <q-btn-group flat>
           <q-btn
               @click="moveLeft(effect)"
-              icon="mdi-arrow-left"
+              icon="chevron_left"
               flat
-              round
               dense
-              color="primary"
+              color="black "
+              class="arrow"
               size="sm"
           />
           <q-btn
               @click="moveRight(effect)"
-              icon="mdi-arrow-right"
+              icon="chevron_right"
               flat
-              round
               dense
-              color="primary"
+              color="black "
+              class="arrow"
               size="sm"
           />
-        </q-btn-group>
-      </div>
-
-
-           <effect-container :name="effect"></effect-container>
+        </div>
     </div>
   </div>
 
@@ -104,23 +102,65 @@ name: 'Effects',
 <style scoped lang="scss">
 .effects-container{
   width: 100%;
-  height: 90%;
+  height: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
 }
 
 .effect-container{
   display: flex;
   flex-direction: column;
+
+  justify-content: space-around;
+  align-items: center;
   height: 100%;
   border-right: 1px solid rgba(0, 0, 0, 0.11);
   border-left: 1px solid rgba(0, 0, 0, 0.11);
   width: 25%;
 }
 
+
+
+.left-btn {
+  height: 100%;
+  max-width: 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+}
+
+.right-btn{
+  height: 100%;
+  max-width: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+
+.col-effect{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 5%;
+}
+
 .arrows{
   display: flex;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 10%;
+  width: 80%;
 }
+
+.arrow{
+
+}
+
 </style>
