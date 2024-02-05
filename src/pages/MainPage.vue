@@ -4,7 +4,8 @@
       <div v-if="started">
         <RPGator></RPGator>
       </div>
-      <q-btn v-else class="evidence" text-color="black" label="Start" @click="start"></q-btn>
+      <q-btn v-else class="light_on" text-color="black" label="Start" @click="start"></q-btn>
+
 
     </div>
 
@@ -71,6 +72,8 @@ export default{
   background:
     radial-gradient(ellipse, rgba(255, 255, 255, 0.15),rgba(0, 0, 0, 0.15)),
     var(--off-color);
+    box-shadow: 0 0 0 1px var(--border_color);
+    var(--off-color) !important;
     box-shadow: 0 0 0 1px var(--border_color);
 }
 
@@ -239,7 +242,7 @@ export default{
 }
 
 .evidence{
-  color: yellow;
+  background-color: yellow;
 }
 
 
@@ -247,11 +250,12 @@ export default{
   padding-left: 2vw;
 }
 
+
 .light_on{
   background:
   radial-gradient(circle, rgba(255, 255, 255, 0.2),rgba(0, 0, 0, 0.05)),
   linear-gradient(to right,rgba(0, 0, 0, 0.05) 0%, rgba(203, 203, 203, 0.2) 50%, rgba(0, 0, 0, 0.05) 100%),
-  red;
+  #cc0000 !important;
   box-shadow: 0 0 15px 5px rgb(224, 84, 84), 0 0 0 2px var(--border_color);
 }
 

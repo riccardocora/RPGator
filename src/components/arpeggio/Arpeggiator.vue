@@ -2,7 +2,7 @@
 <template>
   <div class="arp-control">
     <div class="select-controls">
-      <q-select dense outlined dark class="select" v-model="type" :options="types" @update:model-value="updatePattern"/>
+      <q-select dense outlined dark class="select " v-model="type" :options="types" @update:model-value="updatePattern"/>
       <q-select dense outlined dark class="select" v-model="length" :options="lengths" @update:model-value="updatePattern"/>
       <q-select dense outlined  dark class="select" v-model="interval" :options="lengths"  @update:model-value="updatePattern"/>
     </div>

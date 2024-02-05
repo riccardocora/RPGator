@@ -2,7 +2,7 @@
     <div class="effect-switch">
       <q-checkbox v-model="active" @update:model-value="toggleChain(active)" checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
         <template v-slot:default>
-          <q-badge  :label="name" :color="active?'yellow':'black'" />
+          <q-badge flat :label="name" :class="active?'light_on':'button_light'" />
         </template>
       </q-checkbox>
     </div>
