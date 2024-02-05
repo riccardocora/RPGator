@@ -69,11 +69,15 @@ export default {
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+
       // // Stroke
       ctx.lineWidth = 2;
       ctx.fillStyle = "black";
+
       ctx.fillRect(0, 0, canvas.width, canvas.height)
       ctx.strokeStyle = getCssVar(props.color)
+      ctx.shadowColor = "white";
+      ctx.shadowBlur = 5;
       ctx.beginPath();
       ctx.moveTo(start, canvas.height/2); // Start from the origin on the vertical axis
       ctx.lineTo(
@@ -107,15 +111,22 @@ export default {
       let y = canvas.height/2;
       let x= x_i;
 
+
+
       while(y<canvas.height){
         x = x +(props.type==="lowpass" ? 1: -1);
         // x = x<0? 0: x;
         // x = x>canvas.width? canvas.width: x;
         const x_arg = (props.type==="lowpass" ? x-x_i: -(x -x_i));
         y= canvas.height/2 + coeff*Math.pow(x_arg, 1.7);
+
         ctx.lineTo(x, y);
 
+
       }
+      ctx.lineTo(start, canvas.height)
+      ctx.fillStyle = getCssVar(props.color);
+      ctx.fill();
 
 
       //for (let i = 0; i <= curveResolution; i++) {
@@ -133,6 +144,7 @@ export default {
 
       ctx.stroke();
       //ctx.closePath();
+
     }
     const initializeAudio = () => {
       // Start the initial drawing
