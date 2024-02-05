@@ -87,14 +87,14 @@ class VoiceHandler {
       const note = Tone.Frequency('C' +(4+ this.voices.get(id).octave).toString())
       this.voices.get(id).voice[this.voices.get(id).voiceType].triggerAttack(note);
     }
-    playActiveVoices(note,octave,duration){
-
+    playActiveVoices(note,duration){
+        console.log('playActiveVoices',note, duration)
       //let filteredVoices = Array.from(this.voices.values()).filter(voiceObj => voiceObj.chained);
       this.voices.forEach(voiceObj => {
         if (voiceObj.voiceType === 'sampler' && voiceObj.voice.sampler.loaded === false){
           return
         }
-        voiceObj.voice[voiceObj.voiceType].triggerAttackRelease(note+(octave+voiceObj.octave).toString(),duration)
+        voiceObj.voice[voiceObj.voiceType].triggerAttackRelease(note,duration)
       });
 
     }
