@@ -149,6 +149,7 @@ export default {
   name: "Keyboard",
   props: {
     octave : Number,
+    range: Number
   },
   setup(){
     const octaves = [1,2];

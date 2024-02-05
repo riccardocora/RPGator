@@ -38,7 +38,7 @@
     </div>
   </div>
   <div class="keyboard-container">
-    <Keyboard></Keyboard>
+    <Keyboard :octave="octave" :range="range"></Keyboard>
   </div>
 
 </template>
