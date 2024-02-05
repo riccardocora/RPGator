@@ -83,7 +83,12 @@ export default{
 }*/
 
 
-
+.background_metal{
+/*  background-image: url("assets/images/metal.png");*/
+  background:
+    /*url("assets/images/grid-noise.png"),*/
+    linear-gradient(to right, transparent 0%, transparent 1.6%, rgb(40, 40, 40) 1.6%, rgb(45, 45, 45) 98.4%, transparent 98.4%, transparent 100%);
+}
 
 /*.background_metal::before {
   content: '';

@@ -3,7 +3,6 @@ import * as Tone from 'tone'
 import EffectChain from "@/components/effects/effectChain.js";
 import FilterChain from "@/components/filter/filterChain.js";
 import VoiceHandler from "@/voiceHandler.js";
-import AudioKeys from "audiokeys";
 
  class AudioContextHandler {
 
