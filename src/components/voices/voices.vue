@@ -1,5 +1,5 @@
 <template>
-    <div class="voices-container">
+    <div class="voices-container shadow">
       <q-carousel
           v-model="slide"
           swipeable
@@ -32,10 +32,10 @@
       </q-carousel>
     </div>
     <div class="control-container">
-      <div class="control0">
+      <div class="control0 shadow">
         <voice-controls id="0" color="primary"></voice-controls>
       </div>
-      <div class="control1">
+      <div class="control1 shadow">
         <voice-controls id="1" color="secondary"></voice-controls>
       </div>
     </div>
@@ -87,6 +87,8 @@ export default{
   height: 100%;
   display: flex;
   background-color: $r2d-inner;
+  border-radius: 3%;
+  border-top: 3px solid rgba(255, 255, 255, 0.04);
 }
 
 .control-container{
@@ -97,7 +99,8 @@ export default{
   flex-direction: column;
   align-content: space-between;
   justify-content: space-between;
-  border: 0.5px solid rgba(255, 255, 255, 0.37);
+  border-radius: 3%;
+  border: 3px solid rgba(255, 255, 255, 0.04);
 }
 
 .carousel{
@@ -105,12 +108,13 @@ export default{
   width: 100%;
   max-height: 100%;
   max-width: 100%;
+
 }
 .slide{
   display: flex ;
   flex-direction: row;
   overflow: hidden;
-  border: 0.5px solid rgba(255, 255, 255, 0.37);
+
 }
 .carousel-control{
 
@@ -142,6 +146,9 @@ export default{
   display: flex;
   flex-direction: column;
   background-color: $r2d-inner;
+  border-radius: 3%;
+  border: 3px solid rgba(255, 255, 255, 0.04);
+
 }
 .control1{
   height: 49.5%;
@@ -149,7 +156,8 @@ export default{
   display: flex;
   flex-direction: column;
   background-color: $r2d-inner;
-  border-top: 0.3px solid rgba(255, 255, 255, 0.37);
+  border-radius: 3%;
+  border: 3px solid rgba(255, 255, 255, 0.04);
 }
 
 

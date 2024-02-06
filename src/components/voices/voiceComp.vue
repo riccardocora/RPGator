@@ -44,7 +44,7 @@
 
   </div>
 
-  <div class="filter-container">
+  <div class="filter-container ">
 
     <div class="filter">
         <filter-comp :id="id" :color="color">

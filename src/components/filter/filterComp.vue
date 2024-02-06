@@ -61,9 +61,14 @@
   </div>
 
   <div class="knob-container">
-    <Knob id="cutoff" :color="color" :min="1" :max="4" :value="filterLogFreq" :step="0.01" :thickness="0.1" @updateValue="updateFilter" />
-
-    <Knob id="q" :color="color" :min="0.01" :max="18" :inner-max="18" :value="filter.Q" :step="0.1" :thickness="0.1" @updateValue="updateFilter" />
+    <div class="knob-wrapper">
+      <Knob id="cutoff" :color="color" :min="1" :max="4" :value="filterLogFreq" :step="0.01" :thickness="0.1" @updateValue="updateFilter" />
+      Cutoff
+    </div>
+    <div class="knob-wrapper">
+      <Knob id="q" :color="color" :min="0.01" :max="18" :inner-max="18" :value="filter.Q" :step="0.1" :thickness="0.1" @updateValue="updateFilter" />
+      Q
+    </div>
   </div>
 
 
@@ -229,6 +234,7 @@ export default {
   justify-content: space-evenly;
   align-items: center;
   height: 21.25%;
+  font-size: 11px;
 
 }
 //.slide

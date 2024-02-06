@@ -107,8 +107,8 @@ export default {
 
 <style lang="scss" scoped>
 .canvas{
-  width: 93%;
-  height:93%;
+  width: 94%;
+  height:94%;
   border-radius: 50%;
   align-self: center;
 }

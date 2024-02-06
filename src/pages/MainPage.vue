@@ -94,9 +94,14 @@ export default{
     radial-gradient(ellipse, rgba(255, 255, 255, 0.15),rgba(0, 0, 0, 0.15)),
     var(--off-color) !important;
     box-shadow: 0 0 0 1px var(--border_color);
-
-
 }
+
+.shadow{
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0));
+  box-shadow: inset 0 0 15px 3px rgba(0, 0, 0, 0.49);
+}
+
+
 
 
 .background_metal{
@@ -104,66 +109,7 @@ export default{
   background:
     /*url("assets/images/grid-noise.png"),*/
     linear-gradient(to right, transparent 0%, transparent 1.6%, rgb(40, 40, 40) 1.6%, rgb(45, 45, 45) 98.4%, transparent 98.4%, transparent 100%);
-}
 
-
-
-
-
-.border_all{
-  background: transparent;
-  /*
-  border applies outside contour
-  box-shadow inset applies inside contour
-  */
-  border : 3px solid var(--border_color);
-  box-shadow: inset 0 0 5px rgb(0, 0, 0);
-}
-
-.border_sides{
-  background: transparent;
-  /*
-  border applies outside contour
-  box-shadow inset applies inside contour
-  */
-  border-right : 3px solid var(--border_color);
-  border-left : 3px solid var(--border_color);
-  box-shadow: inset 0 0 4px rgb(0, 0, 0);
-}
-
-.border_right_bottom{
-  background: transparent;
-  /*
-  border applies outside contour
-  box-shadow inset applies inside contour
-  */
-  border-right : 3px solid var(--border_color);
-  border-bottom : 3px solid var(--border_color);
-  box-shadow: inset 0 0 4px rgb(0, 0, 0);
-}
-
-.border_side_bottom{
-  background: transparent;
-  /*
-  border applies outside contour
-  box-shadow inset applies inside contour
-  */
-  border-right : 3px solid var(--border_color);
-  border-left : 3px solid var(--border_color);
-  border-bottom : 3px solid var(--border_color);
-  box-shadow: inset 0 0 4px rgb(0, 0, 0);
-}
-
-.border_right_top_bottom{
-  background: transparent;
-  /*
-  border applies outside contour
-  box-shadow inset applies inside contour
-  */
-  border-right : 3px solid var(--border_color);
-  border-top : 3px solid var(--border_color);
-  border-bottom : 3px solid var(--border_color);
-  box-shadow: inset 0 0 4px rgb(0, 0, 0);
 }
 
  /*wood-pattern.png*/
