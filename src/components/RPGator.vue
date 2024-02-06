@@ -66,7 +66,7 @@ export default {
     max-height: 50%;
   justify-content: space-between;
   background-color: $r2d-container;
-  padding: 2% 2% 1% 2%;
+  padding: 1% 1% 1% 1%
 
 }
 .bottom-row{
@@ -74,7 +74,7 @@ export default {
   max-height: 50%;
   justify-content: space-between;
   background-color: $r2d-container;
-  padding: 1% 2% 2% 2%;
+  padding: 1% 1% 1% 1%
 }
 .voices{
   width: 75%;
@@ -98,7 +98,7 @@ export default {
 
 .arp{
   width: 70%;
-  height: 110%;
+  height: 100%;
   max-height: 110%;
   display: flex;
   flex-direction: row;
@@ -107,7 +107,7 @@ export default {
 }
 
 .effects{
-  width: 29%;
+  width: 30%;
   height: 100%;
   max-height: 100%;
   background-color: $r2d-inner;

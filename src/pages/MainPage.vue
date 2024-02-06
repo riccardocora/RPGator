@@ -233,4 +233,7 @@ export default{
 
 }
 
+.q-carousel__slide{
+  padding: 0 !important;
+}
 </style>

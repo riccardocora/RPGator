@@ -139,7 +139,8 @@ export default {
       // Add the note from the event and the same notes in octaves above to the group set
       for (let i = event.octave; i < event.octave + this.range; i++) {
         if(event.selected){
-          groupSet.add(event.note + i);
+          const octave = this.octave + i;
+          groupSet.add(event.note + octave);
           this.n_selected++
         }else{
           groupSet.delete(event.note + i);
@@ -193,12 +194,8 @@ export default {
       Tone.Transport.bpm.value = this.bpm;
     },
     increaseRange() {
-      if (this.range < 7) { // Maximum range value
+      if (this.range < 7 && this.octave + this.range < 8) { // Maximum range value
         this.range++;
-        if (this.octave > 1 && this.octave + this.range >= 8) { // Decrease range if octave cannot be increased
-          this.octave = 8 - this.range;
-        }
-
         // Add the same notes at higher octaves
         let groupSet = new Set(this.group);
         for (let note of this.group) {
@@ -219,10 +216,15 @@ export default {
     },
     // ...
     increaseOctave() {
-      if (this.octave < 7) { // Maximum octave value
+      if (this.octave < 7 && this.octave + this.range <= 8) { // Maximum octave value
         this.octave++;
-        if (this.range > 1 && this.octave + this.range >= 8) { // Decrease range if octave cannot be increased
-          this.range = 8 - this.octave;
+        console.log("this.group before increase", this.group)
+        this.group = this.group.map(note => Tone.Frequency(note).transpose(12).toNote());
+        console.log("this.group after increase", this.group)
+
+        if (this.range > 1 && this.octave + this.range > 8) { // Decrease range if octave cannot be increased
+          this.range = 1;
+          this.group = this.group.slice(0,this.range * this.n_selected)
         }
         this.updatePattern();
       }
@@ -230,6 +232,9 @@ export default {
     decreaseOctave() {
       if (this.octave > 1) { // Minimum octave value
         this.octave--;
+        console.log("this.group before decrease", this.group)
+        this.group = this.group.map(note => Tone.Frequency(note).transpose(-12).toNote());
+        console.log("this.group after decrease", this.group)
         this.updatePattern();
       }
     },
@@ -275,6 +280,8 @@ export default {
           break;
       }
     },
+
+
   },
 }
 </script>
@@ -286,7 +293,7 @@ export default {
   flex-direction: column;
   align-items: start;
   justify-content: right;
-  height: 95%;
+    height: 95%;
   width: 20%;
 /*  background-color: $r2d-inner;
   border: 0.5px solid rgba(255, 255, 255, 0.37);
@@ -335,12 +342,13 @@ export default {
 }
 
 .keyboard-container{
-  width: 80%;
-  height: 100%;
+  width: 100%;
+  height: 108%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 0 1.5% 0 1.5%;
 }
 
 .range-container{

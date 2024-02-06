@@ -51,89 +51,89 @@
 
 
         <div id="C" ref="C" class="div13">
-          <q-checkbox v-model="selectedNotes['C'+octave]" @update:model-value="handleNoteSelected('C',octave)"  checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
+          <q-checkbox v-model="selectedNotes['C'+(octave - octaves[0])]" @update:model-value="handleNoteSelected('C',(octave - octaves[0]))"  checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
 
             <template v-slot:default>
-              <q-badge rounded flat :class="selectedNotes['C'+octave]?'light_on':'button_light'" />
+              <q-badge rounded flat :class="selectedNotes['C'+(octave - octaves[0])]?'light_on':'button_light'" />
             </template>
           </q-checkbox>
         </div>
         <div id="D" ref="D" class=" div14">
-          <q-checkbox v-model="selectedNotes['D'+octave]" @update:model-value="handleNoteSelected('D',octave)" checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
+          <q-checkbox v-model="selectedNotes['D'+(octave - octaves[0])]" @update:model-value="handleNoteSelected('D',(octave - octaves[0]))" checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
             <template v-slot:default>
-              <q-badge rounded flat  :class="selectedNotes['D'+octave]?'light_on':'button_light'" />
+              <q-badge rounded flat  :class="selectedNotes['D'+(octave - octaves[0])]?'light_on':'button_light'" />
             </template>
           </q-checkbox>
 
         </div>
         <div id="E" ref="E" class=" div15" >
-          <q-checkbox v-model="selectedNotes['E'+octave]" @update:model-value="handleNoteSelected('E',octave)" checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
+          <q-checkbox v-model="selectedNotes['E'+(octave - octaves[0])]" @update:model-value="handleNoteSelected('E',(octave - octaves[0]))" checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
             <template v-slot:default>
-              <q-badge rounded flat :class="selectedNotes['E'+octave]?'light_on':'button_light'" />
+              <q-badge rounded flat :class="selectedNotes['E'+(octave - octaves[0])]?'light_on':'button_light'" />
             </template>
           </q-checkbox>
 
         </div>
         <div id="F" ref="F" class="div16" >
-          <q-checkbox v-model="selectedNotes['F'+octave]" @update:model-value="handleNoteSelected('F',octave)" checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
+          <q-checkbox v-model="selectedNotes['F'+(octave - octaves[0])]" @update:model-value="handleNoteSelected('F',(octave - octaves[0]))" checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
             <template v-slot:default>
-              <q-badge rounded flat  :class="selectedNotes['F'+octave]?'light_on':'button_light'" />
+              <q-badge rounded flat  :class="selectedNotes['F'+(octave - octaves[0])]?'light_on':'button_light'" />
             </template>
           </q-checkbox>
         </div>
         <div id="G" ref="G" class="div17">
-          <q-checkbox v-model="selectedNotes['G'+octave]" @update:model-value="handleNoteSelected('G',octave)" checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
+          <q-checkbox v-model="selectedNotes['G'+(octave - octaves[0])]" @update:model-value="handleNoteSelected('G',(octave - octaves[0]))" checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
             <template v-slot:default>
-              <q-badge rounded flat  :class="selectedNotes['G'+octave]?'light_on':'button_light'" />
+              <q-badge rounded flat  :class="selectedNotes['G'+(octave - octaves[0])]?'light_on':'button_light'" />
             </template>
           </q-checkbox>
         </div>
         <div id="A" ref="A" class="div18">
-          <q-checkbox v-model="selectedNotes['A'+octave]" @update:model-value="handleNoteSelected('A',octave)" checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
+          <q-checkbox v-model="selectedNotes['A'+(octave - octaves[0])]" @update:model-value="handleNoteSelected('A',(octave - octaves[0]))" checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
             <template v-slot:default>
-              <q-badge rounded flat :class="selectedNotes['A'+octave]?'light_on':'button_light'" />
+              <q-badge rounded flat :class="selectedNotes['A'+(octave - octaves[0])]?'light_on':'button_light'" />
             </template>
           </q-checkbox>
         </div>
         <div id="B" ref="B" class="div19" >
-          <q-checkbox v-model="selectedNotes['B'+octave]" @update:model-value="handleNoteSelected('B',octave)" checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
+          <q-checkbox v-model="selectedNotes['B'+(octave - octaves[0])]" @update:model-value="handleNoteSelected('B',(octave - octaves[0]))" checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
             <template v-slot:default>
-              <q-badge rounded flat  :class="selectedNotes['B'+octave]?'light_on':'button_light'" />
+              <q-badge rounded flat  :class="selectedNotes['B'+(octave - octaves[0])]?'light_on':'button_light'" />
             </template>
           </q-checkbox>
         </div>
         <div id="C#" ref="Cs" class="div20" >
-          <q-checkbox v-model="selectedNotes['C#'+octave]" @update:model-value="handleNoteSelected('C#',octave)" checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
+          <q-checkbox v-model="selectedNotes['C#'+(octave - octaves[0])]" @update:model-value="handleNoteSelected('C#',(octave - octaves[0]))" checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
             <template v-slot:default>
-              <q-badge rounded flat :class="selectedNotes['C#'+octave]?'light_on':'button_light'" />
+              <q-badge rounded flat :class="selectedNotes['C#'+(octave - octaves[0])]?'light_on':'button_light'" />
             </template>
           </q-checkbox>
         </div>
         <div id="D#" ref="Ds" class="div21" >
-          <q-checkbox v-model="selectedNotes['D#'+octave]" @update:model-value="handleNoteSelected('D#',octave)" checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
+          <q-checkbox v-model="selectedNotes['D#'+(octave - octaves[0])]" @update:model-value="handleNoteSelected('D#',(octave - octaves[0]))" checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
             <template v-slot:default>
-              <q-badge rounded flat :class="selectedNotes['D#'+octave]?'light_on':'button_light'" />
+              <q-badge rounded flat :class="selectedNotes['D#'+(octave - octaves[0])]?'light_on':'button_light'" />
             </template>
           </q-checkbox>
         </div>
         <div id="F#" ref="Fs" class="div22" >
-          <q-checkbox v-model="selectedNotes['F#'+octave]" @update:model-value="handleNoteSelected('F#',octave)" checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
+          <q-checkbox v-model="selectedNotes['F#'+(octave - octaves[0])]" @update:model-value="handleNoteSelected('F#',(octave - octaves[0]))" checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
             <template v-slot:default>
-              <q-badge rounded flat  :class="selectedNotes['F#'+octave]?'light_on':'button_light'" />
+              <q-badge rounded flat  :class="selectedNotes['F#'+(octave - octaves[0])]?'light_on':'button_light'" />
             </template>
           </q-checkbox>
         </div>
         <div id="G#" ref="Gs" class="key div23" >
-          <q-checkbox v-model="selectedNotes['G#'+octave]" @update:model-value="handleNoteSelected('G#',octave)" checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
+          <q-checkbox v-model="selectedNotes['G#'+(octave - octaves[0])]" @update:model-value="handleNoteSelected('G#',(octave - octaves[0]))" checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
             <template v-slot:default>
-              <q-badge rounded flat  :class="selectedNotes['G#'+octave]?'light_on':'button_light'" />
+              <q-badge rounded flat  :class="selectedNotes['G#'+(octave - octaves[0])]?'light_on':'button_light'" />
             </template>
           </q-checkbox>
         </div>
         <div id="A#" ref="As" class="key div24">
-          <q-checkbox v-model="selectedNotes['A#'+octave]" @update:model-value="handleNoteSelected('A#',octave)" checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
+          <q-checkbox v-model="selectedNotes['A#'+(octave - octaves[0])]" @update:model-value="handleNoteSelected('A#',(octave - octaves[0]))" checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
             <template v-slot:default>
-              <q-badge rounded flat  :class="selectedNotes['A#'+octave]?'light_on':'button_light'" />
+              <q-badge rounded flat  :class="selectedNotes['A#'+(octave - octaves[0])]?'light_on':'button_light'" />
             </template>
           </q-checkbox>
         </div>
@@ -157,7 +157,7 @@ export default {
 
 
   data() {
-    const octaves = [this.octave,this.octave+1];
+    const octaves = [0,1];
     const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 
     const selectedNotes = {};
@@ -166,6 +166,7 @@ export default {
         selectedNotes[note + octave] = false;
       }
     }
+    console.log("selelctednotes",selectedNotes)
     return {
       localOctave: this.octave,
       selectedNotes,
@@ -247,6 +248,9 @@ export default {
 
   methods: {
     handleNoteSelected(note, octave) {
+      console.log("handleNoteSelected");
+      console.log("octave",octave)
+      console.log("note",note)
       this.$emit('note-selected', { note, octave, selected: this.selectedNotes[note + octave] });
     },
     resetSelectedNotes() {
@@ -269,7 +273,7 @@ export default {
   grid-template-columns: repeat(2, 1fr);
   height: 100%;
   background-color: rgba(124, 77, 255, 0);
-  width: 90%;
+  width: 100%;
 
 }
 

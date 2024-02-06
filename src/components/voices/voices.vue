@@ -12,8 +12,10 @@
           ref="carousel"
       >
         <q-carousel-slide  :name="0" class=" slide">
-          <voice-module id="0" color="primary"></voice-module>
-        </q-carousel-slide>
+          <div class = "slide">
+            <voice-module id="0" color="primary"></voice-module>
+          </div>
+         </q-carousel-slide>
         <q-carousel-slide :name="1" class=" slide">
           <voice-module id="1" color="secondary"></voice-module>
         </q-carousel-slide>
@@ -114,7 +116,7 @@ export default{
   display: flex ;
   flex-direction: row;
   overflow: hidden;
-
+  padding: 1% 2% 1% 2%;
 }
 .carousel-control{
 
