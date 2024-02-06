@@ -62,6 +62,11 @@ The synthesizer features two selectable voices running in parallel. Within each 
 |-----------------------------------------------------|---|---|---|
 | <img src='res/osc.png'  margin='10%' width='90%' >  | Oscillator: where you can select the primary waveform, and a synthesis type among FM (Frequency Modulation), FAT (Frequency Amplitude Modulation), and AM (Amplitude Modulation) with the option to choose the waveform of the modulating signal. |   <img src='res/FM.png'  height='100vw' padding='5%'> | Sampler: where you can choose one of the fifteen available instruments. |  Waveform Selector (change clicking) 
 
+In addition to these voice options, the synthesizer includes a comprehensive mixer section for each voice, offering precise control over various parameters:
+|   |   |
+|---|---|
+| <img src='res/Filters.png'  padding='5%' >|  Volume: Adjusts the volume level of the selected voice, allowing you to balance its prominence within the mix; 2. Transposition: Enables transposing the pitch of the voice by up to two octaves in either direction, providing flexibility in creating melodies and harmonies; 3. Panning: Controls the spatial placement of the voice within the stereo field, allowing you to position it anywhere between the left and right channels for a dynamic stereo image. | 
+
 <br>
     
 ### Modulators and filters
