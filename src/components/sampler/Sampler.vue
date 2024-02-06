@@ -1,19 +1,16 @@
 
 <template>
-  <div class="q-pa-none">
-<!--    <div class="q-gutter-md">-->
-<!--        <q-select v-model="instrument" :options="instrumentOptions" label="Select Instrument" validate @update:model-value="changeInstrument"/>-->
-<!--    </div>-->
+  <div class="sampler-container">
     <div class="button-grid">
       <q-btn
         v-for="button in buttons"
         :key="button.id"
         @click="changeInstrument(button.id)"
         :icon="'img:icons/'+button.instr+'/'+button.instr+'-96.png'"
-        class="samplerButton blue transparent linear"
-        :text-color="button.active ? 'white' : 'black'"
-        dense
-        size="lg"
+        class="checkmark"
+        :color="button.active ? 'primary' : ''"
+        :class="{'active-icon': button.active }"
+
       />
     </div>
   </div>
@@ -99,9 +96,11 @@ import {reactive, ref} from 'vue'
 <style lang="scss">
 .button-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  gap: 10px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  height: 90%;
+  width: 85%;
+  padding: 10px;
 }
 .samplerButton {
   /* Other styles */
@@ -155,4 +154,21 @@ import {reactive, ref} from 'vue'
 //  border: none;
 //  box-shadow: none;
 //}
+.sampler-container{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+}
+
+.active-icon {
+    color: white !important;
+    /* Add any other styles for the active state */
+}
+
+.checkmark{
+  background-color: #2f2f2f ;
+}
+
 </style>

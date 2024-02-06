@@ -1,30 +1,31 @@
 <template>
   <div class="voice-container">
     <div class="button-row">
-              <q-btn-toggle
-                v-model="voiceType"
-                :toggle-color="color"
-                color="black"
-                dense
-                outline
-                push
-                class="q-pa-xs flip "
-                size="xs"
-                :options="[
-                  {label: 'synth', value: 'synth'},
-                  {label: 'sampler', value: 'sampler'},
-                ]"
-                @update:model-value="setVoiceType"
-              />
-              <div>V.1</div>
-              <q-btn round
-                     size="xs"
-                     class="q-ma-sm button_light"
-                     color=""
-                     :class="chained? 'light_on': ''"
-                     @click="toggleChain"
-              >
-              </q-btn>
+      <q-btn
+          round
+          size=40%
+          class="q-ma-sm button_light"
+          color=""
+          :class="chained? 'light_on': ''"
+          @click="toggleChain"
+      >
+      </q-btn>
+      <div>Voice</div>
+      <q-btn-toggle
+          v-model="voiceType"
+          :toggle-color="color"
+          color="black"
+          dense
+          outline
+          push
+          class="q-pa-xs  "
+          size="xs"
+          :options="[
+              {label: 'synth', value: 'synth'},
+              {label: 'sampler', value: 'sampler'},
+              ]"
+          @update:model-value="setVoiceType"
+      />
     </div>
     <div class="inner-voice">
       <synth-comp v-if="voiceType==='synth'" :id="id" :color="color"></synth-comp>
@@ -34,8 +35,8 @@
   </div>
 
   <div class="envelope-container">
-    <div class="button-row">
-
+    <div class="button-row-envelope">
+      Envelope
     </div>
     <div class="envelope">
       <envelope-comp :id="id" env-type="amp" :color="color"></envelope-comp>
@@ -269,7 +270,15 @@ export default {
   justify-content: space-around;
   align-items: center;
   height: 15%;
+}
 
+.button-row-envelope{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 15%;
+  padding-left: 10px;
 }
 
 .inner-voice{

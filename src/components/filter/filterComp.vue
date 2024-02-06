@@ -1,11 +1,17 @@
 <template>
   <div class="button-row">
+    Filter
     <q-checkbox v-model="chain" @update:model-value="toggleChain" >
-
-      <template v-slot:default>
+<!--      <template v-slot:default>
         <q-badge outline  label="chain" :color="chain?'yellow':'primary'" />
+      </template>-->
+      <template v-slot:default>
+          <q-btn size=40% round :class="chain?'light_on':'button_light'" />
       </template>
     </q-checkbox>
+
+
+
   </div>
   <div class="parent">
     <div class="button-toggles-top">
@@ -197,7 +203,7 @@ export default {
 .button-row{
   display: flex;
   flex-direction: row;
-  justify-content: left;
+  justify-content: space-between;
   align-items: center;
   height: 15%;
   padding: 10px;
@@ -216,7 +222,7 @@ export default {
 .knob-container{
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
   height: 21.25%;
 

@@ -5,6 +5,8 @@
           swipeable
           animated
           keep-alive
+          transition-next="slide-up"
+          transition-prev="slide-down"
           color="$r2d-container"
           class="carousel transparent"
           ref="carousel"
@@ -22,7 +24,9 @@
               :offset="[0,120]"
               class="carousel-control"
             >
-            <q-btn-toggle size="xs" class="control-btn" v-model="slide" :options="[{label: 'Slide 1', value: 0}, {label: 'Slide 2', value: 1}]"></q-btn-toggle>
+            <div class="control-btn-container">
+            <q-btn-toggle square dense size="md" class=" control-btn checkmark" v-model="slide" :options="[{label: 'V1', value: 0}, {label: 'V2', value: 1}]"></q-btn-toggle>
+            </div>
           </q-carousel-control>
         </template>
       </q-carousel>
@@ -114,11 +118,23 @@ export default{
   display: flex;
   width:4%;
 }
+
 .control-btn{
   align-items: center;
   flex-direction: column;
-  width: 5%;
+  width: 100%;
 }
+
+.control-btn-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%
+}
+
+
 
 .control0{
   height: 49.5%;

@@ -58,14 +58,14 @@ export default defineComponent({
 <template>
   <div class="knobContainer">
     <!--    <input type="range" min="1" max="100" value="50" class="slider" id="myRange">-->
-    <q-knob :color="color" size="xxl" class="knob" :min="min" :angle="225" :inner-max="max" :max="max *360/270" :step="step" :thickness="thickness" show-value  v-model="value" @update:model-value="updateValue" >
+    <q-knob :color="color" size="40px" class="knob" :min="min" :angle="225" :inner-max="max" :max="max *360/270" :step="step" :thickness="thickness" show-value  v-model="value" @update:model-value="updateValue" >
       <template v-slot:default>
 <!--        <div class="knob">-->
 <!--          <div class="knob__indicator" >-->
           <div class="q-pa-md">
 
-          <q-icon size="lg" :style="{ transform: `rotate(${rotation*(270/360) - 135}deg)` }">
-            <img src="@/assets/images/knob_vector_1.svg" alt="" style="width: 100px; height: 100px"/>
+          <q-icon size="md" :style="{ transform: `rotate(${rotation*(270/360) - 135}deg)` }">
+            <img src="@/assets/images/knob_vector_1.svg" alt="" style="width: 80px; height: 80px"/>
           </q-icon>
         </div>
 

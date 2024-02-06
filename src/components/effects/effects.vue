@@ -11,7 +11,7 @@
               icon="chevron_left"
               flat
               dense
-              color="black "
+              color="primary "
               class="arrow"
               size="sm"
           />
@@ -20,7 +20,7 @@
               icon="chevron_right"
               flat
               dense
-              color="black "
+              color="primary "
               class="arrow"
               size="sm"
           />

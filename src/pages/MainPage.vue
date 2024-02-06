@@ -44,18 +44,32 @@ export default{
 </script>
 <style lang="scss">
 :root{
+  /*SELECT*/
+  --select-border-color: rgba(49, 49, 49, 0.58);
+  --select-color: rgba(44, 59, 54, 0.889);
+  --select-shadow-color: rgba(0, 0, 0, 0.483);
+  --select--text-color-off: rgb(136, 136, 136);
+  --select--text-color-on: rgba(255, 255, 255, 0.824);
+
+/*LIGHTS*/
   --border_color: rgba(255, 255, 255, 0.45);
   --on-color: rgb(213, 0, 0);
   --border-color_1: rgb(57, 56, 56);
   --off-color: rgb(30, 30, 30);
   --on-color-bright: rgb(255, 0, 0);
   --selected-color: rgb(161,161, 161);
-  --select-border-color: rgba(49, 49, 49, 0.58);
-  --select-color: rgba(45, 52, 48, 0.89);
-  --select-shadow-color: rgba(0, 0, 0, 0.483);
-  --select--text-color-off: rgb(136, 136, 136);
-  --select--text-color-on: rgba(255, 255, 255, 0.824);
+
+  /*BUTTON*/
+  --btn-border-color: rgb(57, 56, 56);
+  --btn-color: rgb(30, 30, 30);
+  --btn-color-off: rgb(54, 54, 54);
+  --btn-shadow-color: rgb(0, 0, 0);
+
+  /*WRITINGS*/
+  --text-color-off: rgb(108, 108, 108);
+  --text-color-on: rgb(232, 232, 232);
 }
+
 
 .main-container{
   background-color: $background;

@@ -16,31 +16,16 @@ export default defineComponent({
 </script>
 
 <style >
-:root{
-  --border-color: rgb(57, 56, 56);
-  --btn-color: rgb(30, 30, 30);
-  --btn-color-off: rgb(35, 37, 39);
-  --shadow-color: rgb(0, 0, 0);
-  --text-color-off: rgb(105, 105, 105);
-  --text-color-on: rgb(180, 180, 180);
-}
-
-
-
-
-
 
 .checkbox-container {
   text-transform: uppercase;
   font-family: 'Courier Prime', monospace;
   display: flex;
-  letter-spacing: 4px;
   justify-content: flex-start; /* aligns content to the left */
   align-items: center;
   position: relative;
   margin-bottom: 0;
   cursor: pointer;
-  font-size: 22px;
   user-select: none;
   pointer-events: none;
 }
@@ -58,15 +43,12 @@ export default defineComponent({
 .checkmark {
   position: relative;
   pointer-events: auto;
-  height: 20px;
-  width: 40px;
-  margin: 2px;
   border-radius: 5%;
   background:
-    radial-gradient(circle, rgba(255, 255, 255, 0.15),rgba(0, 0, 0, 0.349)),
-    var(--btn-color-off);
+    radial-gradient(circle, rgba(164, 164, 164, 0),rgba(0, 0, 0, 0.349)),
+    var(--btn-color-off) !important;
   border: 1px solid rgba(26, 26, 26, 0.524);
-  box-shadow: inset 0 0 3px 1px var(--shadow-color);
+  box-shadow: inset 0 0 3px 1px var(--btn-shadow-color);
   /* Text */
   display: flex;
   justify-content: center;
@@ -83,14 +65,14 @@ export default defineComponent({
 
 /* On mouse-over, add a grey background color */
 .checkmark:active {
-  box-shadow: inset 0 0 13px 4px var(--shadow-color);
+  box-shadow: inset 0 0 13px 4px var(--btn-shadow-color);
   background:
     radial-gradient(circle, rgba(255, 255, 255, 0.15),rgba(0, 0, 0, 0.431)),
-    var(--btn-color);
+    var(--btn-color) ;
 }
 
 .checkmark:hover {
-  border-color: rgba(255, 255, 255, 0.047);
+  btn-border-color: rgba(255, 255, 255, 0.047);
 }
 
 

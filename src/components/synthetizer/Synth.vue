@@ -1,10 +1,7 @@
 
 <template>
-  <div class="container full-height ">
-
-    <div>
+  <div class="container">
       <oscillator-comp :id="id" :color="color"></oscillator-comp>
-    </div>
 <!--    <div>-->
 <!--      <q-slider-->
 <!--        v-model="synth.portamento"-->
@@ -80,5 +77,10 @@ export default {
 //  background-image: url("assets/images/metal.png");
 //  border-radius: 3%;
 //}
+.container{
+  height: 100%;
+  width: 100%;
+}
+
 
 </style>

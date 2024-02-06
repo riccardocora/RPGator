@@ -54,14 +54,14 @@
           <q-checkbox v-model="selectedNotes['C'+octave]" @update:model-value="handleNoteSelected('C',octave)"  checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
 
             <template v-slot:default>
-              <q-badge flat :class="selectedNotes['C'+octave]?'light_on':'button_light'" />
+              <q-badge rounded flat :class="selectedNotes['C'+octave]?'light_on':'button_light'" />
             </template>
           </q-checkbox>
         </div>
         <div id="D" ref="D" class=" div14">
           <q-checkbox v-model="selectedNotes['D'+octave]" @update:model-value="handleNoteSelected('D',octave)" checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
             <template v-slot:default>
-              <q-badge flat  :class="selectedNotes['D'+octave]?'light_on':'button_light'" />
+              <q-badge rounded flat  :class="selectedNotes['D'+octave]?'light_on':'button_light'" />
             </template>
           </q-checkbox>
 
@@ -69,7 +69,7 @@
         <div id="E" ref="E" class=" div15" >
           <q-checkbox v-model="selectedNotes['E'+octave]" @update:model-value="handleNoteSelected('E',octave)" checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
             <template v-slot:default>
-              <q-badge flat :class="selectedNotes['E'+octave]?'light_on':'button_light'" />
+              <q-badge rounded flat :class="selectedNotes['E'+octave]?'light_on':'button_light'" />
             </template>
           </q-checkbox>
 
@@ -77,63 +77,63 @@
         <div id="F" ref="F" class="div16" >
           <q-checkbox v-model="selectedNotes['F'+octave]" @update:model-value="handleNoteSelected('F',octave)" checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
             <template v-slot:default>
-              <q-badge flat  :class="selectedNotes['F'+octave]?'light_on':'button_light'" />
+              <q-badge rounded flat  :class="selectedNotes['F'+octave]?'light_on':'button_light'" />
             </template>
           </q-checkbox>
         </div>
         <div id="G" ref="G" class="div17">
           <q-checkbox v-model="selectedNotes['G'+octave]" @update:model-value="handleNoteSelected('G',octave)" checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
             <template v-slot:default>
-              <q-badge flat  :class="selectedNotes['G'+octave]?'light_on':'button_light'" />
+              <q-badge rounded flat  :class="selectedNotes['G'+octave]?'light_on':'button_light'" />
             </template>
           </q-checkbox>
         </div>
         <div id="A" ref="A" class="div18">
           <q-checkbox v-model="selectedNotes['A'+octave]" @update:model-value="handleNoteSelected('A',octave)" checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
             <template v-slot:default>
-              <q-badge flat  :class="selectedNotes['A'+octave]?'light_on':'button_light'" />
+              <q-badge rounded flat  :class="selectedNotes['A'+octave]?'light_on':'button_light'" />
             </template>
           </q-checkbox>
         </div>
         <div id="B" ref="B" class="div19" >
           <q-checkbox v-model="selectedNotes['B'+octave]" @update:model-value="handleNoteSelected('B',octave)" checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
             <template v-slot:default>
-              <q-badge flat  :class="selectedNotes['B'+octave]?'light_on':'button_light'" />
+              <q-badge rounded flat  :class="selectedNotes['B'+octave]?'light_on':'button_light'" />
             </template>
           </q-checkbox>
         </div>
         <div id="C#" ref="Cs" class="div20" >
           <q-checkbox v-model="selectedNotes['Cs'+octave]" @update:model-value="handleNoteSelected('C#',octave)" checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
             <template v-slot:default>
-              <q-badge flat :class="selectedNotes['Cs'+octave]?'light_on':'button_light'" />
+              <q-badge rounded flat :class="selectedNotes['Cs'+octave]?'light_on':'button_light'" />
             </template>
           </q-checkbox>
         </div>
         <div id="D#" ref="Ds" class="div21" >
           <q-checkbox v-model="selectedNotes['Ds'+octave]" @update:model-value="handleNoteSelected('D#',octave)" checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
             <template v-slot:default>
-              <q-badge flat :class="selectedNotes['Ds'+octave]?'light_on':'button_light'" />
+              <q-badge rounded flat :class="selectedNotes['Ds'+octave]?'light_on':'button_light'" />
             </template>
           </q-checkbox>
         </div>
         <div id="F#" ref="Fs" class="div22" >
           <q-checkbox v-model="selectedNotes['Fs'+octave]" @update:model-value="handleNoteSelected('F#',octave)" checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
             <template v-slot:default>
-              <q-badge flat  :class="selectedNotes['Fs'+octave]?'light_on':'button_light'" />
+              <q-badge rounded flat  :class="selectedNotes['Fs'+octave]?'light_on':'button_light'" />
             </template>
           </q-checkbox>
         </div>
         <div id="G#" ref="Gs" class="key div23" >
           <q-checkbox v-model="selectedNotes['Gs'+octave]" @update:model-value="handleNoteSelected('G#',octave)" checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
             <template v-slot:default>
-              <q-badge flat  :class="selectedNotes['Gs'+octave]?'light_on':'button_light'" />
+              <q-badge rounded flat  :class="selectedNotes['Gs'+octave]?'light_on':'button_light'" />
             </template>
           </q-checkbox>
         </div>
         <div id="A#" ref="As" class="key div24">
           <q-checkbox v-model="selectedNotes['As'+octave]" @update:model-value="handleNoteSelected('A#',octave)" checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
             <template v-slot:default>
-              <q-badge flat  :class="selectedNotes['As'+octave]?'light_on':'button_light'" />
+              <q-badge rounded flat  :class="selectedNotes['As'+octave]?'light_on':'button_light'" />
             </template>
           </q-checkbox>
         </div>
@@ -464,4 +464,13 @@ input[type="checkbox"]:checked + label.checkbox-label {
 .active{
   background-color: #8eff8e;
 }
+.light_on{
+  background:
+  radial-gradient(circle, rgba(255, 255, 255, 0.2),rgba(0, 0, 0, 0.05)),
+  linear-gradient(to right,rgba(0, 0, 0, 0.05) 0%, rgba(203, 203, 203, 0.2) 50%, rgba(0, 0, 0, 0.05) 100%),
+  $primary !important;
+  box-shadow: 0 0 15px 5px rgb(244, 178, 94), 0 0 0 2px var(--border_color);
+}
+
+
 </style>

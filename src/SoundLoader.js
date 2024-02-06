@@ -4,8 +4,10 @@ export default{
   minify: false,
   ext: '.[mp3|ogg]', // use setExt to change the extensions on all files // do not change this variable //
   baseUrl: 'audio/',
-  list: ['bass-electric', 'bassoon', 'cello', 'clarinet', 'contrabass', 'flute', 'french-horn', 'guitar-acoustic', 'guitar-electric', 'guitar-nylon', 'harmonium', 'harp', 'organ', 'piano', 'saxophone', 'trombone', 'trumpet', 'tuba', 'violin', 'xylophone'],
+  list: [   'piano','organ','xylophone', 'harp','flute', 'clarinet','bassoon' ,'bass-electric', 'guitar-acoustic', 'guitar-electric', 'saxophone',  'trombone', 'trumpet','cello',  'violin'],
   onload: null,
+
+  /*FULL LIST OF INSTRUMENTS AVAILABLE, 'bass-electric', 'bassoon', 'cello', 'clarinet', 'contrabass', 'flute', 'french-horn', 'guitar-acoustic', 'guitar-electric', 'guitar-nylon', 'harmonium', 'harp', 'organ', 'piano', 'saxophone', 'trombone', 'trumpet', 'tuba', 'violin', 'xylophone'*/
 
   setExt: function (newExt) {
     let i;
