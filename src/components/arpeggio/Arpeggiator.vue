@@ -2,9 +2,15 @@
 <template>
   <div class="arp-control">
     <div class="select-controls">
-      <q-select dense outlined dark class="select " v-model="type" :options="types" @update:model-value="updatePattern"/>
+       <select class="selector">
+        <option>Option 1</option>
+        <option>Option 2</option>
+        <option>Option 3</option>
+       </select>
+
+<!--      <q-select dense outlined dark class="select " v-model="type" :options="types" @update:model-value="updatePattern"/>
       <q-select dense outlined dark class="select" v-model="length" :options="lengths" @update:model-value="updatePattern"/>
-      <q-select dense outlined  dark class="select" v-model="interval" :options="lengths"  @update:model-value="updatePattern"/>
+      <q-select dense outlined  dark class="select" v-model="interval" :options="lengths"  @update:model-value="updatePattern"/>-->
     </div>
     <div class="slider-controls">
       <q-slider
@@ -145,6 +151,58 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.selector {
+  text-align-last: center;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: 'Courier Prime', monospace;
+  display: flex;
+  letter-spacing: 3px;
+  height: 30%;
+  width: 70%;
+  border-radius: 6%;
+  border: #030303 1px solid;
+
+
+    /* your existing styles */
+
+    /* Add multiple inset box shadows to create an inner "screen" effect */
+  box-shadow: inset 0px 0 8px 1px var(--select-shadow-color),
+  inset 0px 0 15px 1px var(--select-shadow-color), /* inner shadow */
+  0 0 0 2px inset var(--select-border-color); /* inner shadow */
+
+  /* Add a radial gradient to simulate inner light */
+  background:
+  radial-gradient(ellipse at center, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.404)),
+  linear-gradient(-45deg, transparent 65%, rgb(255, 255, 255) 135%),
+  var(--select-color);
+  justify-content: flex-end;
+  align-items: center;
+  color: var(--select--text-color-on);
+  padding-right: 0px;
+  position: relative;
+
+  /* border: solid 4px rgba(44, 44, 44, 0.794); */
+
+  appearance: none; /* Remove default appearance */
+  -webkit-appearance: none; /* Remove default appearance for Chrome */
+  -moz-appearance: none; /* Remove default appearance for Firefox */
+}
+
+
+
+.selector:hover {
+  /* Add your hover styles here */
+  background:
+  radial-gradient(ellipse at center, rgba(255, 255, 255, 0.344), rgba(0, 0, 0, 0.404)),
+  linear-gradient(-45deg, transparent 65%, rgb(255, 255, 255) 135%),
+  var(--select-color);
+
+}
+
+
+
+
 
 .arp-control{
   display: flex;

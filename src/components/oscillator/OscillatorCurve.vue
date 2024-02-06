@@ -62,9 +62,9 @@ export default {
         //console.log("waveform:", waveform); // Log the waveform data
         canvasContext.fillStyle = "black";
         canvasContext.shadowColor = "white";
-        canvasContext.shadowBlur = 30;
+        canvasContext.shadowBlur = 15;
         canvasContext.fillRect(0, 0, canvas.width, canvas.height);
-        canvasContext.lineWidth = 3;
+        canvasContext.lineWidth = 5;
         canvasContext.strokeStyle = getCssVar(props.color);
           //getCssVar(props.color)
         canvasContext.beginPath();
@@ -115,11 +115,10 @@ export default {
 }
 
 .screen-container {
-  background-image: url("@/assets/images/metal.png");
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #bcb;
+  background-color: $r2d-container;
   margin: 0 0 0;
   overflow: hidden;
   position: relative;

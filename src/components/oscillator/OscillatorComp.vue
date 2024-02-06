@@ -1,103 +1,95 @@
 
 <template>
-  <q-card-section>
-    <div class="row">
-      <div class="column">
+    <div class="voice-container">
+      <div class="col-voice-container">
         <q-btn-toggle
             v-model="oscillator.baseType"
-            color="dark"
-            toggle-color=""
-            class="checkbox-container transparent "
+            toggle-color="primary"
+            class="btn-container"
             size="xs"
             unelevated
-            style="flex-direction: column"
             :ripple="false"
             :options="baseTypeOptions"
             @update:model-value="update">
           <template v-slot:sine>
-            <div class="row items-center no-wrap ">
+            <div class="">
               <q-icon name="mdi-sine-wave" />
             </div>
           </template>
 
           <template v-slot:square>
-            <div class="row items-center no-wrap">
+            <div class="">
               <q-icon name="mdi-square-wave" />
             </div>
           </template>
 
           <template v-slot:triangle>
-            <div class="row items-center no-wrap">
+            <div class="">
               <q-icon name="mdi-triangle-wave" />
             </div>
           </template>
 
           <template v-slot:sawtooth>
-            <div class="row items-center">
+            <div class="">
               <q-icon name="mdi-sawtooth-wave" />
             </div>
           </template>
         </q-btn-toggle>
       </div>
-      <div class="col">
-        <q-btn-toggle
-            v-model="oscillator.sourceType"
-            color="dark"
-            text-color="white"
-            toggle-color=""
-            size="xs"
-            spread
-            unelevated
-            style="flex-direction: column"
-            clearable
-            :options="sourceTypeOptions"
-            @update:model-value="update"
-            @clear="update"/>
-      </div>
-      <div class="col">
-        <q-btn-toggle
-            v-model="oscillator.modulationType"
-            color="dark"
-            text-color="white"
-            toggle-color=""
-            size="xs"
-            spread
-            unelevated
-            style="flex-direction: column"
-            clearable
-            :options="baseTypeOptions"
-            @update:model-value="update"
-            @clear="update">
-          <template v-slot:sine>
-            <div class="row items-center no-wrap">
-              <q-icon name="mdi-sine-wave" />
-            </div>
-          </template>
 
-          <template v-slot:square>
-            <div class="row items-center no-wrap">
+      <div class="modulation">
+        <div class="col-voice-container-type">
+          <q-btn-toggle
+              v-model="oscillator.sourceType"
+              toggle-color="primary"
+              size="xs"
+              unelevated
+              class="btn-container-type"
+              clearable
+              :options="sourceTypeOptions"
+              @update:model-value="update"
+              @clear="update"/>
+        </div>
+        <div class="col-voice-container-fm" >
+          <q-btn-toggle
+              v-model="oscillator.modulationType"
+              toggle-color="primary"
+              size="xs"
+              unelevated
+              class="btn-container-fm"
+              clearable
+              :options="baseTypeOptions"
+              @update:model-value="update"
+              @clear="update">
+            <template v-slot:sine>
+              <div class="">
+                <q-icon name="mdi-sine-wave" />
+              </div>
+            </template>
 
-              <q-icon name="mdi-square-wave" />
-            </div>
-          </template>
+            <template v-slot:square>
+              <div class="">
 
-          <template v-slot:triangle>
-            <div class="row items-center no-wrap">
-              <q-icon name="mdi-triangle-wave" />
-            </div>
-          </template>
+                <q-icon name="mdi-square-wave" />
+              </div>
+            </template>
 
-          <template v-slot:sawtooth>
-            <div class="row items-center no-wrap">
-              <q-icon name="mdi-sawtooth-wave" />
-            </div>
-          </template>
-        </q-btn-toggle>
+            <template v-slot:triangle>
+              <div class="">
+                <q-icon name="mdi-triangle-wave" />
+              </div>
+            </template>
+
+            <template v-slot:sawtooth>
+              <div class="">
+                <q-icon name="mdi-sawtooth-wave" />
+              </div>
+            </template>
+          </q-btn-toggle>
+        </div>
       </div>
     </div>
 
-
-  </q-card-section>
 
 </template>
 
@@ -262,4 +254,87 @@ export default {
 //  /* Other styles */
 //  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.15), 0 3px 3px rgba(0, 0, 0, 0.12);
 //}
+
+
+
+.voice-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: start;
+  height: 100%;
+  width: 100%;
+  padding-left: 10%;
+
+}
+
+.col-voice-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 90%;
+  width: 30%;
+
+}
+
+.modulation{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: start;
+  height: 90%;
+  width: 60%;
+
+}
+.col-voice-container-type{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 50%;
+}
+
+.col-voice-container-fm{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+  width: 50%;
+}
+
+
+.btn-container{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-around;
+  height: 80%;
+  width: 80%;
+}
+
+.btn-container-type{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-between;
+  height: 60%;
+  width: 70%;
+}
+
+.btn-container-fm{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-between;
+
+  height: 60%;
+  width: 50%;
+}
+
+
+
 </style>
