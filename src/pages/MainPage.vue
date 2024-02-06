@@ -2,7 +2,8 @@
   <q-page >
     <div class="main-container">
       <div v-if="started">
-        <RPGator></RPGator>
+
+            <RPGator></RPGator>
       </div>
       <q-btn v-else class="light_on" text-color="black" label="Start" @click="start"></q-btn>
 
@@ -73,11 +74,12 @@ export default{
 
 .main-container{
   background-color: $background;
-  height: 100vh;
-  width: 100vw;
   display: flex;
   justify-content: center;
+  flex-direction: row;
   align-items: center;
+  width: 100vw;
+  height: 100vh;
 }
 
 .q-checkbox__icon-container{

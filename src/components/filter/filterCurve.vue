@@ -1,10 +1,10 @@
 <template>
-  <div class="column full-height justify-center" >
+<!--  <div class="column full-height justify-center" >-->
 
     <div class="screen-container " ref="screenContainer">
       <canvas class="canvas" ref="visualizerCanvas"></canvas>
     </div>
-  </div>
+<!--  </div>-->
 </template>
 
 <script>
@@ -77,7 +77,7 @@ export default {
       ctx.fillRect(0, 0, canvas.width, canvas.height)
       ctx.strokeStyle = getCssVar(props.color)
       ctx.shadowColor = "white";
-      ctx.shadowBlur = 5;
+      ctx.shadowBlur = 2;
       ctx.beginPath();
       ctx.moveTo(start, canvas.height/2); // Start from the origin on the vertical axis
       ctx.lineTo(
@@ -176,18 +176,24 @@ export default {
   width: 100%;
   height: 100%;
   align-self: center;
+
+
 }
 
 .screen-container {
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: #bcb;
+  //background-color: #bcb;
   margin: 0 0 0;
   overflow: hidden;
   position: relative;
   width: 100%;
   height: 100%;
   align-self: center;
+
 }
+
+
 </style>

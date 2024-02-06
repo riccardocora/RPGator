@@ -13,7 +13,7 @@
 
 
   </div>
-  <div class="parent">
+  <div class="parent selector">
     <div class="button-toggles-top">
       <q-btn-toggle
           v-model="filter.rolloff"
@@ -53,7 +53,11 @@
         <filter-curve :id="id" :cutoff="filterLogFreq" :rolloff="filter.rolloff" :type="filter.type" :color="color"></filter-curve>
       </div>
     </div>
+    <div class="screen">
+      <div class="screen-frame"></div>
 
+      <div class="screen-inset"></div>
+    </div>
   </div>
 
   <div class="knob-container">
@@ -172,12 +176,12 @@ export default {
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 97%;
   max-height: 63.75%;
   min-width: 100%;
   min-height: 63.75%;
   height: 63.75%;
-  padding: 10px;
+  padding: 5px;
 }
 .button-toggles-top {
   position: relative;
@@ -216,7 +220,7 @@ export default {
 }
 .curve-container{
   height: 100%;
-  width: 89%;
+  width: 100%;
 }
 
 .knob-container{
@@ -236,4 +240,49 @@ export default {
 //  //max-height: 12em;
 //}
 
+
+.selector {
+
+  border: #030303 1px solid;
+
+
+  /* your existing styles */
+
+  /* Add multiple inset box shadows to create an inner "screen" effect */
+  box-shadow: inset 0 0 8px 1px var(--select-shadow-color),
+  inset 0 0 15px 1px var(--select-shadow-color), /* inner shadow */
+  0 0 0 2px inset var(--select-border-color); /* inner shadow */
+
+  ///* Add a radial gradient to simulate inner light */
+  background:
+      radial-gradient(ellipse at center, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.404)),
+      linear-gradient(-45deg, transparent 65%, rgb(255, 255, 255) 135%),
+      var(--select-color);
+  justify-content: flex-end;
+  align-items: center;
+  color: var(--select--text-color-on);
+
+}
+
+
+
+.screen, .screen-inset, .screen-frame, canvas, img {
+  position: absolute
+}
+.screen, .screen-inset {
+  top: 3%;
+  width: 95%;
+  height: 95%;
+}
+.screen {
+  background-image:
+      radial-gradient(50% 5% at 50% 1%, rgba(255, 255, 255, 0.29) 0.5%,#fff0),
+      radial-gradient(110% 65% at 60% 150%, rgba(255, 255, 255, 0.71) 1%,#fff0),
+      //radial-gradient(100% 100% at 50% 50%,#0000 25%,#000 50%),
+      radial-gradient(100% 100% at 50% 50%,#0000 20%,#000 80%);
+  z-index: -1;
+}
+.screen-inset {
+  //box-shadow: 0 0.1em 0.1em 0.6em rgba(35, 34, 34, 0.42) inset;
+}
 </style>

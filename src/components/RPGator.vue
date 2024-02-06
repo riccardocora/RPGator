@@ -46,25 +46,24 @@ export default {
 
 
 .r2d-container{
-  height: 90vh;
-  width: 90vw;
   display: flex;
   align-items: center;
   justify-content: center; /* Add this line */
   border: 10px solid $r2d-container;
   border-radius: 2%;
+  aspect-ratio: 2/1 ;
+  min-width: 85vw;
 }
 
 .r2d{
   height: 100%;
-  max-height: 100%;
   width: 100%;
 
 
 }
 .top-row{
   height: 50%;
-  max-height: 50%;
+    max-height: 50%;
   justify-content: space-between;
   background-color: $r2d-container;
   padding: 2% 2% 1% 2%;

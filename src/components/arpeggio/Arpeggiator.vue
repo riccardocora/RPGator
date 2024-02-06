@@ -85,7 +85,7 @@ export default {
     const group = reactive([])
     const n_selected = ref(0);
     let pattern = reactive(new Tone.Pattern(function (time, note) {
-      AudioContextHandler.voices.playActiveVoices(note, octave.value, length.value)
+      AudioContextHandler.voices.playActiveVoices(note, length.value)
     }, this.group,this.type));
     pattern.loop = true;
     pattern.interval = interval.value
@@ -152,7 +152,6 @@ export default {
         callback: (time, note) => {
           AudioContextHandler.voices.playActiveVoices(note, this.length)
           this.$refs.keyboard.highlightNote(note);
-
         },
         interval: this.interval
       })

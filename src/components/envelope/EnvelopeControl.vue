@@ -1,11 +1,11 @@
   <template>
-      <div class="screen-container">
+      <div class="screen-container selector">
         <canvas class="curve" ref="visualCanvas"></canvas>
-<!--          <div class="screen">-->
-<!--            <div class="screen-frame"></div>-->
+          <div class="screen">
+            <div class="screen-frame"></div>
 
-<!--            <div class="screen-inset"></div>-->
-<!--          </div>-->
+            <div class="screen-inset"></div>
+          </div>
       </div>
       <div class="knob-container">
         <Knob id="attack" :color="color" :min="0" :max="2" :inner-max="2" :value="envelope.attack" :step="0.01" :thickness="0.1" @updateValue="updateEnvelope" />
@@ -102,7 +102,7 @@
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = "black";
         ctx.shadowColor = "white";
-        ctx.shadowBlur = 5;
+        ctx.shadowBlur = 2;
         // // Stroke
         ctx.lineWidth = 3;
         ctx.fillRect(0, 0, canvas.width, canvas.height)
@@ -173,20 +173,16 @@
   </script>
 
 <style lang="scss" scoped>
-.curve{
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
+
 
 .screen-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 97%;
   height: 75%;
   align-self: center;
-  padding: 10px;
+  padding: 5px;
 }
 
 .knob-container{
@@ -198,51 +194,53 @@
 }
 
 
-//.curve{
-  //width: 100%;
-  //display: block;
-  //top: 40%;
-  //left: 50%;
-  //transform: translate(-50%,-50%);
+.curve{
+  width: 100%;
+  height: 100%;
+  align-self: center;
+}
 
-//border-radius: 5px
-//border: solid 1px black
-//}
-//.screen-container, .controls {
-//  width: 8em;
-//}
-//.screen-container {
-//  background-color: black;
-//  //margin: 0.2em 0 0 0;
-//  overflow: hidden;
-//  border-radius: 5%;
-//  position: relative;
-//  height: 100%;
-//  width: 100%;
 
-//.screen, .screen-inset, .screen-frame, canvas, img {
-//  position: absolute
-//}
-//.screen, .screen-inset {
-//  top: 0;
-//  left: 0;
-//  width: 100%;
-//  height: 100%;
-//}
-//.screen {
-//  background-image:
-////radial-gradient(1em at 3% 4%,#fff 4%,#fff0),
-////radial-gradient(9em 1em at 7% 10%,#fff 30%,#fff0),
-//radial-gradient(100% 175% at 50% 50%,#0000 32%, rgba(201, 201, 201, 0.11) 60%),
-//radial-gradient(175% 100% at 50% 53%,#0000 32%, rgba(203, 203, 203, 0.09) 60%);
-//}
-//.screen-inset {
-//  box-shadow: 0 0 1px 7px rgb(150, 150, 150) inset;
-//}
-//.container{
-//  background-image: url("~@/assets/images/metal.png");
-//  border-radius: 3%;
-//}
+.selector {
+
+  border: #030303 1px solid;
+
+
+  /* your existing styles */
+
+  /* Add multiple inset box shadows to create an inner "screen" effect */
+  //box-shadow: inset 0 0 8px 1px var(--select-shadow-color),
+  //inset 0 0 15px 1px var(--select-shadow-color), /* inner shadow */
+  //0 0 0 2px inset var(--select-border-color); /* inner shadow */
+
+  ///* Add a radial gradient to simulate inner light */
+  background:
+      radial-gradient(ellipse at center, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.404)),
+      linear-gradient(-45deg, transparent 65%, rgb(255, 255, 255) 135%),
+      var(--select-color);
+  justify-content: flex-end;
+  align-items: center;
+  color: var(--select--text-color-on);
+
+}
+
+
+.screen, .screen-inset {
+  top: 2%;
+  left: 2%;
+  width: 98%;
+  height: 98%;
+}
+.screen {
+  background-image:
+      radial-gradient(50% 5% at 50% 1%, rgba(255, 255, 255, 0.29) 0.5%,#fff0),
+      radial-gradient(110% 65% at 60% 150%, rgba(255, 255, 255, 0.71) 1%,#fff0),
+      radial-gradient(100% 100% at 50% 50%,#0000 25%,#000 50%),
+      radial-gradient(100% 100% at 50% 50%,#0000 20%,#000 80%);
+}
+.screen-inset {
+  box-shadow: 0 -0.1em 0.1em 0.6em rgba(35, 34, 34, 0.42) inset;
+}
 //.screen-frame {
 //  border-top: 2em solid #7b807d;
 //  border-right: 2em solid #9da28f;
