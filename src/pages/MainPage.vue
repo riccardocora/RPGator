@@ -50,6 +50,11 @@ export default{
   --off-color: rgb(30, 30, 30);
   --on-color-bright: rgb(255, 0, 0);
   --selected-color: rgb(161,161, 161);
+  --select-border-color: rgba(49, 49, 49, 0.58);
+  --select-color: rgba(45, 52, 48, 0.89);
+  --select-shadow-color: rgba(0, 0, 0, 0.483);
+  --select--text-color-off: rgb(136, 136, 136);
+  --select--text-color-on: rgba(255, 255, 255, 0.824);
 }
 
 .main-container{
@@ -257,6 +262,13 @@ export default{
   linear-gradient(to right,rgba(0, 0, 0, 0.05) 0%, rgba(203, 203, 203, 0.2) 50%, rgba(0, 0, 0, 0.05) 100%),
   #cc0000 !important;
   box-shadow: 0 0 15px 5px rgb(224, 84, 84), 0 0 0 2px var(--border_color);
+}
+
+
+.q-btn__content.text-center.col.items-center.q-anchor--skip.justify-center.column{
+  width: min-content;
+  height: min-content;
+
 }
 
 </style>

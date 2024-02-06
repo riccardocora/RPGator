@@ -22,7 +22,7 @@ export default defineComponent({
   --btn-color-off: rgb(35, 37, 39);
   --shadow-color: rgb(0, 0, 0);
   --text-color-off: rgb(105, 105, 105);
-  --text-color-on: rgb(232, 232, 232);
+  --text-color-on: rgb(180, 180, 180);
 }
 
 
