@@ -8,10 +8,22 @@
 <!--          </div>-->
       </div>
       <div class="knob-container">
-        <Knob id="attack" :color="color" :min="0" :max="2" :inner-max="2" :value="envelope.attack" :step="0.01" :thickness="0.1" @updateValue="updateEnvelope" />
-        <Knob id="decay" :color="color" :min="0" :max="2" :inner-max="2" :value="envelope.decay" :step="0.01" :thickness="0.1" @updateValue="updateEnvelope" />
-        <Knob id="sustain" :color="color" :min="0" :max="1" :inner-max="1" :value="envelope.sustain" :step="0.01" :thickness="0.1" @updateValue="updateEnvelope" />
-        <Knob id="release" :color="color" ::min="0" :max="5" :inner-max="5" :value="envelope.sustain" :step="0.01" :thickness="0.1" @updateValue="updateEnvelope" />
+        <div class="knob-wrapper">
+          <Knob id="attack" :color="color" :min="0" :max="2" :inner-max="2" :value="envelope.attack" :step="0.01" :thickness="0.1" @updateValue="updateEnvelope" />
+          A
+        </div>
+        <div class="knob-wrapper">
+          <Knob id="decay" :color="color" :min="0" :max="2" :inner-max="2" :value="envelope.decay" :step="0.01" :thickness="0.1" @updateValue="updateEnvelope" />
+          D
+        </div>
+        <div class="knob-wrapper">
+          <Knob id="sustain" :color="color" :min="0" :max="1" :inner-max="1" :value="envelope.sustain" :step="0.01" :thickness="0.1" @updateValue="updateEnvelope" />
+          S
+        </div>
+        <div class="knob-wrapper">
+          <Knob id="release" :color="color" ::min="0" :max="5" :inner-max="5" :value="envelope.sustain" :step="0.01" :thickness="0.1" @updateValue="updateEnvelope" />
+          R
+        </div>
       </div>
 <!--      <div class="row justify-between q-pa-sm" >-->
 <!--          <div class="column inline q-pr-sm" >-->
@@ -102,7 +114,7 @@
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = "black";
         ctx.shadowColor = "white";
-        ctx.shadowBlur = 5;
+        ctx.shadowBlur = 9;
         // // Stroke
         ctx.lineWidth = 3;
         ctx.fillRect(0, 0, canvas.width, canvas.height)
@@ -195,6 +207,7 @@
   justify-content: space-around;
   align-items: center;
   height: 25%;
+  font-size: 11px;
 }
 
 

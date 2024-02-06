@@ -77,7 +77,7 @@ export default {
       ctx.fillRect(0, 0, canvas.width, canvas.height)
       ctx.strokeStyle = getCssVar(props.color)
       ctx.shadowColor = "white";
-      ctx.shadowBlur = 5;
+      ctx.shadowBlur = 9;
       ctx.beginPath();
       ctx.moveTo(start, canvas.height/2); // Start from the origin on the vertical axis
       ctx.lineTo(

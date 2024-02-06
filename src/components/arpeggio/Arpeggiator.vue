@@ -1,18 +1,25 @@
 
 <template>
   <div class="arp-control">
+
     <div class="select-controls">
+
       <div class="select-container">
+        Style
         <select class="selector" v-model="type" @change="updatePattern">
           <option class="option" v-for="type in types" :value="type">{{ type }}</option>
         </select>
       </div>
+
       <div class="select-container">
+        Length
         <select class="selector" v-model="length" @change="updatePattern">
           <option class="option" v-for="length in lengths" :value="length">{{ length }}</option>
         </select>
       </div>
+
       <div class="select-container">
+        Interval
         <select class="selector" v-model="interval" @change="updatePattern">
           <option class="option" v-for="length in lengths" :value="length">{{ length }}</option>
         </select>
@@ -25,23 +32,38 @@
 <!--      <q-select dense  dark class="select" v-model="interval" :options="lengths"  @update:model-value="updatePattern"/>-->
 
 <!--    </div>-->
-    <div class="range-control">
-      <button class="range-button" @click="decreaseRange" >-</button>
-      <div class="range-value" v-text="range"></div>
-      <button class="range-button" @click="increaseRange">+</button>
-    </div>
-    <div class="range-control">
-      <button class="range-button" @click="decreaseOctave">-</button>
-      <div class="range-value" v-text="octave"></div>
-      <button class="range-button" @click="increaseOctave">+</button>
+    <div class="ranges-control">
+
+      <div class="range-container">
+        range
+        <div class="range-control">
+          <button class="range-button" @click="decreaseRange" >-</button>
+          <div class="range-value" v-text="range"></div>
+        <button class="range-button" @click="increaseRange">+</button>
+       </div>
+      </div>
+
+      <div class="range-container">
+        octave
+        <div class="range-control">
+          <button class="range-button" @click="decreaseOctave">-</button>
+          <div class="range-value" v-text="octave"></div>
+          <button class="range-button" @click="increaseOctave">+</button>
+        </div>
+      </div>
+
+      <div class="range-container">
+        bpm
+        <div class="range-control">
+          <button class="range-button" @click="bpm > 40 ? bpm-- : bpm" @mousedown="startDecreasingBpm" @mouseup="stopChangingBpm">-</button>
+          <div class="range-value" v-text="bpm"></div>
+          <button class="range-button" @click="bpm < 200 ? bpm++ : bpm" @mousedown="startIncreasingBpm" @mouseup="stopChangingBpm">+</button>
+        </div>
+      </div>
+
     </div>
 
 
-    <div class="range-control">
-      <button class="range-button" @click="bpm > 40 ? bpm-- : bpm" @mousedown="startDecreasingBpm" @mouseup="stopChangingBpm">-</button>
-      <div class="range-value" v-text="bpm"></div>
-      <button class="range-button" @click="bpm < 200 ? bpm++ : bpm" @mousedown="startIncreasingBpm" @mouseup="stopChangingBpm">+</button>
-    </div>
     <div class="buttons">
       <q-checkbox v-model="playing" @update:model-value="togglePlay" checked-icon="radio_button_checked"
                   unchecked-icon="radio_button_unchecked" color="yellow">
@@ -49,10 +71,11 @@
           <q-badge outline  label="play" :color="playing?'yellow':'primary'" />
         </template>
       </q-checkbox>
-      <button @click="reset">Reset</button> <!-- Add this line -->
+      <button class="checkmark reset"  @click="reset">Reset</button> <!-- Add this line -->
 
     </div>
   </div>
+
   <div class="keyboard-container">
     <Keyboard ref="keyboard" :octave="octave" @note-selected="handleNoteSelected"></Keyboard>
   </div>
@@ -262,30 +285,50 @@ export default {
 .arp-control{
   display: flex;
   flex-direction: column;
-  align-items: center;
-  height: 90%;
+  align-items: start;
+  justify-content: right;
+  height: 95%;
   width: 20%;
-  padding: 1%;
+/*  background-color: $r2d-inner;
+  border: 0.5px solid rgba(255, 255, 255, 0.37);
+  padding: 1%;*/
 }
 
 .select-controls{
   display: flex;
   flex-direction: column;
-  height: 45%;
+  height: 50%;
   width: 100%;
   align-items: center;
-  margin: 2%;
+
+}
+.ranges-control{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  height: 50%;
+  //border: 1px solid #000;
 }
 
-.slider-controls{
+/*.slider-controls{
   width: 100%;
   height: 30%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-}
+}*/
+
 .buttons{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  height: 10%;
+  //border: 1px solid #000;
 
 }
 .arp-slider{
@@ -296,15 +339,27 @@ export default {
   width: 80%;
   height: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.range-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  height: 100%;
+  //border: 1px solid #000;
 }
 
 .range-control {
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 100%;
+  width: 50%;
   padding: 2%;
   justify-content: space-between;
   //border: 1px solid #000;
@@ -400,11 +455,11 @@ export default {
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 3%;
+  justify-content: space-between;
   position: relative;
 
 }
+
 
 
 .selector {
@@ -413,8 +468,9 @@ export default {
   text-transform: uppercase;
   font-family: 'Courier Prime', monospace;
   display: flex;
-  height: 100%;
-  width: 100%;
+  height: 90%;
+  min-width: 50%;
+  width: 50%;
   border-radius: 6%;
   border: #030303 1px solid;
 

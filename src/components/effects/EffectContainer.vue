@@ -86,7 +86,6 @@ export default {
   align-items: center;
   justify-content: space-evenly;
   height: 20%;
-  color: white;
 
   //margin: 10px;
 }

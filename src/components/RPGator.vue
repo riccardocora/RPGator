@@ -1,19 +1,19 @@
 <template>
-  <div class="r2d-container">
-    <div class="r2d">
-      <div class="top-row row">
-        <div class="voices">
+  <div class="r2d-container shadow">
+    <div class="r2d ">
+      <div class="top-row row ">
+        <div class="voices ">
           <voices></voices>
         </div>
-        <div class="visual" >
+        <div class="visual shadow" >
           <visual-trip></visual-trip>
         </div>
       </div>
       <div class="row bottom-row" >
-        <div class="arp">
+        <div class="arp ">
           <arpeggiator ></arpeggiator>
         </div>
-        <div class="effects">
+        <div class="effects shadow">
           <effects></effects>
         </div>
       </div>
@@ -93,20 +93,18 @@ export default {
   display: flex;
   align-items: center;
   background-color: $r2d-inner;
-  border-radius: 1%;
-  border: 0.5px solid rgba(255, 255, 255, 0.37);
+  border-radius: 3%;
+  border: 3px solid rgba(255, 255, 255, 0.04);
 }
 
 .arp{
   width: 70%;
-  height: 100%;
-  max-height: 100%;
+  height: 110%;
+  max-height: 110%;
   display: flex;
   flex-direction: row;
-  align-items: end;
-  background-color: $r2d-inner;
-  border-radius: 1%;
-  border: 0.5px solid rgba(255, 255, 255, 0.37);
+  align-items: start;
+
 }
 
 .effects{
@@ -114,7 +112,7 @@ export default {
   height: 100%;
   max-height: 100%;
   background-color: $r2d-inner;
-  border-radius: 1%;
-  border: 0.5px solid rgba(255, 255, 255, 0.37);
+  border-radius: 3%;
+  border: 3px solid rgba(255, 255, 255, 0.04);
 }
 </style>

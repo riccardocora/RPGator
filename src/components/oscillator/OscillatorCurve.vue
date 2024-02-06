@@ -1,12 +1,12 @@
 <template>
     <div class="screen-container" ref="screenContainer">
 
-        <canvas class="canvas" ref="visualizerCanvas"></canvas>
-  <!--      <div class="screen">-->
-  <!--        <div class="screen-frame"></div>-->
+        <canvas class="canvas " ref="visualizerCanvas"></canvas>
+        <div class="screen">
+          <div class="screen-frame"></div>
 
-    <!--        <div class="screen-inset"></div>-->
-    <!--      </div>-->
+            <div class="screen-inset"></div>
+          </div>
       </div>
 
 </template>
@@ -108,8 +108,8 @@ export default {
 
 <style lang="scss" scoped>
 .canvas{
-  width: 93%;
-  height:93%;
+  width: 94%;
+  height:94%;
   border-radius: 50%;
   align-self: center;
 }
@@ -126,6 +126,7 @@ export default {
   height: 85%;
   border-radius: 50%;
 }
+
 //.screen, .screen-inset, .screen-frame, canvas, img {
 //  position: absolute
 //}
@@ -158,4 +159,8 @@ export default {
 //  height: calc(130%);
 //  transform: translate(-50%,-50%);
 //}
+
+
+
+
 </style>
