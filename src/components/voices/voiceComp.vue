@@ -175,16 +175,6 @@ export default {
       chained.value =!chained.value;
     }
 
-    const playVoice= () => {
-      console.log("playVoice")
-      AudioContextHandler.voices.playVoice(props.id);
-    };
-
-    const stopVoice= () => {
-      console.log("stopVoice")
-      AudioContextHandler.voices.stopVoice(props.id);
-    };
-
 
     return{
       octave,
@@ -195,8 +185,6 @@ export default {
       updateVolume,
       setVoiceType,
       toggleChain,
-      playVoice,
-      stopVoice,
       pan,
       updatePan,
     }

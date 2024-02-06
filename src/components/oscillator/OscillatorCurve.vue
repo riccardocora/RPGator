@@ -74,7 +74,7 @@ export default {
         let y = canvas.height/2;
         canvasContext.beginPath();
         canvasContext.moveTo(x, y);
-        let margin = canvas.height * 0.75;
+        let margin = canvas.height * 0.2;
         for (let i = 0; i < wavedata.length; i++) {
           const v = (wavedata[i] +1) / 2; // Normalize to [0, 1]
           y = v * (canvas.height - margin) + margin / 2;          //console.log("v",v)
@@ -181,5 +181,5 @@ export default {
 //  width: calc(110%);
 //  height: calc(130%);
 //  transform: translate(-50%,-50%);
-//}
+//}aaaaaaaaaaaaafff
 </style>

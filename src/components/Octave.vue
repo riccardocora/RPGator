@@ -258,9 +258,7 @@ export default {
         this.selectedNotes[note] = false;
       }
     },
-    highlightNote(note){
-      this.buttonRefs[note].value[0].$el.click();
-    }
+
   },
 
 
