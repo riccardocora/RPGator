@@ -206,10 +206,10 @@ export default {
           console.log("btn",btn.value[0])
           console.log("btn.value.$el",btn.value[0].$el)
           btn.value[0].$el.click()
-          if (btn && btn.value[0] && btn.value[0].$el) {
-            console.log("btn.value.$el",btn.value.$el)
-            btn.value[0].$el.classList.add('active');
-          }
+          // if (btn && btn.value[0] && btn.value[0].$el) {
+          //   console.log("btn.value.$el",btn.value.$el)
+          //   btn.value[0].$el.classList.add('active');
+          // }
 
           // Access the q-btn element with ref="C4" and trigger a click event
 
