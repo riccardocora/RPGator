@@ -44,8 +44,7 @@
             flat
             :options="[
           {label: 'lp', value: 'lowpass'},
-          {label: 'hp', value: 'highpass'},
-          {label: 'bp', value: 'bandpass'},]"
+          {label: 'hp', value: 'highpass'}]"
             @update:model-value="updateFilter"
         />
       </div>
