@@ -5,10 +5,8 @@
 
             <RPGator></RPGator>
       </div>
-      <div v-else class="logo">
-        <q-btn  color="white" text-color="black" label="Start" @click="start">
-        </q-btn>
-      </div>
+      <q-btn v-else color="white" text-color="black" label="Start" @click="start">
+      </q-btn>
 
 
     </div>
@@ -308,12 +306,4 @@ export default{
 .q-slider__focus-ring {
   display: none;
 }
-
-.logo{
-  background-image: url("/public/images/logor2d.png") !important;
-  height: 80vh;
-  width: 80vw;
-  z-index: 1;
-}
-
 </style>
