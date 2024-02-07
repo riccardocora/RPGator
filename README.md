@@ -49,10 +49,8 @@ The arpeggiator is a versatile tool designed for creating arpeggios with ease. I
 |---|---|
 | <img src='res/ADSR.png'  padding='5%' > | “Keyboard” - Two octaves for playing individual notes or selecting multiple notes for the arpeggio pattern. |
 | <img src='res/LFO.png'  > | Selection Buttons: 1. Patterns: “Pattern Selector” - Selects the arpeggio pattern. 2. Note Length: "Length Selector” - Sets the duration of each note. 3. Rate: "Rate Selector” - Adjusts the interval between notes.  |
-| <img src='res/Drag.png'  > | Octave Controls: 1. “Starting Octave Control” - Determines the initial octave for the keyboard and it refers to the first key button. 2. “Octave Repeat Control” - Sets the number of octaves each note repeats. 
-| <img src='res/Drop.png' > | Tempo Control: “BPM Adjuster” - Adjusts tempo from 40 to 200 BPM. |
-|<img src='res/ModAmount.png'  > | “Play/Stop Button” - Initiates or halts the arpeggio sequence. 
-| <img src='res/Id.png' > | “Reset Button” - Releases selected notes and resets the sequence. |
+| <img src='res/Drag.png'  > | Octave Controls: 1. “Octave Repeat Control” - Sets the number of octaves each note repeats. 2. “Starting Octave Control” - Determines the initial octave for the keyboard and it refers to the first key button. Tempo Control: “BPM Adjuster” - Adjusts tempo from 40 to 200 BPM. |
+|<img src='res/ModAmount.png'  > | “Play/Stop Button” - Initiates or halts the arpeggio sequence. “Reset Button” - Releases selected notes and resets the sequence. |
 
 <br>
 
@@ -81,8 +79,7 @@ Additionally, you can integrate either a Low Pass Filter or a High Pass Filter i
 
 |   |   |
 |---|---|
-| <img src='res/ADSR.png'  padding='5%' > | A Cutoff knob, regulating the frequency at which the filter begins to attenuate the input signal. |
-| <img src='res/LFO.png'  > | A Resonance knob, controlling the emphasis or peak of frequencies near the cutoff point, enhancing the filter's character and tonal shaping capabilities.  |
+| <img src='res/ADSR.png'  padding='5%' > | A Cutoff knob, regulating the frequency at which the filter begins to attenuate the input signal. A Resonance knob, controlling the emphasis or peak of frequencies near the cutoff point, enhancing the filter's character and tonal shaping capabilities.  |
                                                                      
 
   
