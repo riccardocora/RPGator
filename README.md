@@ -1,6 +1,6 @@
 # R2D ARP
 
-[R2D ARP](https://furiocolombo.github.io/zenyth-polisint/) is an innovative polyphonic synthesizer and arpeggiator powered by the JavaScript library for audio synthesis and composition "Tone.js" and implemented using the framework "Vue". <br>
+[R2D ARP](https://riccardocora.github.io/RPGator/) is an innovative polyphonic synthesizer and arpeggiator powered by the JavaScript library for audio synthesis and composition "Tone.js" and implemented using the framework "Vue". <br>
 R2D is thought as a playful yet powerful tool to discover sound synthesis and generate creative sound patterns. Its lighthearted intuitive-based interface encourages the user to discover its functionalities by trying himself all features and routing options combining various effects with each other. This versatile instrument offers a wide range of options for creating and manipulating unique and rich sounds, combining the flexibility of a synthesizer with the dynamism of an arpeggiator.
 
 
@@ -21,7 +21,7 @@ R2D is thought as a playful yet powerful tool to discover sound synthesis and ge
 
 
 ## How to use it
-  - Online Version [here](https://furiocolombo.github.io/zenyth-polisint/)
+  - Online Version [here](https://riccardocora.github.io/RPGator/)
   - Locally: Clone git repo and run the following command in the project terminal:
   1. `npm install`
   2. `npm update`
