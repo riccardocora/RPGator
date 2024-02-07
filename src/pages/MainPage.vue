@@ -5,7 +5,7 @@
 
             <RPGator></RPGator>
       </div>
-      <q-btn v-else color="white" text-color="black" label="Start" @click="start">
+      <q-btn v-else class="light_on"  text-color="white" label="Start" @click="start">
       </q-btn>
 
 
