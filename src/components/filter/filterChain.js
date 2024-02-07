@@ -51,7 +51,7 @@ class FilterChain {
         this.outputGain.connect(node)
     }
     chainFilter(id){
-        console.log("chaining filter",id);
+
         if(!this.filters.get(id).chained){
             this.filters.get(id).input.disconnect()
             this.filters.get(id).input.connect(this.filters.get(id).filter)
@@ -59,9 +59,9 @@ class FilterChain {
         }
     }
     unchainFilter(id){
-        console.log("unchaining filter",id);
+
         const filterObj = this.filters.get(id)
-        console.log("filterObj",filterObj);
+
         if(filterObj.chained){
             filterObj.input.disconnect()
             filterObj.filter.disconnect()

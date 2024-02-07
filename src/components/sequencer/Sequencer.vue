@@ -103,7 +103,7 @@ export default {
       }
     },
     repeat(time) {
-      console.log("time: ",time)
+
       let step = index % this.sequenceLength;
       let previousStep = step===0 ? this.sequenceLength - 1 : step - 1;
         this.buttonColumns[step].filter((button) => button.isActive).forEach(() => {

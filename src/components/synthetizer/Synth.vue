@@ -60,7 +60,7 @@ export default {
       detune: 0,
     })
     const update = () =>{
-      console.log("synth", synth)
+
       AudioContextHandler.voices.setSynth(props.id,synth)
     }
     return{

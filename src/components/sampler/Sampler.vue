@@ -42,7 +42,6 @@ import {reactive, ref} from 'vue'
 
 
        const changeInstrument = (buttonId) => {
-        console.log("changeInstrument", buttonId);
          buttons.forEach((button) => {
            button.active = button.id === buttonId;
          });

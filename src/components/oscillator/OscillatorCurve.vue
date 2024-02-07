@@ -29,7 +29,7 @@ export default {
     const screenContainer = ref(null);
 
     const resizeHandler = () => {
-      console.log("resizeHandler", screenContainer.value);
+
       if (screenContainer.value) {
         screenContainer.value.style.height = `${screenContainer.value.offsetWidth}px`;
       }

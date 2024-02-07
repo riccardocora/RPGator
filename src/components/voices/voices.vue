@@ -54,8 +54,7 @@ export default{
     const slide = ref(0);
 
     const updateSlide = (value) =>{
-      console.log('slide updated',value)
-      console.log('slide updated',slide)
+
 
     }
 

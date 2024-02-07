@@ -41,7 +41,7 @@ class EffectChain {
             newEffect = new Tone.Distortion()
             break
           default:
-            console.log('no effect')
+
             return
         }
 

@@ -49,7 +49,7 @@ export default defineComponent({
     }
   },
   setup() {
-    console.log("tremolo1", AudioContextHandler.effectChain.getEffect("tremolo"))
+
     const tremolo = ref({
       frequency: AudioContextHandler.effectChain.getEffect("tremolo").frequency.value,
       depth: AudioContextHandler.effectChain.getEffect("tremolo").depth.value,
@@ -57,7 +57,7 @@ export default defineComponent({
     const update = () => {
       AudioContextHandler.effectChain.setEffect("tremolo", tremolo.value)
 
-      console.log("tremolo2", AudioContextHandler.effectChain.getEffect("tremolo"))
+
 
     }
 

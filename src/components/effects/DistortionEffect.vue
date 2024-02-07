@@ -5,7 +5,7 @@
   </div>
 </template>
 <script>
-import {ref,defineComponent} from "vue";
+import {ref, defineComponent, reactive} from "vue";
 import AudioContextHandler from "@/components/AudioContextHandler.js";
 import Knob from "../controls/Knob.vue";
 
@@ -18,11 +18,13 @@ export default defineComponent({
     }
   },
   setup(){
-      const distortion = ref({
+      const distortion = reactive({
           distortion: AudioContextHandler.effectChain.getEffect("dist").distortion,
       });
-      const update = ()=>{
-          AudioContextHandler.effectChain.setEffect("dist", distortion.value)
+      const update = (newValue)=>{
+          distortion[newValue.id] = newValue.value;
+
+          AudioContextHandler.effectChain.setEffect("dist", distortion)
       }
 
       return {

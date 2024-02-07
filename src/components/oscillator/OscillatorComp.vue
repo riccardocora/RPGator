@@ -156,7 +156,7 @@ export default {
 
 
     const update = () => {
-      console.log("oscillator",oscillator)
+
 
       AudioContextHandler.voices.setOscillator(props.id,oscillator)
     };

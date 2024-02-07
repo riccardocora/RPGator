@@ -52,11 +52,10 @@ name: 'Effects',
 
     // const order = computed(() => {return effects.value})
     const moveRight= (effect)=>{
-      console.log("effect: ", effect)
-      console.log("effects initial: ", effects.value)
+
 
       const index = effects.value.indexOf(effect);
-      console.log("index", index)
+
       if (index < effects.value.length - 1) {
         effects.value[index] = effects.value[index + 1];
         effects.value[index + 1] = effect;
@@ -64,25 +63,21 @@ name: 'Effects',
       AudioContextHandler.effectChain.moveEffectRight(effect);
 
 
-      console.log("AudioContextHandler.effectChain.order final", AudioContextHandler.effectChain.order)
-      // state.effects = AudioContextHandler.effectChain.order;
-      console.log("effect final", effects.value)
 
 
     }
     const moveLeft= (effect)=>{
-      console.log("effect: ", effect)
-      console.log("effects initial", effects)
+
       const index = effects.value.indexOf(effect);
-      console.log("index", index)
+
       if (index > 0) {
         effects.value[index] = effects.value[index - 1];
         effects.value[index - 1] = effect;
       }
       AudioContextHandler.effectChain.moveEffectLeft(effect);
 
-      console.log("effects final", effects)
-      console.log("AudioContextHandler.effectChain.order final", AudioContextHandler.effectChain.order)
+
+
     }
 
     return {

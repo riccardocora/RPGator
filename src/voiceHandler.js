@@ -9,7 +9,7 @@ class VoiceHandler {
     addVoice(id){
       const voiceObj = {
         voice: {synth: new Tone.PolySynth(Tone.MonoSynth,{
-                volume: -10,}),
+                volume: -5,}),
                 sampler: SoundLoader.load({instruments: 'piano'})},
         gain: new Tone.Gain(0.5),
         pan: new Tone.Panner(),
@@ -17,8 +17,8 @@ class VoiceHandler {
         octave: 0,
         voiceType: 'synth'
       }
+      console.log(voiceObj.voice.synth)
       voiceObj.voice.synth.maxPolyphony = 1000;
-      console.log(' Filter Frequency:', voiceObj.voice.synth);
 
       voiceObj.voice.sampler.connect(voiceObj.pan);
 
@@ -57,6 +57,7 @@ class VoiceHandler {
       }else{
         voice.connect(this.voices.get(id).gain)
 
+
       }
       this.voices.get(id).chained = !this.voices.get(id).chained
 
@@ -89,7 +90,7 @@ class VoiceHandler {
 
 
     playActiveVoices(note,duration){
-        console.log('playActiveVoices',note, duration)
+
       //let filteredVoices = Array.from(this.voices.values()).filter(voiceObj => voiceObj.chained);
       this.voices.forEach(voiceObj => {
         if (voiceObj.voiceType === 'sampler' && voiceObj.voice.sampler.loaded === false){
@@ -121,7 +122,6 @@ class VoiceHandler {
     setSamplerInstrument(id,instrument){
       this.voices.get(id).voice.sampler = SoundLoader.load({instruments: instrument,
                                                                 onload: () => {
-                                                                  console.log('loaded')
                                                                 }})
       this.voices.get(id).voice.sampler.connect(this.voices.get(id).gain)
     }
