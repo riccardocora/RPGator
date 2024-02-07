@@ -10,7 +10,7 @@ class VoiceHandler {
       const voiceObj = {
         voice: {synth: new Tone.PolySynth(Tone.MonoSynth,{
                 envelope: {attack: 0.05, decay: 0.1, sustain: 1, release: 0.05},
-                volume: -4,}),
+                volume: -1,}),
                 sampler: SoundLoader.load({instruments: 'piano'})},
         gain: new Tone.Gain(0.5),
         pan: new Tone.Panner(),
