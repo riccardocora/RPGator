@@ -75,7 +75,7 @@ export default {
       ctx.fillStyle = "black";
 
       ctx.fillRect(0, 0, canvas.width, canvas.height)
-      ctx.strokeStyle = getCssVar(props.color)
+      ctx.strokeStyle = getCssVar("accent")
       ctx.shadowColor = "white";
       ctx.shadowBlur = 2;
       ctx.beginPath();
@@ -125,7 +125,7 @@ export default {
 
       }
       ctx.lineTo(start, canvas.height)
-      ctx.fillStyle = getCssVar(props.color);
+      ctx.fillStyle = getCssVar("accent");
       ctx.fill();
 
 

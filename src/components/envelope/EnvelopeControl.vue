@@ -122,7 +122,7 @@
         // gradient.addColorStop("0", "gold");
         // gradient.addColorStop("0.5", "blue");
         // gradient.addColorStop("1.0", "purple");
-        ctx.strokeStyle = getCssVar(props.color);
+        ctx.strokeStyle = getCssVar("accent");
 
 
 
@@ -147,7 +147,7 @@
         //current+=100;
         // Release
         ctx.lineTo(canvas.width, canvas.height);
-        ctx.fillStyle= getCssVar(props.color);
+        ctx.fillStyle= getCssVar("accent");
         ctx.fill();
         ctx.stroke();
         ctx.closePath();

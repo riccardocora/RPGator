@@ -8,9 +8,7 @@ class VoiceHandler {
     }
     addVoice(id){
       const voiceObj = {
-        voice: {synth: new Tone.PolySynth({
-                voice: Tone.MonoSynth,
-                maxPolyphony: 4,
+        voice: {synth: new Tone.PolySynth(Tone.MonoSynth,{
                 volume: -10,}),
                 sampler: SoundLoader.load({instruments: 'piano'})},
         gain: new Tone.Gain(0.5),
@@ -19,6 +17,9 @@ class VoiceHandler {
         octave: 0,
         voiceType: 'synth'
       }
+      voiceObj.voice.synth.maxPolyphony = 1000;
+      console.log(' Filter Frequency:', voiceObj.voice.synth);
+
       voiceObj.voice.sampler.connect(voiceObj.pan);
 
       voiceObj.voice.synth.connect(voiceObj.pan);
