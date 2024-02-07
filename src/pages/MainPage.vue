@@ -5,10 +5,12 @@
 
             <RPGator></RPGator>
       </div>
-      <q-btn v-else class="light_on" text-color="black" label="Start" @click="start"></q-btn>
+      <q-btn v-else color="white" text-color="black" label="Start" @click="start"></q-btn>
 
 
     </div>
+
+
 
   </q-page>
 </template>
@@ -63,18 +65,18 @@ export default{
   /*BUTTON*/
   --btn-border-color: rgb(57, 56, 56);
   --btn-color: rgb(30, 30, 30);
-  --btn-color-off: rgb(54, 54, 54);
-  --btn-shadow-color: rgb(0, 0, 0);
+  --btn-color-off: rgb(49, 49, 49);
+  --btn-shadow-color: rgba(35, 35, 35, 0.87);
 
   /*WRITINGS*/
   --text-color-off: rgb(108, 108, 108);
-  --text-color-on: rgb(232, 232, 232);
+  --text-color-on: rgb(225, 225, 225);
 
 
   /*SLIDER*/
   --thumb-color: rgb(68, 68, 68);
   --thumb-color-shading: rgb(58, 57, 57);
-  --thumb-darkshade: rgb(0, 0, 0);
+  --thumb-darkshade: rgb(40, 40, 40);
   --thumb-brightshade:rgb(31, 31, 31);
   --thumb-lines: rgb(20, 20, 20);
   --thumb-centerline:  rgb(234, 234, 234);
@@ -260,8 +262,8 @@ export default{
 }
 
 .q-slider__thumb.q-slider__thumb--v.q-slider__thumb--v-rtl{
-  width:275% !important;
-  height:40% !important;
+  width:280% !important;
+  height:25% !important;
   background:
     linear-gradient(to top, rgba(0, 0, 0, 0.25),  rgba(255, 255, 255, 0.25) 100%),
     linear-gradient(to top,var(--thumb-darkshade) 18%,
@@ -281,8 +283,8 @@ export default{
 
 
 .q-slider__thumb.q-slider__thumb--h.q-slider__thumb--h-ltr {
-  width: 28% !important;
-  height: 275% !important;
+  width: 25% !important;
+  height: 280% !important;
   background:
     linear-gradient(to right, rgba(0, 0, 0, 0.25),  rgba(255, 255, 255, 0.25) 100%),
     linear-gradient(to right,var(--thumb-darkshade) 18%,

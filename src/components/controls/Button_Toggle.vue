@@ -56,23 +56,23 @@ export default defineComponent({
   color: var(--text-color-off);
 }
 
-/*.checkbox-container:hover .checkmark::before {
+.checkbox-container:hover .checkmark::before {
   background:
     radial-gradient(circle, rgba(255, 255, 255, 0.15),rgba(0, 0, 0, 0.15)),
     var(--selected-color);
 
-}/*
+}
 
 /* On mouse-over, add a grey background color */
 .checkmark:active {
-  box-shadow: inset 0 0 13px 4px var(--btn-shadow-color);
+  box-shadow: inset 0 0 10px 0px var(--btn-shadow-color);
   background:
     radial-gradient(circle, rgba(255, 255, 255, 0.15),rgba(0, 0, 0, 0.431)),
     var(--btn-color) ;
 }
 
 .checkmark:hover {
-  btn-border-color: rgba(255, 255, 255, 0.047);
+  background: rgba(255, 255, 255, 0.047) ;
 }
 
 

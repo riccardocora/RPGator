@@ -3,41 +3,70 @@
 <template>
   <div class="voice-controls">
     <div class="vertical-sliders">
+      <div class="octave">
         <q-slider
             v-model="octave"
             :min="-2"
             :max="2"
             :step="1"
             thumb-path=""
+            markers
             vertical
             reverse
-            class="control-slider "
+            label
+            marker-labels
+            switch-marker-labels-side
+            class="control-slider marker-label "
 
             @update:model-value="updateOctave"
         />
-      <q-slider
+        <div class="oct-label">
+          <span>O</span>
+          <span>C</span>
+          <span>T</span>
+          <span>A</span>
+          <span>V</span>
+          <span>E</span>
+        </div>
+      </div>
+
+      <div class="gain">
+        <q-slider
           v-model="volume"
           :min="0"
           :max="1"
           :step="0.01"
           thumb-path=""
           vertical
+          label
           reverse
           class="control-slider "
           @change="updateVolume"
-      />
+        />
+        <div class="gain-label">
+          <span>G</span>
+          <span>A</span>
+          <span>I</span>
+          <span>N</span>
+        </div>
+      </div>
+
+
     </div>
 
     <div class="horizontal-slider-container">
+      <div style="padding-right: 5px">L</div>
       <q-slider
           v-model="pan"
           :min="-1"
           :max="1"
           :step="0.01"
           thumb-path=""
+          label
           class="horizontal-slider"
           @update:model-value="updatePan"
       />
+      <div style="padding-left: 5px">R</div>
     </div>
   </div>
 
@@ -97,9 +126,12 @@ export default {
 
 .horizontal-slider-container{
   display: flex;
-  flex-direction: column;
-  justify-content: right;
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
+  font-size: 8px;
+  color: #b2b2b2;
+
   height: 20%;
   width: 100%;
 }
@@ -121,10 +153,50 @@ export default {
 
 }
 
+.marker-label{
+  color: #b2b2b2;
+  font-size: 8px;
+}
+
+.oct-label{
+  color: #b2b2b2;
+  font-size: 8px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 40%;
+  text-align: left;
+}
+
+.octave{
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 50%;
+  justify-content: center;
+  align-items: center;
+}
+
+.gain{
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 50%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
 
 
-
-
+.gain-label{
+  color: #b2b2b2;
+  font-size: 8px;
+  display: flex;
+  text-align: left;
+  justify-content: center;
+  flex-direction: column;
+  width: 20%;
+}
 
 </style>
 
