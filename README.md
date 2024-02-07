@@ -115,9 +115,8 @@ ___
 <br>
 
 ### Audio Core:
-We utilized Tone.js exclusively for our arpeggiator's audio functionality, benefiting from its robust features. With growing complexity, we found stock Tone objects lacking, prompting the need for additional functionality. This led to the creation of custom wrappers for core audio processes, facilitating modulation of synth parameters using both LFOs and envelopes. Future updates aim to transition to plain WebAudioAPI for improved latency and code optimization
+We utilized Tone.js exclusively for our arpeggiator's audio functionality, benefiting from its robust features. With growing complexity, we found stock Tone objects lacking, prompting the need for additional functionality. This led to the creation of custom wrappers for core audio processes, facilitating modulation of synth parameters using envelope and filter. Future updates aim to transition to plain WebAudioAPI for improved latency and code optimization
 
-    &rarr; _[Audio Core Detailed Scheme](./res/Zenyth_Audio_Core.pdf)_
 
   
 <br>
@@ -130,6 +129,6 @@ We utilized Tone.js exclusively for our arpeggiator's audio functionality, benef
 <br>
 
 ## Team
-- Riccardo Corà - Project Management, Back End Developement and Routing - `riccardo.cora@mail.polimi.it`
-- Riccardo Moschen - Front End Developement - `riccardo.moschen@mail.polimi.it`
-- Dario Sorce - Audio Core Coding and and UI Design - `dario.sorce@mail.polimi.it`
+- Riccardo Corà - Project Management, Back End Developement, Audio Core Coding and Animated Graphics - `riccardo.cora@mail.polimi.it`
+- Riccardo Moschen - Front End Developement, UI Design, Routing and Synth Expert - `riccardo.moschen@mail.polimi.it`
+- Dario Sorce - Front End Developement, UI Design, Routing and Synth Expert - `dario.sorce@mail.polimi.it`
