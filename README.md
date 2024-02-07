@@ -109,16 +109,11 @@ ___
 
 - The framework of choice is [Vue](https://vuejs.org/)
 - Visual effects are realized in plain CSS, using some elements from [Quasar](https://quasar.dev/).
-- User Interface is responsive, with a fixed aspect ratio and dimensions relative to the window's width.
 
   
 <br>
 
-### Audio Core:
-We utilized Tone.js exclusively for our arpeggiator's audio functionality, benefiting from its robust features. With growing complexity, we found stock Tone objects lacking, prompting the need for additional functionality. This led to the creation of custom wrappers for core audio processes, facilitating modulation of synth parameters using envelope and filter. Future updates aim to transition to plain WebAudioAPI for improved latency and code optimization
 
-
-  
 <br>
 
 ## Dependencies
