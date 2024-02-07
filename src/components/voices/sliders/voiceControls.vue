@@ -8,53 +8,34 @@
             :min="-2"
             :max="2"
             :step="1"
-            markers
+            thumb-path=""
             vertical
             reverse
-            class="control-slider"
-            switch-marker-labels-side
-            :color="color"
-            :thumb-color="color"
-            label-color="black"
-            :label-text-color="color"
-            marker-labels
-            :marker-labels-class="'text-'+color"
-            selection-color="transparent"
+            class="control-slider "
+
             @update:model-value="updateOctave"
         />
-
       <q-slider
           v-model="volume"
           :min="0"
           :max="1"
           :step="0.01"
-          :markers="1"
-          label
+          thumb-path=""
           vertical
           reverse
-          :color="color"
-          :thumb-color="color"
-          label-color="black"
-          :label-text-color="color"
-          :marker-labels-class="'text-'+color"
-          selection-color="transparent"
-          class="control-slider"
+          class="control-slider "
           @change="updateVolume"
       />
     </div>
 
-    <div class="horizontal-slider">
+    <div class="horizontal-slider-container">
       <q-slider
           v-model="pan"
           :min="-1"
           :max="1"
           :step="0.01"
-          :color="color"
-          :thumb-color="color"
-          label-color="black"
-          :label-text-color="color"
-          :marker-labels-class="'text-'+color"
-          class="control-slider"
+          thumb-path=""
+          class="horizontal-slider"
           @update:model-value="updatePan"
       />
     </div>
@@ -109,25 +90,42 @@ export default {
   display: flex;
   flex-direction: row;
   height: 80%;
+  width: 100%;
   justify-content: space-around;
   align-items: center;
 }
-.horizontal-slider{
+
+.horizontal-slider-container{
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: right;
   align-items: center;
   height: 20%;
+  width: 100%;
 }
+
+.horizontal-slider{
+  max-height: 80%;
+  max-width: 60%;
+}
+
 
 .control-slider{
   max-height: 80%;
   max-width: 80%;
-
 }
+
 .voice-controls{
   height: 100%;
   width: 100%;
 
 }
+
+
+
+
+
+
 </style>
+
+
