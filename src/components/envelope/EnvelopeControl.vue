@@ -21,7 +21,7 @@
           S
         </div>
         <div class="knob-wrapper">
-          <Knob id="release" :color="color" ::min="0" :max="5" :inner-max="5" :value="envelope.sustain" :step="0.01" :thickness="0.1" @updateValue="updateEnvelope" />
+          <Knob id="release" :color="color" ::min="0" :max="5" :inner-max="5" :value="envelope.release" :step="0.01" :thickness="0.1" @updateValue="updateEnvelope" />
           R
         </div>
       </div>

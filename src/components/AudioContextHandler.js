@@ -83,7 +83,11 @@ import VoiceHandler from "@/voiceHandler.js";
 
     this.effectChain.connect(this.outputGain)
 
-    const limiter = new Tone.Limiter(-10).toDestination();
+    const limiter = new Tone.Limiter(-5).toDestination();
+
+   /* const vol = new Tone.Volume(-12).toDestination();*/
+
+
     this.outputGain.connect(limiter);
     limiter.toDestination();
 
