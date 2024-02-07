@@ -131,7 +131,7 @@ export default {
     // ...
     handleNoteSelected(event) {
       // event.note, event.octave, and event.selected contain the emitted data
-      console.log(" ciao",event.note, event.octave, event.selected);
+
       // You can now use the emitted data in your parent component
       let groupSet = new Set(this.group);
       // Add the note from the event and the same notes in octaves above to the group set
@@ -150,13 +150,11 @@ export default {
 
       // Sort the group array by ascending pitch
 
-      console.log("group", this.group)
       this.updatePattern()
     },
 
     updatePattern() {
-      console.log("updatePattern")
-      console.log("this.group", this.group)
+
       const tempGroup = this.group;
       tempGroup.sort((noteA, noteB) => {
         // Convert the notes to frequencies
@@ -166,7 +164,7 @@ export default {
         // Compare the frequencies
         return freqA - freqB;
       });
-      console.log("this.group 2", this.group)
+
 
       this.pattern.set({
         values: tempGroup,
@@ -215,9 +213,9 @@ export default {
     increaseOctave() {
       if (this.octave < 7 && this.octave + this.range <= 8) { // Maximum octave value
         this.octave++;
-        console.log("this.group before increase", this.group)
+
         this.group = this.group.map(note => Tone.Frequency(note).transpose(12).toNote());
-        console.log("this.group after increase", this.group)
+
 
         if (this.range > 1 && this.octave + this.range > 8) { // Decrease range if octave cannot be increased
           this.range = 1;
@@ -229,9 +227,9 @@ export default {
     decreaseOctave() {
       if (this.octave > 1) { // Minimum octave value
         this.octave--;
-        console.log("this.group before decrease", this.group)
+
         this.group = this.group.map(note => Tone.Frequency(note).transpose(-12).toNote());
-        console.log("this.group after decrease", this.group)
+
         this.updatePattern();
       }
     },
@@ -551,7 +549,9 @@ export default {
 }
 
 
+.bpm{
 
+}
 
 </style>
 

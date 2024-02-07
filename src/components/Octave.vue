@@ -166,7 +166,6 @@ export default {
         selectedNotes[note + octave] = false;
       }
     }
-    console.log("selelctednotes",selectedNotes)
     return {
       localOctave: this.octave,
       selectedNotes,
@@ -175,7 +174,6 @@ export default {
   },
   watch: {
     octave(newVal) {
-      console.log("newVal",newVal)
       this.localOctave = newVal;
       this.octaves = [this.localOctave,this.localOctave+1]
 
@@ -200,12 +198,10 @@ export default {
 
         keyboard.down(key => {
           const note = Tone.Frequency(key.note, "midi").toNote();
-          console.log("note",note)
-          console.log("buttonRefs",buttonRefs)
+
 
           const btn = buttonRefs[note];
-          console.log("btn",btn.value[0])
-          console.log("btn.value.$el",btn.value[0].$el)
+
           btn.value[0].$el.click()
           // if (btn && btn.value[0] && btn.value[0].$el) {
           //   console.log("btn.value.$el",btn.value.$el)
@@ -223,9 +219,7 @@ export default {
 
 
     const handleMouseDown = (evt) => {
-      console.log("evt", evt.target);
       const note = Tone.Frequency(evt.target.id).toFrequency();
-      console.log("note",note);
       if(note){
         AudioContextHandler.voices.noteDown(note);
       }
@@ -248,9 +242,7 @@ export default {
 
   methods: {
     handleNoteSelected(note, octave) {
-      console.log("handleNoteSelected");
-      console.log("octave",octave)
-      console.log("note",note)
+
       this.$emit('note-selected', { note, octave, selected: this.selectedNotes[note + octave] });
     },
     resetSelectedNotes() {

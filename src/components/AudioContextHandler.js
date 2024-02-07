@@ -26,7 +26,7 @@ import VoiceHandler from "@/voiceHandler.js";
 
 
   static initAudioNodes(){
-    console.log("initAudioNodes")
+
     this.outputGain = new Tone.Gain();
     this.destination= Tone.getDestination()
     this.voices = new VoiceHandler()
@@ -78,17 +78,14 @@ import VoiceHandler from "@/voiceHandler.js";
 
 
     this.filters.connect(this.effectChain.input)
-    console.log(`Connected filter chain out to eff chain input gain.`);
 
 
 
     this.effectChain.connect(this.outputGain)
-    console.log(`Connected effects chain to output gain.`);
 
     const limiter = new Tone.Limiter(-10).toDestination();
     this.outputGain.connect(limiter);
     limiter.toDestination();
-    console.log(`Connected effects chain to destination`);
 
 
   }

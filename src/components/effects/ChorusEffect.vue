@@ -1,7 +1,7 @@
 <template>
 
     <div class="knob-wrapper">
-      <Knob id="frequency" :color="color" :min="0" :max="20000" :inner-max="20000" :value="chorus.frequency" :step="1" :thickness="0.1" @updateValue="updateChorus" />
+      <Knob id="frequency" :color="color" :min="0" :max="200" :inner-max="200" :value="chorus.frequency" :step="1" :thickness="0.1" @updateValue="updateChorus" />
       <div class="writings">Freq.</div>
     </div>
     <div class="knob-wrapper">
@@ -17,7 +17,7 @@
 
 </template>
 <script>
-import {ref,defineComponent} from "vue";
+import {ref, defineComponent, reactive} from "vue";
 import AudioContextHandler from "../AudioContextHandler.js";
 import Knob from "../controls/Knob.vue";
 export default defineComponent({
@@ -29,13 +29,15 @@ export default defineComponent({
     }
   },
   setup() {
-    const chorus = ref({
+    const chorus = reactive({
       frequency: AudioContextHandler.effectChain.getEffect("chorus").frequency.value,
-      depth: AudioContextHandler.effectChain.getEffect("chorus").depth,
+      depth: AudioContextHandler.effectChain.getEffect("chorus").depth.value,
       delayTime: AudioContextHandler.effectChain.getEffect("chorus").delayTime,
     });
-    const updateChorus = ()=>{
-      AudioContextHandler.effectChain.setEffect("chorus", chorus.value)
+    const updateChorus = (newValue)=>{
+      chorus[newValue.id] = newValue.value;
+      console.log("chorus", chorus)
+      AudioContextHandler.effectChain.setEffect("chorus", chorus)
 
     }
 

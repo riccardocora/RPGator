@@ -143,34 +143,34 @@ export default {
 
 
     const octave =  ref(AudioContextHandler.voices.getVoice(props.id).octave);
-    console.log("AudioContextHandler.voices.getVoice(props.id).gain",AudioContextHandler.voices.getVoice(props.id).gain)
+
     const volume = ref(AudioContextHandler.voices.getVoice(props.id).gain.gain.value);
     const voiceType = ref(AudioContextHandler.voices.getVoiceType(props.id));
     const chained = ref(AudioContextHandler.voices.getVoice(props.id).chained);
     const pan = ref(AudioContextHandler.voices.getVoice(props.id).pan.pan.value);
 
     const updatePan = (newPan) => {
-      console.log("updatePan", newPan);
+
       AudioContextHandler.voices.setVoicePan(props.id,newPan);
     }
 
     const updateOctave = (newOctave) => {
-      console.log("updateOctave", newOctave);
+
       AudioContextHandler.voices.setVoiceOctave(props.id,newOctave);
     }
 
     const updateVolume = (newVolume) => {
-      console.log("updateVolume", newVolume);
+
       AudioContextHandler.voices.setVoiceVolume(props.id,newVolume);
     }
 
     const setVoiceType = (newVoiceType) => {
-      console.log("setVoiceType", newVoiceType);
+
       AudioContextHandler.voices.switchType(props.id);
     }
 
     const toggleChain = () => {
-      console.log("toggleChain")
+
      AudioContextHandler.voices.toggleChain(props.id);
       chained.value =!chained.value;
     }

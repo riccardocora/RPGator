@@ -139,11 +139,11 @@
         // Decay
         ctx.lineTo(currentDecay / total * (canvas.width-100) + current, canvas.height - envelope.sustain * (canvas.height-50));
         current += currentDecay / total * (canvas.width-100);
-        console.log("current",current)
+
 
         // Sustain
         ctx.lineTo(current +100, canvas.height - envelope.sustain * (canvas.height-50));
-        console.log("current",current)
+
         //current+=100;
         // Release
         ctx.lineTo(canvas.width, canvas.height);
@@ -154,10 +154,10 @@
 
       }
       const updateEnvelope = (newValue) => {
-        console.log("updateEnvelope", newValue)
+
         // console.log("this[newValue.id]", this[newValue.id].value)
         envelope[newValue.id] = newValue.value;
-        console.log("envelope", envelope)
+
 
         // this[newValue.id].value = newValue.value;
         // const envelope = {

@@ -31,7 +31,7 @@ export default defineComponent({
   },
   methods: {
     setButtonState(buttonIndex) {
-      console.log("buttonIndex",buttonIndex)
+
       this.$emit('toggle-state',buttonIndex);
     },
     play(time){

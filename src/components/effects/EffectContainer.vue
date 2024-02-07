@@ -59,14 +59,14 @@ export default {
   },
   setup (props) {
     const active = ref(false);
-    console.log("isChained 1", active.value)
+
 
     const toggleChain = (active) => {
-      console.log("chaining", active)
+
       if (active){
         AudioContextHandler.effectChain.chainEffect(props.name);
       } else {
-        console.log("unchaining", props.name)
+
         AudioContextHandler.effectChain.unchainEffect(props.name);
       }
     }
