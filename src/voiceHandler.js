@@ -8,7 +8,10 @@ class VoiceHandler {
     }
     addVoice(id){
       const voiceObj = {
-        voice: {synth: new Tone.PolySynth(Tone.MonoSynth),
+        voice: {synth: new Tone.PolySynth({
+                voice: Tone.MonoSynth,
+                maxPolyphony: 4,
+                volume: -10,}),
                 sampler: SoundLoader.load({instruments: 'piano'})},
         gain: new Tone.Gain(0.5),
         pan: new Tone.Panner(),
@@ -16,9 +19,10 @@ class VoiceHandler {
         octave: 0,
         voiceType: 'synth'
       }
-      voiceObj.voice.synth.connect(voiceObj.gain);
-      voiceObj.voice.sampler.connect(voiceObj.gain);
-      voiceObj.gain.connect(voiceObj.pan)
+      voiceObj.voice.sampler.connect(voiceObj.pan);
+
+      voiceObj.voice.synth.connect(voiceObj.pan);
+      voiceObj.pan.connect(voiceObj.gain)
       this.voices.set(id,voiceObj)
     }
 
@@ -81,12 +85,8 @@ class VoiceHandler {
     setVoicePan(id,pan){
       this.voices.get(id).pan.set({pan: pan});
     }
-    playVoice(id){
-      // const octave = Tone.Frequency('C4').transpose(this.voices.get(id).octave).toNote()
-      // console.log('note',octave)
-      const note = Tone.Frequency('C' +(4+ this.voices.get(id).octave).toString())
-      this.voices.get(id).voice[this.voices.get(id).voiceType].triggerAttack(note);
-    }
+
+
     playActiveVoices(note,duration){
         console.log('playActiveVoices',note, duration)
       //let filteredVoices = Array.from(this.voices.values()).filter(voiceObj => voiceObj.chained);
@@ -94,17 +94,12 @@ class VoiceHandler {
         if (voiceObj.voiceType === 'sampler' && voiceObj.voice.sampler.loaded === false){
           return
         }
-        voiceObj.voice[voiceObj.voiceType].triggerAttackRelease(note,duration)
+        voiceObj.voice[voiceObj.voiceType].triggerAttackRelease(Tone.Frequency(note).transpose(voiceObj.octave*12),duration)
       });
 
     }
 
-    stopVoice(id){
 
-      const note = Tone.Frequency('C' +(4+ this.voices.get(id).octave).toString())
-
-      this.voices.get(id).voice[this.voices.get(id).voiceType].triggerRelease(note);
-    }
 
     connectVoice(id,node){
       this.voices.get(id).gain.connect(node)

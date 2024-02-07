@@ -9,8 +9,8 @@
       </div>
       <div class="knob-container">
         <div class="knob-wrapper">
-          <Knob id="attack" :color="color" :min="0" :max="2" :inner-max="2" :value="envelope.attack" :step="0.01" :thickness="0.1" @updateValue="updateEnvelope" />
-          A
+          <Knob id="attack" :color="color" :min="-0.1" :max="2" :inner-max="2" :value="envelope.attack" :step="0.01" :thickness="0.1" @updateValue="updateEnvelope" />
+          A{{envelope.attack.toFixed(2)}}
         </div>
         <div class="knob-wrapper">
           <Knob id="decay" :color="color" :min="0" :max="2" :inner-max="2" :value="envelope.decay" :step="0.01" :thickness="0.1" @updateValue="updateEnvelope" />

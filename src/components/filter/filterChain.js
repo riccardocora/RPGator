@@ -25,14 +25,22 @@ class FilterChain {
                 rolloff: -12,
                 Q: 1,
             }),
-            input: new Tone.Gain(),
-            output: new Tone.Gain(),
+            input: new Tone.Gain(0.5),
+            output: new Tone.Gain(0.5),
+            compressor : new Tone.Compressor({
+                threshold: -10,
+                ratio:5,
+                attack:0,
+                release:0.3,
+                knee:40
+            }),
             chained: false
         };
 
-        filterObj.input.connect(filterObj.output)
+        filterObj.input.connect(filterObj.compressor)
+        filterObj.compressor.connect(filterObj.output)
         filterObj.output.connect(this.outputGain)
-        //filterObj.filter.connect(filterObj.output)
+        filterObj.filter.connect(filterObj.compressor)
         this.filters.set(id,filterObj)
     }
 
@@ -44,14 +52,10 @@ class FilterChain {
     }
     chainFilter(id){
         console.log("chaining filter",id);
-        const filterObj = this.filters.get(id)
-        console.log("filterObj",filterObj);
-        if(!filterObj.chained){
-            filterObj.input.disconnect()
-            filterObj.input.connect(filterObj.filter)
-            filterObj.filter.connect(filterObj.output)
-            filterObj.chained = true
-            this.filters.set(id,filterObj)
+        if(!this.filters.get(id).chained){
+            this.filters.get(id).input.disconnect()
+            this.filters.get(id).input.connect(this.filters.get(id).filter)
+            this.filters.get(id).chained = true
         }
     }
     unchainFilter(id){

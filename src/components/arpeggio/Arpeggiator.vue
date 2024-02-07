@@ -26,12 +26,7 @@
       </div>
 
     </div>
-<!--    <div class="select-controls">-->
-<!--      <q-select dense dark class="select " v-model="type" :options="types" @update:model-value="updatePattern"/>-->
-<!--      <q-select dense dark class="select" v-model="length" :options="lengths" @update:model-value="updatePattern"/>-->
-<!--      <q-select dense  dark class="select" v-model="interval" :options="lengths"  @update:model-value="updatePattern"/>-->
 
-<!--    </div>-->
     <div class="ranges-control">
 
       <div class="range-container">
@@ -138,13 +133,13 @@ export default {
       let groupSet = new Set(this.group);
       // Add the note from the event and the same notes in octaves above to the group set
       for (let i = event.octave; i < event.octave + this.range; i++) {
+        const octave = this.octave + i;
         if(event.selected){
-          const octave = this.octave + i;
           groupSet.add(event.note + octave);
           this.n_selected++
         }else{
-          groupSet.delete(event.note + i);
-          this.n_selected++
+          groupSet.delete(event.note + octave);
+          this.n_selected--
         }
       }
       // Convert the group set back to an array
@@ -175,7 +170,6 @@ export default {
         pattern: this.type,
         callback: (time, note) => {
           AudioContextHandler.voices.playActiveVoices(note, this.length)
-          this.$refs.keyboard.highlightNote(note);
         },
         interval: this.interval
       })

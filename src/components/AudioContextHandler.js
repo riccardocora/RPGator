@@ -47,8 +47,15 @@ import VoiceHandler from "@/voiceHandler.js";
     this.filters.addFilter("0");
     this.filters.addFilter("1");
 
+    // this.voices.connectVoice("0",Tone.getDestination());
+    // this.voices.connectVoice("1", Tone.getDestination());
+
     this.voices.connectVoice("0", this.filters.getFilter("0").input);
     this.voices.connectVoice("1", this.filters.getFilter("1").input);
+
+
+
+
     // this.duoSynth = new Tone.DuoSynth();
     // this.duoSynth.set({
     //   voice0: this.synths.get('0').synth.get(),
