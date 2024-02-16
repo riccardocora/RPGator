@@ -129,7 +129,7 @@ export default {
     }
   },
 
-  setup(props){
+  setup(){
     const sourceType = ref("oscillator");
     const baseType = ref("sine");
     const modulationType = ref("sine");
@@ -161,7 +161,6 @@ export default {
         value: "sawtooth",
         class:'checkmark',
         slot: "sawtooth"
-
       },
     ]);
     const sourceTypeOptions = ( [
