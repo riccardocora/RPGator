@@ -24,171 +24,180 @@
               {label: 'synth', value: 'synth'},
               {label: 'sampler', value: 'sampler'},
               ]"
-          @update:model-value="setVoiceType"
+          @update:model-value="switchVoice"
       />
+
     </div>
     <div class="inner-voice">
-      <synth-comp v-if="voiceType==='synth'" :id="id" :color="color"></synth-comp>
-      <sampler-comp :id="id" v-else></sampler-comp>
+      <synth-comp v-if="voiceType==='synth'" :output ="voice_out" :id="id" :color="color" ref="synth"></synth-comp>
+      <sampler-comp :id="id" :output ="voice_out" v-else ref="sampler"></sampler-comp>
     </div>
 
   </div>
 
-  <div class="envelope-container">
-    <div class="button-row-envelope">
-      Envelope
-    </div>
-    <div class="envelope">
-      <envelope-comp :id="id" env-type="amp" :color="color"></envelope-comp>
-    </div>
+<!--  <div class="envelope-container">-->
+<!--    <div class="button-row-envelope">-->
+<!--      Envelope-->
+<!--    </div>-->
+<!--    <div class="envelope">-->
+<!--&lt;!&ndash;      <envelope-comp :id="id" env-type="amp" :color="color"></envelope-comp>&ndash;&gt;-->
+<!--    </div>-->
 
-  </div>
+<!--  </div>-->
 
   <div class="filter-container ">
-
     <div class="filter">
-        <filter-comp :id="id" :color="color">
+        <filter-comp :id="id" :color="color" :input="filter_in" :output="filter_out" >
         </filter-comp>
     </div>
   </div>
 
-<!--      <div class="background_metal full-height rounded-borders">-->
-
-<!--        <div class="voiceContainer transparent">-->
-<!--          <synth-comp v-if="voiceType==='synth'" :id="id" :color="color"></synth-comp>-->
-<!--          <sampler-comp :id="id" v-else></sampler-comp>-->
-<!--        </div>-->
-<!--      </div>-->
-
-
-<!--      <filter-comp :id="id" color="primary">-->
-<!--      </filter-comp>-->
-
-
-
-    <!--      <q-card-section>-->
-<!--        <div class="row">-->
-
-<!--            <div>-->
-<!--              <q-badge outline :color="color" label="pan" class="q-pa-xs"/>-->
-<!--            </div>-->
-<!--            <q-slider-->
-<!--              v-model="pan"-->
-<!--              :min="-1"-->
-<!--              :max="1"-->
-<!--              :step="0.01"-->
-<!--              :color="color"-->
-<!--              :thumb-color="color"-->
-<!--              label-color="black"-->
-<!--              :label-text-color="color"-->
-<!--              :marker-labels-class="'text-'+color"-->
-<!--              selection-color=""-->
-<!--              class="q-px-sm"-->
-<!--              @update:model-value="updatePan"-->
-<!--            />-->
-<!--        </div>-->
-<!--      </q-card-section>-->
-
-
-          <!--      <envelope-comp :id="id" env-type="amp" :color="color"></envelope-comp>-->
-<!--    </q-card-section>-->
-<!--    <q-card-section>-->
-
-<!--      <q-slider-->
-<!--        v-model="volume"-->
-<!--        :min="0"-->
-<!--        :max="1"-->
-<!--        :step="0.01"-->
-<!--        :markers="1"-->
-<!--        label-->
-<!--        vertical-->
-<!--        :color="color"-->
-<!--        :thumb-color="color"-->
-<!--        label-color="black"-->
-<!--        :label-text-color="color"-->
-<!--        :marker-labels-class="'text-'+color"-->
-<!--        selection-color="transparent"-->
-<!--        class="slider"-->
-<!--        @change="updateVolume"-->
-<!--      />-->
-<!--      <div>-->
-<!--        <q-badge outline :color="color" label="gain" class="q-pa-xs"/>-->
-<!--      </div>-->
-<!--    </q-card-section>-->
-<!--  </q-card-section>-->
-<!--  <Slider></Slider>-->
-<!--  <Knob></Knob>-->
-
 </template>
 
 <script>
-import {ref} from "vue";
-import SynthComp from "../synthetizer/Synth.vue";
+import {reactive, ref, toRaw} from "vue";
 import SamplerComp from "../sampler/Sampler.vue";
-import AudioContextHandler from "../AudioContextHandler.js";
-import Slider from "../controls/Slider.vue";
 import EnvelopeComp from "../envelope/EnvelopeControl.vue";
-import EnvelopeContainer from "../envelope/EnvelopeContainer.vue";
 import Knob from "../controls/Knob.vue";
 import FilterComp from "../filter/filterComp.vue";
 
 import VoiceControls from "../voices/sliders/voiceControls.vue";
+import SynthComp from "@/components/synthetizer/Synth.vue";
+import OscillatorComp from "@/components/oscillator/OscillatorComp.vue";
+import * as Tone from "tone";
 
 export default {
   name: "voiceModule",
-  props: ['id', 'color'],
-  components: {VoiceControls, FilterComp, Knob, EnvelopeContainer, EnvelopeComp, Slider, SamplerComp, SynthComp},
+  props: {
+    id: {
+      type: String,
+      required: true
+    },
+    color: {
+      type: String,
+      required: false,
+      default: "primary"
+    },
+    input :{
+      type: Tone.Gain,
+      required: false
+    },
+    output : {
+      type: Tone.Gain,
+      required: false
+    },
+
+
+
+  },
+  components: {OscillatorComp, SynthComp, VoiceControls, FilterComp, Knob, EnvelopeComp, SamplerComp},
 
   setup(props){
 
+    ////console.log("pro")
+    const chained = ref(true);
+    const octave = 0;
 
-    const octave =  ref(AudioContextHandler.voices.getVoice(props.id).octave);
-    console.log("AudioContextHandler.voices.getVoice(props.id).gain",AudioContextHandler.voices.getVoice(props.id).gain)
-    const volume = ref(AudioContextHandler.voices.getVoice(props.id).gain.gain.value);
-    const voiceType = ref(AudioContextHandler.voices.getVoiceType(props.id));
-    const chained = ref(AudioContextHandler.voices.getVoice(props.id).chained);
-    const pan = ref(AudioContextHandler.voices.getVoice(props.id).pan.pan.value);
+    const voice_out = new Tone.Gain();
 
-    const updatePan = (newPan) => {
-      console.log("updatePan", newPan);
-      AudioContextHandler.voices.setVoicePan(props.id,newPan);
+    const filter_in = new Tone.Gain();
+    const filter_out = new Tone.Gain();
+
+    toRaw(voice_out).connect(filter_in);
+
+    const pan = new Tone.Panner();
+    filter_out.connect(pan);
+
+    if(props.output){
+      ////console.log("props.output",props.output)
+      pan.connect(toRaw(props.output));
     }
 
-    const updateOctave = (newOctave) => {
-      console.log("updateOctave", newOctave);
-      AudioContextHandler.voices.setVoiceOctave(props.id,newOctave);
-    }
+    const voiceType = ref('synth');
 
-    const updateVolume = (newVolume) => {
-      console.log("updateVolume", newVolume);
-      AudioContextHandler.voices.setVoiceVolume(props.id,newVolume);
-    }
 
-    const setVoiceType = (newVoiceType) => {
-      console.log("setVoiceType", newVoiceType);
-      AudioContextHandler.voices.switchType(props.id);
-    }
 
-    const toggleChain = () => {
-      console.log("toggleChain")
-     AudioContextHandler.voices.toggleChain(props.id);
-      chained.value =!chained.value;
-    }
+
+
+
 
 
     return{
-      octave,
-      volume,
+      voice_out,
+      filter_in,
       voiceType,
+      filter_out,
       chained,
-      updateOctave,
-      updateVolume,
-      setVoiceType,
-      toggleChain,
-      pan,
-      updatePan,
+      octave,
+      pan
     }
   },
+  methods: {
+    toRaw,
+    toggleChain() {
+      ////console.log("toggleChain",this.chained)
+      if (this.chained) {
+        ////console.log("disconnect")
+        this.voice_out.disconnect(this.filter_in);
+        ////console.log("disconnected")
+      } else {
+        ////console.log("connect")
+        this.voice_out.connect(this.filter_in);
+
+        ////console.log("connected")
+      }
+      this.chained = !this.chained;
+
+    },
+
+    switchVoice(newValue){
+      ////console.log("switchVoice",newValue)
+      // if(this.voiceType === "synth") {
+      //   this.pattern.set({
+      //     callback: (time, note) => {
+      //       ////console.log("pattern", time, note)
+      //       this.$refs.synthComp.playNote(Tone.Frequency(note).transpose(this.octave * 12), this.noteLength, time);
+      //     }
+      //   })
+      // } else{
+      //   this.pattern.set({
+      //     callback: (time, note) => {
+      //       ////console.log("pattern", time, note)
+      //       this.$refs.samplComp.playNote(Tone.Frequency(note).transpose(this.octave * 12), this.noteLength, time);
+      //     }
+      //   })
+      // }
+    },
+
+    playNote(note, noteLength) {
+      if(this.voiceType==="synth" && this.$refs.synth){
+        this.$refs.synth.playNote(Tone.Frequency(note).transpose(this.octave * 12), noteLength, "+4n");
+      } else if(this.voiceType==="sampler" && this.$refs.sampler){
+        this.$refs.sampler.playNote(Tone.Frequency(note).transpose(this.octave * 12), noteLength, "+4n");
+      }
+
+    },
+
+    noteDown(note, velToGain) {
+        let noteFreq = note.hasOwnProperty('frequency') ? note.frequency : note;
+      if(this.$refs[this.voiceType])this.$refs[this.voiceType].noteDown(noteFreq, Tone.now(), velToGain);
+    },
+    noteUp(note) {
+      let noteFreq = note.hasOwnProperty('frequency') ? note.frequency : note;
+      if(this.$refs[this.voiceType])this.$refs[this.voiceType].noteUp(noteFreq, Tone.now());
+    },
+    updateControls(volume,octave, pan) {
+      this.octave = octave;
+      this.pan.pan.value = pan;
+
+      if(this.$refs.synth)this.$refs.synth.updateVolume(volume);
+      if(this.$refs.sampler)this.$refs.sampler.updateVolume(volume);
+
+      //console.log("updateControls",volume,octave, pan)
+      //console.log("voiceOut gain",this.voice_out)
+
+    }
+  }
 
 }
 
@@ -229,7 +238,7 @@ export default {
 
 .voice-container{
 
-  width: 30%;
+  width: 65%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -271,6 +280,7 @@ export default {
 
 .inner-voice{
   height: 85%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;

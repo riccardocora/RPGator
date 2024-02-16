@@ -1,158 +1,109 @@
 import * as Tone from 'tone'
 
-class EffectChain {
-    constructor() {
-        this.effects = new Map();
-        this.order = [];
-        this.input = new Tone.Gain()
-        this.output = new Tone.Gain()
-      return this
-    }
-
-    getEffect(effect){
-      return this.effects.get(effect).effect
-    }
-    setEffect(name,eff){
-      this.effects.get(name).effect.set(eff)
-    }
-
-    getOrder(){
-      return this.order
-    }
-    addEffect(effect) {
-        let newEffect;
-        switch (effect) {
-          case 'reverb':
-            newEffect = new Tone.Reverb()
-            break
-          case 'chorus':
-            newEffect = new Tone.Chorus()
-            break
-          case 'tremolo':
-            newEffect = new Tone.Tremolo()
-            break
-          case 'delay':
-            newEffect = new Tone.FeedbackDelay()
-            break
-          case 'vibrato':
-            newEffect = new Tone.Vibrato()
-            break
-          case 'dist':
-            newEffect = new Tone.Distortion()
-            break
-          default:
-            console.log('no effect')
-            return
-        }
-
-        //each effect has a gain in and out to allow for chaining
-        const effObj= {
-          effect: newEffect,
-          gainIn: new Tone.Gain(),
-          gainOut: new Tone.Gain(),
-          chained: true
-        }
-        this.input.disconnect()
-        if(this.effects.size>0){
-          effObj.gainOut.connect(this.effects.get(this.order[0]).gainIn)
-        }else{
-         effObj.gainOut.connect(this.output)
-        }
-        this.input.connect(effObj.gainIn)
-
-      // put on top of list, so it is first in chain
-        this.effects.set(effect,effObj)
-        this.order.unshift(effect)
-        this.unchainEffect(effect)
-
-    }
-
-
-    chainEffect(effect) {
-        const eff = this.effects.get(effect)
-        if(!eff.chained){
-          // eff.effect.disconnect()
-          // eff.gainIn.disconnect()
-          eff.gainIn.chain(eff.effect,eff.gainOut)
-          eff.chained = true
-        }
-    }
-    //each effect is independent, so we can turn them on and off
-    unchainEffect(effect) {
-        const eff = this.effects.get(effect)
-        if(eff.chained){
-          eff.effect.disconnect()
-          eff.gainIn.disconnect()
-          eff.chained=false
-          eff.gainIn.connect(eff.gainOut)
-        }
-    }
-
-    removeEffect(effect) {
-
-    }
-
-    moveEffectRight(effect) {
-
-
-      if(this.effects.size > 1 && this.order.length === this.effects.size) {
-        const index = this.order.indexOf(effect)
-        const eff = this.effects.get(effect)
-        if (index < this.order.length - 1) {
-          const nextEffect = this.effects.get(this.order[index + 1])
-
-          const input = index>0?this.effects.get(this.order[index - 1]).gainOut: this.input;
-          const output = index<this.order.length-2?this.effects.get(this.order[index + 2]).gainIn: this.output;
-          input.disconnect();
-          input.connect(nextEffect.gainIn);
-
-          eff.gainOut.disconnect();
-          eff.gainOut.connect(output)
-
-          nextEffect.gainOut.disconnect()
-          nextEffect.gainOut.connect(eff.gainIn)
-
-          this.order[index] = this.order[index + 1]
-          this.order[index + 1] = effect
-        }
-      }
-    }
-    moveEffectLeft(effect) {
-      if(this.effects.size>1 && this.order.length === this.effects.size) {
-        const index = this.order.indexOf(effect)
-        const eff = this.effects.get(effect)
-        if (index >0) {
-          const prevEffect = this.effects.get(this.order[index -1]);
-          const input = index>1?this.effects.get(this.order[index - 2]).gainOut: this.input;
-          const output = index<this.order.length-1?this.effects.get(this.order[index + 1]).gainIn: this.output;
-
-          input.disconnect();
-          input.connect(eff.gainIn);
-          eff.gainOut.disconnect();
-          eff.gainOut.connect(prevEffect.gainIn);
-          prevEffect.gainOut.disconnect();
-          prevEffect.gainOut.connect(output);
-          this.order[index] = this.order[index -1]
-          this.order[index -1] = effect
-        }
-      }
-    }
-
-
-    connect(node) {
-      this.output.connect(node)
-    }
-
-    disconnect() {
-        this.output.disconnect()
-    }
-
-    isChained(effect){
-      return this.effects.get(effect).chained
-    }
-
-    getInput(){
-      return this.input
+const createEffect = (effect) => {
+    const eff = effect;
+    const gainIn = new Tone.Gain();
+    const gainOut = new Tone.Gain();
+    const chained = false;
+    // const toggleChain = () => {
+    //     //console.log(this)
+    //     if (!this.chained) {
+    //         this.gainIn.disconnect()
+    //         this.gainIn.connect(this.effect)
+    //         this.effect.connect(this.gainOut)
+    //         this.chained = true
+    //     } else {
+    //         this.gainIn.disconnect()
+    //         this.effect.disconnect()
+    //         this.gainIn.connect(this.gainOut)
+    //         this.chained = false
+    //     }
+    // }
+    return {
+        effect: eff,
+        gainIn :gainIn,
+        gainOut: gainOut,
+        chained : chained,
+        toggleChain : toggleChain
     }
 }
-export default EffectChain
+
+// Rest of the code remains the same...
+
+const effectChain = {
+    order : ['chorus','delay','dist','reverb'],
+    effects: new Map(),
+    input: new Tone.Gain(),
+    output: new Tone.Gain(),
+    moveEffectRight: function(effect){
+        if(this.effects.size > 1 && this.order.length === this.effects.size) {
+            const index = this.order.indexOf(effect)
+            const eff = this.effects.get(effect)
+            if (index < this.order.length - 1) {
+                const nextEffect = this.effects.get(this.order[index + 1])
+
+                const input = index>0?this.effects.get(this.order[index - 1]).gainOut: this.input;
+                const output = index<this.order.length-2?this.effects.get(this.order[index + 2]).gainIn: this.output;
+                input.disconnect();
+                input.connect(nextEffect.gainIn);
+
+                eff.gainOut.disconnect();
+                eff.gainOut.connect(output)
+
+                nextEffect.gainOut.disconnect()
+                nextEffect.gainOut.connect(eff.gainIn)
+
+                this.order[index] = this.order[index + 1]
+                this.order[index + 1] = effect
+            }
+        }
+    },
+    moveEffectLeft : function(effect){
+        if(this.effects.size>1 && this.order.length === this.effects.size) {
+            const index = this.order.indexOf(effect)
+            const eff = this.effects.get(effect)
+            if (index >0) {
+                const prevEffect = this.effects.get(this.order[index -1]);
+                const input = index>1?this.effects.get(this.order[index - 2]).gainOut: this.input;
+                const output = index<this.order.length-1?this.effects.get(this.order[index + 1]).gainIn: this.output;
+
+                input.disconnect();
+                input.connect(eff.gainIn);
+                eff.gainOut.disconnect();
+                eff.gainOut.connect(prevEffect.gainIn);
+                prevEffect.gainOut.disconnect();
+                prevEffect.gainOut.connect(output);
+                this.order[index] = this.order[index -1]
+                this.order[index -1] = effect
+            }
+        }
+    }
+}
+
+
+// effectChain.effects.set('chorus', createEffect(new Tone.Chorus()))
+// effectChain.effects.set('delay', createEffect(new Tone.FeedbackDelay()))
+// effectChain.effects.set('dist', createEffect(new Tone.Distortion()))
+// effectChain.effects.set('reverb', createEffect(new Tone.Reverb()))
+// //console.log("fjdhfksjdfhk",effectChain.effects)
+//
+// // Get the first and last effects from the order array
+// let firstEffect = effectChain.effects.get(effectChain.order[0]);
+// let lastEffect = effectChain.effects.get(effectChain.order[effectChain.order.length - 1]);
+//
+// // Disconnect the effectChain's input from its current connection
+// effectChain.input.disconnect();
+//
+// // Disconnect the last effect's gain out from its current connection
+// lastEffect.gainOut.disconnect();
+//
+// // Connect the effectChain's input directly to the first effect's gain in
+// effectChain.input.connect(firstEffect.gainIn);
+//
+// // Connect the last effect's gain out directly to the effectChain's output
+// lastEffect.gainOut.connect(effectChain.output);
+//
+// // effectChain.effects.forEach((effect) => {
+// //     effect.toggleChain()
+// })
+export default {effectChain,createEffect}

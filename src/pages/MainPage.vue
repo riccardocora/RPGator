@@ -15,8 +15,8 @@
 
 <script>
 import {ref} from "vue";
-import AudioContextHandler from "../components/AudioContextHandler";
 import RPGator from "@/components/RPGator.vue";
+import * as Tone from "tone";
 
 export default{
   name: 'MainHost',
@@ -31,12 +31,9 @@ export default{
   },
   methods: {
     async start() {
-      AudioContextHandler.initializeAudioContext().then(() => {
-        this.started = true;
-        // The audio context has been initialized
-      }).catch(error => {
-        console.error('Error initializing the audio context:', error);
-      });
+      await Tone.start();
+      this.started = true;
+
     },
   }
 

@@ -64,9 +64,9 @@
 <!--        </q-carousel-slide>-->
 <!--      </q-carousel>-->
 
-          <filter-comp id="f0" color="primary"></filter-comp>
+          <filter-comp id="f0" color="primary" :input="in_0" :output="out_0"></filter-comp>
 
-          <filter-comp id="f1" color="primary"></filter-comp>
+          <filter-comp id="f1" color="primary" :input="in_1" :output="out_1"></filter-comp>
 
 <!--      <q-tabs-->
 <!--        v-model="tab"-->
@@ -88,14 +88,35 @@
 import { defineComponent, ref } from 'vue'
 import VoiceModule from "../voices/voiceComp.vue";
 import FilterComp from "../filter/filterComp.vue";
-import AudioContextHandler from "@/components/AudioContextHandler.js";
-
+import * as Tone from "tone";
 export default defineComponent({
   components: {FilterComp, VoiceModule},
+  props : {
+    in_0 :{
+      type: Tone.Gain,
+      required: true
+    },
+    in_1 :{
+      type: Tone.Gain,
+      required: true
+    },
+    out_0:{
+      type: Tone.Gain,
+      required: true
+    },
+    out_1:{
+      type: Tone.Gain,
+      required: true
+    }
+  },
+
   setup () {
     // const filters = [...AudioContextHandler.filters.getFilters().keys()];
-    // console.log("filters",filters)
-    // console.log("filters",filters[0])
+    // //console.log("filters",filters)
+    // //console.log("filters",filters[0])
+
+
+
     const selFilter = ref('f0');
 
     return {

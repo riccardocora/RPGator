@@ -3,18 +3,18 @@
     <div class="r2d ">
       <div class="top-row row ">
         <div class="voices ">
-          <voices></voices>
+          <voices :output="voicesOut" ref="voices"></voices>
         </div>
         <div class="visual shadow" >
-          <visual-trip></visual-trip>
+          <visual-trip :input="effectsIn"></visual-trip>
         </div>
       </div>
-      <div class="row bottom-row" >
+      <div class="row bottom-row">
         <div class="arp ">
-          <arpeggiator ></arpeggiator>
+          <arpeggiator :update="updatePattern" :noteUp ="noteUp" :noteDown="noteDown"></arpeggiator>
         </div>
         <div class="effects shadow">
-          <effects></effects>
+          <effects :input="effectsIn" :output="effectsOut"></effects>
         </div>
       </div>
     </div>
@@ -24,11 +24,11 @@
 <script>
 
 import Voices from "../components/voices/voices.vue";
-import FilterComp from "../components/filter/filterComp.vue";
-import Filters from "../components/filter/filters.vue";
 import Effects from "../components/effects/effects.vue";
 import Arpeggiator from "../components/arpeggio/Arpeggiator.vue";
 import VisualTrip from "../components/visualUnit/visual.vue";
+import * as Tone from "tone";
+import {reactive, ref, toRaw} from "vue";
 
 export default {
   name: 'RPGator',
@@ -36,9 +36,42 @@ export default {
     VisualTrip,
     Arpeggiator,
     Effects,
-    Filters,
-    FilterComp,
     Voices,
+  },
+  computed:{
+
+  },
+  setup() {
+    const voicesOut = new Tone.Gain();
+    const effectsIn = new Tone.Gain();
+    const effectsOut = new Tone.Gain();
+    const gainOut = new Tone.Gain(0.5);
+    voicesOut.connect(effectsIn);
+    effectsOut.connect(gainOut);
+    gainOut.toDestination()
+
+
+
+    return {
+      voicesOut,
+      effectsIn,
+      effectsOut,
+      gainOut,
+    }
+
+  },
+  methods: {
+    updatePattern(pattern, noteLength) {
+      ////console.log('pattern updated')
+      this.$refs.voices.updatePattern(pattern, noteLength);
+    },
+
+    noteUp(note,velToGain){
+      this.$refs.voices.noteUp(note,velToGain);
+    },
+    noteDown(note){
+      this.$refs.voices.noteDown(note);
+    }
   }
 }
 </script>
@@ -58,8 +91,6 @@ export default {
 .r2d{
   height: 100%;
   width: 100%;
-
-
 }
 .top-row{
   height: 50%;

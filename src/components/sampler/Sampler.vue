@@ -1,38 +1,76 @@
 
 <template>
-  <div class="sampler-container">
-    <div class="button-grid">
-      <q-btn
-        v-for="button in buttons"
-        :key="button.id"
-        @click="changeInstrument(button.id)"
-        :icon="'img:icons/'+button.instr+'/'+button.instr+'-96.png'"
-        class="checkmark"
-        :color="button.active ? 'primary' : ''"
-        :class="{'active-icon': button.active }"
+  <div class="container">
+    <div class="sampler">
+      <div class="button-grid">
+        <q-btn
+            v-for="button in buttons"
+            :key="button.id"
+            @click="changeInstrument(button.id)"
+            :icon="'img:icons/'+button.instr+'/'+button.instr+'-96.png'"
+            class="checkmark"
+            :color="button.active ? 'primary' : ''"
+            :class="{'active-icon': button.active }"
 
-      />
+        />
+      </div>
+
+    </div>
+    <div class="envelope">
+      <envelope-comp :id="id"  :input="envGainIn" :output="envGainOut" :update="updateEnvelope" ref="envelope"></envelope-comp>
+
     </div>
   </div>
+
+
+
 </template>
 
 <script>
-import {reactive, ref} from 'vue'
-  import AudioContextHandler from "../AudioContextHandler.js";
+import {reactive, ref, toRaw} from 'vue'
   import SoundLoader from "/src/SoundLoader.js";
-
+import EnvelopeComp from "@/components/envelope/EnvelopeControl.vue";
+import * as Tone from "tone";
 
   export default {
     name: "SamplerComp",
+    components: {EnvelopeComp},
     props: {
       id: {
         type: String,
         required: true,
       },
+      color: {
+        type: String,
+        required: false,
+        default: "primary"
+      },
+      input :{
+        type: Tone.Gain,
+        required: false
+      },
+      output : {
+        type: Tone.Gain,
+        required: false
+      }
+
     },
 
 
      setup(props) {
+
+
+      const sampler = SoundLoader.load({instruments: 'piano'});
+
+
+      if(props.input){
+        props.input.connect(toRaw(sampler));
+      }
+      if(props.output){
+        sampler.connect(props.output);
+        //console.log(" env out connected")
+      }
+
       const instrumentOptions = SoundLoader.getInstruments();
       const buttons = reactive(instrumentOptions.map(instrument => ({
          id : instrument,
@@ -41,25 +79,49 @@ import {reactive, ref} from 'vue'
        })));
 
 
-       const changeInstrument = (buttonId) => {
-        console.log("changeInstrument", buttonId);
+       const changeInstrument = async(buttonId) => {
+        //console.log("changeInstrument", buttonId);
          buttons.forEach((button) => {
            button.active = button.id === buttonId;
          });
-        AudioContextHandler.voices.setSamplerInstrument(props.id, buttonId)
+         sampler.value = await SoundLoader.load({
+           instruments: buttonId,
+           onload: () => {
+
+             //console.log('loaded');
+           }
+         });
       }
       return {
         instrument: ref("piano"),
         instrumentOptions,
         buttons,
-        changeInstrument
+        changeInstrument,
+        sampler,
       }
     },
 
     methods : {
+      updateEnvelope(newValue) {
+        //console.log("updateEnvelope",newValue)
+        this.sampler.set({attack: newValue.attack,
+          release: newValue.release});
+      },
+      playNote(note,duration,time){
+        //console.log("playNote sampler",note,duration,time)
+        this.sampler.triggerAttackRelease(note, duration,time);
+      },
+      updateVolume(volume) {
+        this.sampler.volume.value = volume;
+      },
 
-
-
+      noteUp(note,time){
+        this.synth.triggerRelease(note,time);
+      },
+      noteDown(note,time,velToGain) {
+        //console.log('noteDown',note,time)
+        this.synth.triggerAttack(note,time,velToGain);
+      }
 
 
       // generateScale(rootNote, scaleType, fromOctave, toOctave) {
@@ -80,14 +142,12 @@ import {reactive, ref} from 'vue'
       //       notes.push(note);
       //     }
       //   }
-      //   console.log("notes:", notes);
+      //   //console.log("notes:", notes);
       //   return notes;
       // },
 
     },
-    mounted(){
 
-    }
   }
 
 
@@ -101,6 +161,24 @@ import {reactive, ref} from 'vue'
   height: 90%;
   width: 85%;
   padding: 10px;
+}
+
+.container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.sampler{
+  height:100%;
+  width: 50%;
+}
+.envelope{
+  height:100%;
+  width: 50%;
 }
 .samplerButton {
   /* Other styles */

@@ -13,7 +13,7 @@
 
       <div class="select-container">
         Length
-        <select class="selector" v-model="length" @change="updatePattern">
+        <select class="selector" v-model="noteLength" @change="updatePattern">
           <option class="option" v-for="length in lengths" :value="length">{{ length }}</option>
         </select>
       </div>
@@ -72,22 +72,36 @@
   </div>
 
   <div class="keyboard-container">
-    <Keyboard ref="keyboard" :octave="octave" @note-selected="handleNoteSelected"></Keyboard>
+    <Keyboard ref="keyboard" :octave="octave" @note-selected="handleNoteSelected" :noteUp="noteUp" :noteDown="noteDown"></Keyboard>
   </div>
 
 </template>
 
 <script>
-import {reactive, ref} from 'vue'
-import AudioContextHandler from "@/components/AudioContextHandler.js";
+import {reactive, ref, toRaw} from 'vue'
 import * as Tone from "tone";
-import Keyboard from "../Octave.vue";
+import Keyboard from "../keyboard.vue";
 
 export default {
   name:'Arpeggiator',
   components: {Keyboard},
+  props : {
+    update : {
+      type: Function,
+      required: false
+    },
+    noteUp : {
+      type: Function,
+      required: true
+    },
+    noteDown : {
+      type: Function,
+      required: true
+    },
+  },
   mounted() {
     window.addEventListener('keydown', this.handleKeyDown);
+    this.update(toRaw(this.pattern),toRaw(this.noteLength))
   },
   beforeDestroy() {
     window.removeEventListener('keydown', this.handleKeyDown);
@@ -97,16 +111,17 @@ export default {
     const type = ref("up");
     const bpm = ref(Math.trunc(Tone.Transport.bpm.value));
     const octave = ref(4);
-    const length = ref("4n");
+    const noteLength = ref("4n");
     const interval = ref("4n");
     const range = ref(1);
     const group = reactive([])
     const n_selected = ref(0);
     let pattern = reactive(new Tone.Pattern(function (time, note) {
-      AudioContextHandler.voices.playActiveVoices(note, length.value)
+
     }, this.group,this.type));
     pattern.loop = true;
     pattern.interval = interval.value
+    pattern.humanize = true;
     return {
       group,
       pattern,
@@ -114,7 +129,7 @@ export default {
       type,
       bpm,
       octave,
-      length,
+      noteLength,
       bpmChangeInterval: null,
       interval,
       range,
@@ -128,9 +143,8 @@ export default {
     // ...
     handleNoteSelected(event) {
       // event.note, event.octave, and event.selected contain the emitted data
-      console.log(" ciao",event.note, event.octave, event.selected);
       // You can now use the emitted data in your parent component
-      let groupSet = new Set(this.group);
+      let groupSet = new Set(toRaw(this.group));
       // Add the note from the event and the same notes in octaves above to the group set
       for (let i = event.octave; i < event.octave + this.range; i++) {
         const octave = this.octave + i;
@@ -147,14 +161,14 @@ export default {
 
       // Sort the group array by ascending pitch
 
-      console.log("group", this.group)
+      ////console.log("group  ", this.group)
       this.updatePattern()
     },
 
     updatePattern() {
-      console.log("updatePattern")
-      console.log("this.group", this.group)
-      const tempGroup = this.group;
+      ////console.log("updatePattern")
+      ////console.log("this.group", this.group)
+      const tempGroup = toRaw(this.group);
       tempGroup.sort((noteA, noteB) => {
         // Convert the notes to frequencies
         let freqA = Tone.Frequency(noteA).toFrequency();
@@ -163,24 +177,25 @@ export default {
         // Compare the frequencies
         return freqA - freqB;
       });
-      console.log("this.group 2", this.group)
-
+      ////console.log("this.group 2", tempGroup)
       this.pattern.set({
         values: tempGroup,
-        pattern: this.type,
-        callback: (time, note) => {
-          AudioContextHandler.voices.playActiveVoices(note, this.length)
-        },
-        interval: this.interval
+        pattern: (this.type),
+        interval: toRaw(this.interval)
       })
+      ////console.log("this.pattern", this.pattern)
+      this.update(toRaw(this.pattern),toRaw(this.noteLength))
     },
 
     togglePlay(playing){
+      ////console.log("togglePlay",this.pattern)
       if (playing){
+        this.updatePattern();
         Tone.Transport.start();
         this.pattern.start("0.05")
       } else {
         this.pattern.stop(0)
+        Tone.Transport.stop();
       }
     },
 
@@ -212,9 +227,9 @@ export default {
     increaseOctave() {
       if (this.octave < 7 && this.octave + this.range <= 8) { // Maximum octave value
         this.octave++;
-        console.log("this.group before increase", this.group)
+        ////console.log("this.group before increase", this.group)
         this.group = this.group.map(note => Tone.Frequency(note).transpose(12).toNote());
-        console.log("this.group after increase", this.group)
+        ////console.log("this.group after increase", this.group)
 
         if (this.range > 1 && this.octave + this.range > 8) { // Decrease range if octave cannot be increased
           this.range = 1;
@@ -226,9 +241,9 @@ export default {
     decreaseOctave() {
       if (this.octave > 1) { // Minimum octave value
         this.octave--;
-        console.log("this.group before decrease", this.group)
+        ////console.log("this.group before decrease", this.group)
         this.group = this.group.map(note => Tone.Frequency(note).transpose(-12).toNote());
-        console.log("this.group after decrease", this.group)
+        ////console.log("this.group after decrease", this.group)
         this.updatePattern();
       }
     },

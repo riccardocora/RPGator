@@ -34,20 +34,23 @@ export default defineComponent({
     },
     value:{
       type: Number,
-      default: 50,
+      default: 0,
     },
     step:{
       type: Number,
       default: 1,
+    },
+    update:{
+      type: Function,
+      required: true,
     }
   },
-  setup(props, {emit}){
+  setup(props){
     const value = ref(props.value);
     const rotation = computed(() => value.value * 360/props.max); // Assuming the knob's value is between 0 and 100, this will give a rotation angle between 0 and 360 degrees
 
     const updateValue = (newValue) => {
-
-      emit('updateValue', { id: props.id, value: newValue });
+      props.update({id: props.id,value:newValue})
     }
     return {value, updateValue,rotation}
   }
@@ -58,7 +61,7 @@ export default defineComponent({
 <template>
   <div class="knobContainer">
     <!--    <input type="range" min="1" max="100" value="50" class="slider" id="myRange">-->
-    <q-knob :color="color" size="40px" class="knob" :min="min" :angle="225" :inner-max="max" :max="max *360/270" :step="step" :thickness="thickness" show-value  v-model="value" @update:model-value="updateValue" >
+    <q-knob :color="color" size="40px" class="knob" :min="min" :angle="225" :inner-max="max" :max="max *360/270" :step="step" :thickness="thickness" show-value  v-model="value"  @update:model-value="updateValue" >
       <template v-slot:default>
 <!--        <div class="knob">-->
 <!--          <div class="knob__indicator" >-->

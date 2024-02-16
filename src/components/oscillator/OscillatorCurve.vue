@@ -14,22 +14,32 @@
 <script>
 import { onMounted, onUnmounted, ref } from "vue";
 import * as Tone from "tone";
-import AudioContextHandler from "@/components/AudioContextHandler.js";
 import {getCssVar} from "quasar";
+
 
 export default {
   name: "OscillatorCurve",
-  props: ["color"],
+  props: {
+    color: {
+      type: String,
+      default: "primary",
+    },
+    input: {
+      type: Tone.Gain,
+      required: true
+    }
+  },
+
   setup(props) {
     const visualizerCanvas = ref(null);
 
     const waveform = new Tone.Waveform()
-    AudioContextHandler.outputGain.connect(waveform);
+    props.input.connect(waveform);
     //waveform.toDestination()
     const screenContainer = ref(null);
 
     const resizeHandler = () => {
-      console.log("resizeHandler", screenContainer.value);
+      //console.log("resizeHandler", screenContainer.value);
       if (screenContainer.value) {
         screenContainer.value.style.height = `${screenContainer.value.offsetWidth}px`;
       }
@@ -59,33 +69,38 @@ export default {
         const canvas = visualizerCanvas.value;
         const canvasContext = canvas.getContext("2d");
         const wavedata = waveform.getValue();
-        //console.log("waveform:", waveform); // Log the waveform data
+        ////console.log("waveform:", waveform); // Log the waveform data
         canvasContext.fillStyle = "black";
         canvasContext.shadowColor = "white";
-        canvasContext.shadowBlur = 15;
-        canvasContext.fillRect(0, 0, canvas.width, canvas.height);
-        canvasContext.lineWidth = 3;
+        canvasContext.shadowBlur = 2;
+        // canvasContext.fillRect(0, 0, canvas.width, canvas.height);
+        canvasContext.lineWidth = 2;
         canvasContext.strokeStyle = getCssVar(props.color);
           //getCssVar(props.color)
-        canvasContext.beginPath();
 
+        canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+        // Begin a new path for the line graph
+        canvasContext.beginPath();
+        canvasContext.moveTo(0, canvas.height);
         const sliceWidth = (canvas.width)/ (wavedata.length) ;
         let x = 0;
         let y = canvas.height/2;
-        canvasContext.beginPath();
-        canvasContext.moveTo(x, y);
-        let margin = canvas.height * 0.2;
+        let margin = canvas.height * 0.7;
+        canvasContext.lineTo(x, y);
         for (let i = 0; i < wavedata.length; i++) {
           const v = (wavedata[i] +1) / 2; // Normalize to [0, 1]
-          y = v * (canvas.height - margin) + margin / 2;          //console.log("v",v)
+          y = v * (canvas.height - margin) + margin / 2;
           canvasContext.lineTo(x, y);
 
           x += sliceWidth;
         }
 
         canvasContext.lineTo(canvas.width, (canvas.height) / 2);
-        canvasContext.stroke();
+        canvasContext.lineTo(canvas.width, canvas.height);
 
+        canvasContext.stroke();
+        canvasContext.fillStyle = "black";
+        // canvasContext.fill();
         animationId = requestAnimationFrame(draw);
       }
     };

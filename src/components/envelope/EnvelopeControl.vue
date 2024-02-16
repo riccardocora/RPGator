@@ -9,19 +9,19 @@
       </div>
       <div class="knob-container">
         <div class="knob-wrapper">
-          <Knob id="attack" :color="color" :min="-0.1" :max="2" :inner-max="2" :value="envelope.attack" :step="0.01" :thickness="0.1" @updateValue="updateEnvelope" />
-          A{{envelope.attack.toFixed(2)}}
+          <Knob v-model="envelope.attack"  id="attack" :color="color" :min="0" :max="2"   :step="0.01" :thickness="0.1" :update="updateEnvelope" />
+          A
         </div>
         <div class="knob-wrapper">
-          <Knob id="decay" :color="color" :min="0" :max="2" :inner-max="2" :value="envelope.decay" :step="0.01" :thickness="0.1" @updateValue="updateEnvelope" />
+          <Knob v-model="envelope.decay" :value="envelope.decay" id="decay" :color="color" :min="0" :max="2"  :step="0.01" :thickness="0.1" :update="updateEnvelope" />
           D
         </div>
         <div class="knob-wrapper">
-          <Knob id="sustain" :color="color" :min="0" :max="1" :inner-max="1" :value="envelope.sustain" :step="0.01" :thickness="0.1" @updateValue="updateEnvelope" />
+          <Knob v-model="envelope.sustain" :value="envelope.sustain" id="sustain" :color="color" :min="0" :max="1"   :step="0.01" :thickness="0.1" :update="updateEnvelope" />
           S
         </div>
         <div class="knob-wrapper">
-          <Knob id="release" :color="color" ::min="0" :max="5" :inner-max="5" :value="envelope.sustain" :step="0.01" :thickness="0.1" @updateValue="updateEnvelope" />
+          <Knob v-model="envelope.release" :value="envelope.release"  id="release" :color="color" ::min="0" :max="5" :step="0.01" :thickness="0.1" :update="updateEnvelope" />
           R
         </div>
       </div>
@@ -62,11 +62,10 @@
 
   <script>
 
-  import {ref, onMounted, defineComponent, reactive} from "vue";
-  import AudioContextHandler from "../AudioContextHandler.js";
+  import {ref, onMounted, defineComponent, reactive, nextTick, watch, toRaw} from "vue";
   import {getCssVar} from "quasar";
   import Knob from "../controls/Knob.vue";
-
+import * as Tone from "tone";
   export default defineComponent({
     name: "EnvelopeComp",
     components: {Knob},
@@ -75,49 +74,71 @@
         type: String,
         required: true
       },
-      envType: {
-        type: String,
-        required: true
-      },
+
       color: {
         type: String,
+        required: false,
+        default : "accent"
+      },
+      input : {
+        type: Tone.Gain,
+        required: false
+      },
+      output : {
+        type: Tone.Gain,
+        required: false
+      },
+      update : {
+        type: Function,
         required: true
       }
     },
 
     setup(props){
-      const envelope = reactive({
-        attack : 1.0,
-        decay : 1.0,
-        sustain : 0.5,
-        release : 2.5
-      })
+      const attack = ref(0.1)
+      const decay = ref(0.2)
+      const sustain = ref(0.5)
+      const release = ref(0.8)
+      const envelope = new Tone.AmplitudeEnvelope({
+        attack: attack.value,
+        decay: decay.value,
+        sustain: sustain.value,
+        release: release.value
+      });
+
+      if(props.input){
+        props.input.connect(envelope);
+      }
+      if(props.output){
+        envelope.connect(props.output);
+      }
       const visualCanvas = ref(null);
       onMounted(() => {
-        // Logic that initializes the canvas and draws the envelope
+        //initializes the canvas and draws the envelope
+        nextTick(() => {
+          draw();
+        })
 
-        // Logic to create the Tone.js envelope and oscillator
-        draw();
       });
 
       const draw = () => {
         const canvas = visualCanvas.value;
+        if(canvas === null) return;
         const ctx = canvas.getContext("2d");
         let current = 0;
         const currentAttack = envelope.attack
         const currentDecay = envelope.decay
         const currentRelease = envelope.release
-
         // Reset variables
         const total = (currentAttack + currentDecay + currentRelease).toFixed(2)
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = "black";
         ctx.shadowColor = "white";
-        ctx.shadowBlur = 2;
+        ctx.shadowBlur = 6;
         // // Stroke
         ctx.lineWidth = 3;
-        ctx.fillRect(0, 0, canvas.width, canvas.height)
+        // ctx.fillRect(0, 0, canvas.width, canvas.height)
         // const gradient = ctx.createLinearGradient(0, 0, 170, 0);
         // gradient.addColorStop("0", "gold");
         // gradient.addColorStop("0.5", "blue");
@@ -139,40 +160,32 @@
         // Decay
         ctx.lineTo(currentDecay / total * (canvas.width-100) + current, canvas.height - envelope.sustain * (canvas.height-50));
         current += currentDecay / total * (canvas.width-100);
-        console.log("current",current)
 
         // Sustain
         ctx.lineTo(current +100, canvas.height - envelope.sustain * (canvas.height-50));
-        console.log("current",current)
         //current+=100;
         // Release
         ctx.lineTo(canvas.width, canvas.height);
-        ctx.fillStyle= getCssVar(props.color);
+        // ctx.fillStyle= getCssVar(props.color);
         ctx.fill();
         ctx.stroke();
         ctx.closePath();
 
       }
+
       const updateEnvelope = (newValue) => {
-        console.log("updateEnvelope", newValue)
-        // console.log("this[newValue.id]", this[newValue.id].value)
-        envelope[newValue.id] = newValue.value;
-        console.log("envelope", envelope)
 
-        // this[newValue.id].value = newValue.value;
-        // const envelope = {
-        //   attack: attack.value,
-        //   decay: decay.value,
-        //   sustain: sustain.value,
-        //   release: release.value
-        // };
+        const attributeId = [newValue.id][0]
+
+        envelope[attributeId] = newValue.value;
+
+
+
         draw();
+        props.update(envelope);
 
-        AudioContextHandler.voices.setSynthEnvelope(props.id,props.envType,envelope)
-
-        // // Emit the envelope values to the parent
-        // context.emit("update:envelope", envelope);
       }
+
 
       return {
         envelope,
@@ -180,6 +193,7 @@
         updateEnvelope
       };
     },
+
 
   });
   </script>

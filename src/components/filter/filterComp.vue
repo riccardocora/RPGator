@@ -1,12 +1,10 @@
 <template>
   <div class="button-row">
-    Filter
-    <q-checkbox v-model="chain" @update:model-value="toggleChain" >
-<!--      <template v-slot:default>
-        <q-badge outline  label="chain" :color="chain?'yellow':'primary'" />
-      </template>-->
+    Filter {{chained}}
+    <q-checkbox v-model="chained" @update:model-value="toggleChain" >
+
       <template v-slot:default>
-          <q-btn size=40% round :class="chain?'light_on':'button_light'" />
+          <q-btn size=40% round :class="chained ?'light_on':'button_light'" />
       </template>
     </q-checkbox>
 
@@ -15,8 +13,8 @@
   </div>
   <div class="parent selector">
     <div class="button-toggles-top">
-      <q-btn-toggle
-          v-model="filter.rolloff"
+        <q-btn-toggle
+          v-model="rolloff"
           color="dark"
           text-color="white"
           :toggle-color="color"
@@ -25,8 +23,20 @@
           stretch
           spread
           flat
-          :options="rolloffValues"
-          @update:model-value="updateFilter"
+          @update:model-value="updateRolloff"
+          :options="[{
+                   label: '-12',
+                   value: -12,
+                  },
+                  {
+                  label: '-24',
+                  value: -24,
+                  },
+                  {
+                  label: '-48',
+                  value: -48,
+                  }]"
+
       />
     </div>
     <div class="curve-row">
@@ -46,11 +56,10 @@
           {label: 'lp', value: 'lowpass'},
           {label: 'hp', value: 'highpass'},
           {label: 'bp', value: 'bandpass'},]"
-            @update:model-value="updateFilter"
         />
       </div>
       <div class="curve-container">
-        <filter-curve :id="id" :cutoff="filterLogFreq" :rolloff="filter.rolloff" :type="filter.type" :color="color"></filter-curve>
+        <filter-curve :id="id" :filter="filter" :color="color"></filter-curve>
       </div>
     </div>
     <div class="screen">
@@ -62,47 +71,24 @@
 
   <div class="knob-container">
     <div class="knob-wrapper">
-      <Knob id="cutoff" :color="color" :min="1" :max="4" :value="filterLogFreq" :step="0.01" :thickness="0.1" @updateValue="updateFilter" />
+
+      <Knob id="cutoff" :color="color" :min="1" :max="4" :value="filterLogfreq" :step="0.01" :thickness="0.1" :update="update" />
       Cutoff
     </div>
     <div class="knob-wrapper">
-      <Knob id="q" :color="color" :min="0.01" :max="18" :inner-max="18" :value="filter.Q" :step="0.1" :thickness="0.1" @updateValue="updateFilter" />
-      Q
+      <Knob v-model="filter.Q" id="Q" :color="color" :min="0.01" :max="18" :inner-max="18" :step="0.1" :thickness="0.1" :update="update" />
+      Q{{filter.Q.value}}
     </div>
   </div>
 
-
-<!--      <div class="row justify-center">-->
-<!--        <div class="q-px-md">-->
-<!--          <q-badge outline :color="color" label="Q" class="justify-center"/>-->
-
-<!--        </div>-->
-
-<!--          <div class="q-px-md">-->
-<!--            <q-badge outline :color="color" label="cutoff" class="justify-center"/>-->
-
-<!--          </div>-->
-<!--      </div>-->
-
-<!--      </q-card-section>-->
-<!--      <q-card-section class="column q-pa-none">-->
-<!--        &lt;!&ndash;    <q-card-actions class="justify-between q-pa-none">&ndash;&gt;-->
-<!--        <div>-->
-
-
-<!--        </div>-->
-<!--      </q-card-section>-->
-<!--  </q-card-section>-->
-
-<!--  </div>-->
 </template>
 
 <script>
 import FilterCurve from "../filter/FilterCurve.vue"
-import {computed, ref} from "vue";
-import AudioContextHandler from "../AudioContextHandler";
+import {reactive, ref, toRaw} from "vue";
 import Knob from "../controls/Knob.vue";
 import Button_Toggle from "../controls/Button_Toggle.vue";
+import * as Tone from "tone";
 
 export default {
   name: 'FilterComp',
@@ -115,62 +101,77 @@ export default {
     color:{
       type: String,
       required: true
+    },
+    input : {
+      type: Tone.Gain,
+      required: true
+    },
+    output : {
+      type: Tone.Gain,
+      required: true
     }
   },
 
 
   setup (props) {
-    const filter= ref(AudioContextHandler.filters.getFilter(props.id).filter.get())
-    let chain = ref(AudioContextHandler.filters.getFilter(props.id).chained);
-    const filterLogFreq = ref(Math.log10(filter.value.frequency/2))
-    const rolloffValues = ref([
-      {
-        label: "-12",
-        value: -12,
-      },
-      {
-        label: "-24",
-        value: -24,
-      },
-      {
-        label: "-48",
-        value: -48,
-      },
+    //console.log("props",   props.output)
+    props.input.connect(props.output);
+    const frequency = ref(200);
+    const type = ref("lowpass");
+    const rolloff = ref(-12);
+    const Q = ref(1);
+    const filter = reactive(new Tone.Filter({
+      frequency : frequency.value,
+      type :type.value,
+      rolloff : rolloff.value,
+      Q : Q.value
+    }));
 
-    ]);
+    let chained = ref(false);
+    const filterLogfreq = ref(1);
+
+    function toggleChain(){
+      //console.log("toggleChain")
+      //console.log("chained", chained.value)
+      if(!chained.value){
+        toRaw(filter).disconnect();
+        props.input.disconnect();
+        props.input.connect(props.output);
+        //console.log("unchained")
 
 
-    const updateFilter = (event) => {
-      if(event.id==="q"){
-        filter.value.Q = event.value
-      }
-      else if(event.id==="cutoff"){
-        filterLogFreq.value = event.value;
-      }
-      filter.value.frequency = Math.trunc(2* Math.pow(10,filterLogFreq.value))
-
-      AudioContextHandler.filters.setFilter(props.id,filter.value)
-    }
-
-    const toggleChain = () => {
-
-      if(chain) {
-        AudioContextHandler.filters.chainFilter(props.id);
       }else{
-        AudioContextHandler.filters.unchainFilter(props.id);
+        props.input.disconnect();
+
+        toRaw(filter).connect(props.output);
+        props.input.connect(toRaw(filter));
+        //console.log("chained")
+
+      }
+    }
+    return{
+      filter,
+      chained,
+      toggleChain,
+      rolloff,
+      filterLogfreq,
+      updateRolloff (newValue) {
+        //console.log("updateRolloff", newValue);
+        //console.log("filter.value.rolloff", toRaw(filter).rolloff)
+        toRaw(filter).rolloff=newValue;
+        //console.log("filter.value.rolloff", filter.rolloff)
+      },
+      update (newValue) {
+        if(newValue.id === "cutoff") {
+          filterLogfreq.value = newValue.value;
+          filter.frequency.value = Math.trunc(2* Math.pow(10,filterLogfreq.value))
+          //console.log("filter.value.frequency.value", filter.frequency.value)
+        } else if(newValue.id === "Q") {
+          filter.Q.value = newValue.value;
+        }
       }
     }
 
-    return {
-      id: props.id,
-      rolloffValues,
-      updateFilter,
-      filter,
-      toggleChain,
-      chain,
-      filterLogFreq,
-      cutoffLabel : computed(()=>`${filter.value.frequency}`)
-    };
   }
 }
 
@@ -237,23 +238,11 @@ export default {
   font-size: 11px;
 
 }
-//.slide
-//  //max-height: 9em;
-//
-//.container{
-//  //background-image: url("assets/images/metal.png");
-//  //border-radius: 0.5em;
-//  //max-height: 12em;
-//}
 
 
 .selector {
 
   border: #030303 1px solid;
-
-
-  /* your existing styles */
-
   /* Add multiple inset box shadows to create an inner "screen" effect */
   box-shadow: inset 0 0 8px 1px var(--select-shadow-color),
   inset 0 0 15px 1px var(--select-shadow-color), /* inner shadow */

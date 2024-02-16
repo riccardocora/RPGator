@@ -18,7 +18,7 @@
 
 <!--  >-->
 <!--    <q-carousel-slide name="amp" class="q-pa-none slide">-->
-      <envelope-comp :id="id" env-type="amp" :color="color"></envelope-comp>
+<!--      <envelope-comp :id="id" env-type="amp" :color="color" update=""></envelope-comp>-->
 <!--    </q-carousel-slide>-->
 
 <!--    <q-carousel-slide name="freq" class="q-pa-none slide">-->

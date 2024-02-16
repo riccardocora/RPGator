@@ -1,9 +1,12 @@
 
 <template>
+
   <div class="effects-container">
+
     <div v-for="effect in effects" v-bind:key="effect" :key="effect" class="effect-container">
       <div class="col-effect">
-        <effect-container :name="effect"></effect-container>
+
+        <effect-container :name="effect" :input="getInput(effect)" :output="getOutput(effect)"></effect-container>
       </div>
       <div class="arrows">
           <q-btn
@@ -34,68 +37,96 @@ import ChorusEffect from "../effects/ChorusEffect.vue";
 import DistortionEffect from "../effects/DistortionEffect.vue";
 import TremoloEffect from "../effects/TremoloEffect.vue";
 import VibratoEffect from "../effects/VibratoEffect.vue";
-import AudioContextHandler from "../AudioContextHandler.js";
-import {ref} from "vue";
+
 import EffectContainer from "../effects/EffectContainer.vue";
+import * as Tone from "tone";
+import {reactive} from "vue";
+import VisualTrip from "@/components/visualUnit/visual.vue";
 
 export default {
 name: 'Effects',
-  components: {EffectContainer, VibratoEffect, TremoloEffect, DistortionEffect, ChorusEffect},
-  // computed:{
-  //   getEffects() {
-  //     return AudioContextHandler.effectChain.order
-  //   }
-  // },
+  components: {VisualTrip, EffectContainer, VibratoEffect, TremoloEffect, DistortionEffect, ChorusEffect},
+  props :{
+    input : {
+      type: Tone.Gain,
+      required: true
+    },
+    output : {
+      type: Tone.Gain,
+      required: true
+    }
+  },
 
+computed:{
+
+},
   setup () {
-    const effects = ref([...AudioContextHandler.effectChain.getOrder()])
 
-    // const order = computed(() => {return effects.value})
+    const effectMap = new Map([['delay',{input: new Tone.Gain() , output: new Tone.Gain() }],['dist',{input: new Tone.Gain(), output: new Tone.Gain() }],['reverb',{input: new Tone.Gain() , output: new Tone.Gain() }],['vibrato',{input: new Tone.Gain() , output: new Tone.Gain() }]]);
+    const effects = reactive(['delay','dist','reverb','vibrato']);
+
+
     const moveRight= (effect)=>{
-      console.log("effect: ", effect)
-      console.log("effects initial: ", effects.value)
 
-      const index = effects.value.indexOf(effect);
-      console.log("index", index)
-      if (index < effects.value.length - 1) {
-        effects.value[index] = effects.value[index + 1];
-        effects.value[index + 1] = effect;
+
+      const index = effects.indexOf(effect);
+      if (index < effects.length - 1) {
+        effects[index] = effects[index + 1];
+        effects[index + 1] = effect;
       }
-      AudioContextHandler.effectChain.moveEffectRight(effect);
-
-
-      console.log("AudioContextHandler.effectChain.order final", AudioContextHandler.effectChain.order)
-      // state.effects = AudioContextHandler.effectChain.order;
-      console.log("effect final", effects.value)
 
 
     }
     const moveLeft= (effect)=>{
-      console.log("effect: ", effect)
-      console.log("effects initial", effects)
-      const index = effects.value.indexOf(effect);
-      console.log("index", index)
+      const index = effects.indexOf(effect);
       if (index > 0) {
-        effects.value[index] = effects.value[index - 1];
-        effects.value[index - 1] = effect;
+        effects[index] = effects[index - 1];
+        effects[index - 1] = effect;
       }
-      AudioContextHandler.effectChain.moveEffectLeft(effect);
 
-      console.log("effects final", effects)
-      console.log("AudioContextHandler.effectChain.order final", AudioContextHandler.effectChain.order)
     }
 
     return {
       effects,
       moveRight,
-      moveLeft
+      moveLeft,
+      effectMap,
+
     }
   },
-  data () {
-    return {
-      tab: 'vibrato'
-    }
+  methods:{
+    getInput(effect) {
+      console.log("getInpput effect",effect)
+      const index = this.effects.indexOf(effect);
+      console.log("index",index)
+      if (index > 0) {
+        console.log("previous effect",this.effects[index -1]);
+        console.log("previous output ",this.effectMap.get(this.effects[index -1]).output)
+
+        return this.effectMap.get(this.effects[index -1]).output;
+      }
+      console.log("previous effect(input)",this.input);
+
+      return this.input
+    },
+    getOutput(effect) {
+      console.log("getOutput effect",effect)
+      const index = this.effects.indexOf(effect);
+      if (index < this.effects.length - 1) {
+        console.log("getOutput next effect ",this.effects[index + 1])
+
+
+
+        return this.getInput(this.effects[index + 1])
+      }
+      console.log("getOutput next input (output)",this.output)
+
+      return this.output
+    },
+
   }
+
+
 }
 </script>
 

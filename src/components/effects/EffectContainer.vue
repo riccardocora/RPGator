@@ -1,8 +1,8 @@
 <template>
     <div class="effect-switch">
-      <q-checkbox v-model="active" @update:model-value="toggleChain(active)" checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center">
+      <q-checkbox v-model="chained"  checked-icon="none" unchecked-icon="none" color="yellow" class="justify-center" @update:model-value="toggleChain">
         <template v-slot:default>
-          <q-btn size="40%" round :class="active?'light_on':'button_light'" />
+          <q-btn size="40%" round :class="chained?'light_on':'button_light'" />
         </template>
       </q-checkbox>
       <div>{{name}}</div>
@@ -11,27 +11,24 @@
 
     <div class="effect">
       <div class="effect-col" v-if="name === 'tremolo'">
-        <tremolo-effect></tremolo-effect>
+        <tremolo-effect :input="gainIn" :output="gainOut" ref="tremolo"></tremolo-effect>
       </div>
-      <div class="effect-col" id="vibrato" v-else-if="name === 'vibrato'">
-        <vibrato-effect></vibrato-effect>
+      <div class="effect-col" id="vibrato" v-else-if="name === 'vibrato'" >
+        <vibrato-effect :input="gainIn" :output="gainOut" ref="vibrato"></vibrato-effect>
       </div>
       <div class="effect-col" v-else-if="name === 'dist'">
-        <distortion-effect></distortion-effect>
+        <distortion-effect :input="gainIn" :output="gainOut"  ref="dist"></distortion-effect>
       </div>
-      <div class="effect-col" v-else-if="name === 'chorus'">
-        <chorus-effect></chorus-effect>
+      <div class="effect-col" v-else-if="name === 'chorus'" >
+        <chorus-effect :input="gainIn" :output="gainOut" ref="chorus"></chorus-effect>
       </div>
-      <div class="effect-col" v-else-if="name === 'reverb'">
-        <reverb-effect></reverb-effect>
+      <div class="effect-col" v-else-if="name === 'reverb'" >
+        <reverb-effect :input="gainIn" :output="gainOut" ref="reverb"></reverb-effect>
       </div>
-      <div class="effect-col" v-else-if="name === 'delay'">
-        <delay-effect></delay-effect>
+      <div class="effect-col" v-else-if="name === 'delay'" >
+        <delay-effect :input="gainIn" :output="gainOut" ref="delay"></delay-effect>
       </div>
     </div>
-
-
-
 
 </template>
 <script>
@@ -42,10 +39,10 @@ import VibratoEffect from "../effects/VibratoEffect.vue";
 import DistortionEffect from "../effects/DistortionEffect.vue";
 import ChorusEffect from "../effects/ChorusEffect.vue";
 import ReverbEffect from "../effects/Reverb.vue";
-import AudioContextHandler from "../AudioContextHandler.js";
-import {ref} from "vue";
 import Delay from "../effects/Delay.vue";
 import DelayEffect from "../effects/Delay.vue";
+import * as Tone from "tone";
+import {ref} from "vue";
 
 export default {
   name : "EffectContainer",
@@ -56,26 +53,64 @@ export default {
       type: String,
       required: true
     },
+    input :{
+      type: Tone.Gain,
+      required: true
+    },
+    output :{
+      type: Tone.Gain,
+      required: true
+    }
   },
   setup (props) {
-    const active = ref(false);
-    console.log("isChained 1", active.value)
+    // const ec = effectChain;
+    console.log("effectName",props.name)
+    console.log("input",props.input)
+    console.log("output",props.output)
 
-    const toggleChain = (active) => {
-      console.log("chaining", active)
-      if (active){
-        AudioContextHandler.effectChain.chainEffect(props.name);
-      } else {
-        console.log("unchaining", props.name)
-        AudioContextHandler.effectChain.unchainEffect(props.name);
-      }
-    }
+    // console.log("effectChain  ", ec.effects )
+    // console.log("effectChain ", ec.effects.get(props.name) )
+
+    // const effect = ec.effects.get(props.name)
+
+    const chained = ref(false);
+
+    const gainIn = new Tone.Gain();
+    const gainOut = new Tone.Gain();
+
+    props.input.connect(gainIn);
+    gainOut.connect(props.output);
+
+    gainIn.connect(gainOut);
+
+    // console.log("effect.chained: ",effect)
+    // effect.toggleChain()
+    // const active = ref(false);
+    //
+    //
+    // console.log("isChained 1", active.value)
+
+
 
     return {
-    toggleChain,
-      active
+      chained,
+      gainOut,
+      gainIn
     }
   },
+  methods:{
+    toggleChain(active){
+      console.log("isChained 2", active)
+      if (active){
+        console.log("chaining")
+        console.log(this.$refs[this.name])
+        this.$refs[this.name].chain();
+      } else {
+        console.log("unchaining")
+        this.$refs[this.name].unchain();
+      }
+    }
+  }
 }
 </script>
 <style scoped>

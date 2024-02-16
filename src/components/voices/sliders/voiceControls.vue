@@ -20,14 +20,14 @@
             marker-labels
             :marker-labels-class="'text-'+color"
             selection-color="transparent"
-            @update:model-value="updateOctave"
+            @update:model-value="updateControls"
         />
 
       <q-slider
           v-model="volume"
-          :min="0"
-          :max="1"
-          :step="0.01"
+          :min="-48"
+          :max="0"
+          :step="1"
           :markers="1"
           label
           vertical
@@ -39,7 +39,7 @@
           :marker-labels-class="'text-'+color"
           selection-color="transparent"
           class="control-slider"
-          @change="updateVolume"
+          @update:model-value="updateControls"
       />
     </div>
 
@@ -55,15 +55,14 @@
           :label-text-color="color"
           :marker-labels-class="'text-'+color"
           class="control-slider"
-          @update:model-value="updatePan"
+          @update:model-value="updateControls"
       />
     </div>
   </div>
 
 </template>
 <script>
-import { ref } from "vue";
-import AudioContextHandler from "@/components/AudioContextHandler.js";
+import {reactive, ref} from "vue";
 export default {
   name: "VoiceControls",
   props: {
@@ -75,30 +74,24 @@ export default {
       type: String,
       default: "primary",
     },
+    update :{
+      type: Function,
+      required: true
+    }
   },
   setup(props) {
-    const octave =  ref(AudioContextHandler.voices.getVoice(props.id).octave);
-    const volume = ref(AudioContextHandler.voices.getVoice(props.id).gain.gain.value);
-    const pan = ref(AudioContextHandler.voices.getVoice(props.id).pan.pan.value);
+    const octave = ref(0);
+    const volume = ref(0);
+    const pan = ref(0);
 
-    const updatePan = (newPan) => {
-      AudioContextHandler.voices.setVoicePan(props.id, newPan);
-    }
-
-    const updateOctave = (newOctave) => {
-      AudioContextHandler.voices.setVoiceOctave(props.id, newOctave);
-    }
-
-    const updateVolume = (newVolume) => {
-      AudioContextHandler.voices.setVoiceVolume(props.id, newVolume);
+    const updateControls = ()=>{
+      props.update(props.id, volume.value,octave.value,pan.value)
     }
     return {
-      octave,
-      volume,
       pan,
-      updatePan,
-      updateOctave,
-      updateVolume,
+      volume,
+      octave,
+      updateControls
     }
   }
 };

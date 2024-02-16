@@ -10,7 +10,8 @@
             unelevated
             :ripple="false"
             :options="baseTypeOptions"
-            @update:model-value="update">
+            @update:model-value="updateOscillator"
+            >
           <template v-slot:sine>
             <div class="">
               <q-icon name="mdi-sine-wave" />
@@ -40,15 +41,16 @@
       <div class="modulation">
         <div class="col-voice-container-type">
           <q-btn-toggle
-              v-model="oscillator.sourceType"
+              v-model="sourceType"
               toggle-color="primary"
               size="xs"
               unelevated
               class="btn-container-type"
               clearable
               :options="sourceTypeOptions"
-              @update:model-value="update"
-              @clear="update"/>
+              @update:model-value="updateOscillator"
+              @clear="updateOscillator"
+          />
         </div>
         <div class="col-voice-container-fm" >
           <q-btn-toggle
@@ -59,8 +61,9 @@
               class="btn-container-fm"
               clearable
               :options="baseTypeOptions"
-              @update:model-value="update"
-              @clear="update">
+              @update:model-value="updateOscillator"
+
+          >
             <template v-slot:sine>
               <div class="">
                 <q-icon name="mdi-sine-wave" />
@@ -94,22 +97,48 @@
 </template>
 
 <script>
-import {computed, reactive, ref} from "vue";
-import AudioContextHandler from "../AudioContextHandler.js";
+import {reactive, ref, toRaw} from "vue";
 import OscillatorCurve from "../oscillator/OscillatorCurve.vue";
 import Knob from "../controls/Knob.vue";
-
+import * as Tone from "tone";
 export default {
   name: "OscillatorComp",
   components: {Knob, OscillatorCurve},
-  props: ['id','color'],
+  props: {
+    id: {
+      type: String,
+      required: true
+    },
+
+    color: {
+      type: String,
+      required: false,
+      default : "accent"
+    },
+    input : {
+      type: Tone.Gain,
+      required: false
+    },
+    output : {
+      type: Tone.Gain,
+      required: false
+    },
+    update : {
+      type: Function,
+      required: true
+    }
+  },
 
   setup(props){
-    const oscillator = reactive({
-      baseType: "sine",
-      sourceType: "oscillator",
-      modulationType: "sine",
-    })
+    const sourceType = ref("oscillator");
+    const baseType = ref("sine");
+    const modulationType = ref("sine");
+    const oscillator = reactive(new Tone.OmniOscillator({
+      baseType: baseType.value,
+      sourceType: sourceType.value,
+      modulationType: modulationType.value,
+    }));
+
     const baseTypeOptions = ([
       {
         value: "sine",
@@ -135,7 +164,7 @@ export default {
 
       },
     ]);
-    const sourceTypeOptions = ([
+    const sourceTypeOptions = ( [
       {
         label: "FAT",
         class:'checkmark',
@@ -151,33 +180,49 @@ export default {
         class:'checkmark',
         value: "fm",
       },
+      {
+        label: "Pulse",
+        class:'checkmark',
+        value: "pulse",
+      },
+      {
+        label: "PWM",
+        class:'checkmark',
+        value: "pwm",
+      },
+
     ]);
 
-
-
-    const update = () => {
-      console.log("oscillator",oscillator)
-
-      AudioContextHandler.voices.setOscillator(props.id,oscillator)
-    };
-
+    // const  updateOscillator =() => {
+    //   //console.log("updateOscillator", toRaw(oscillator));
+    //   //console.log("sourceType.value", sourceType.value);
+    //   if(sourceType.value === "null") {
+    //     toRaw(oscillator).set({sourceType: 'oscillator'});
+    //   }
+    //   toRaw(oscillator).set({sourceType : sourceType.value});
+    //   props.update(oscillator);
+    // }
 
     return {
       sourceTypeOptions,
       oscillator,
       baseTypeOptions,
-      update
+      sourceType,
     };
+  },
+  methods: {
+    async updateOscillator() {
+      //console.log("updateOscillator", toRaw(oscillator));
+      //console.log("sourceType.value", sourceType.value);
+      if(this.sourceType.value === "null") {
+        toRaw(this.oscillator).set({sourceType: 'oscillator'});
+      }
+      toRaw(this.oscillator).set({sourceType : this.sourceType.value});
+      await this.update(this.oscillator);
+    }
+
   }
 
-
-
-// const initializeAudio = () => {
-//   oscillator.connect(envelope)
-//   envelope.connect(outputGain);
-//   outputGain.connect(analyser);
-//   analyser.toDestination()
-// }
 }
 
 </script>
@@ -186,76 +231,6 @@ export default {
 .actions {
   padding: 0
 }
-
-//.switch {
-//  display: block;
-//  position: relative;
-//  cursor: pointer;
-//  -webkit-user-select: none;
-//  -moz-user-select: none;
-//  -ms-user-select: none;
-//  user-select: none;
-//}
-//
-//.custom-radio {
-//  /* Add your custom styles for the radio buttons */
-//  /* Example styles: */
-//  width: 20px;
-//  height: 20px;
-//  //box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add box-shadow for a shadow effect */
-//  border-radius: 50%; /* Make it a circle */
-//}
-//.checkmark{
-//  border-color: #21BA45;
-//
-//}
-//
-//.custom-label {
-//  /* Add your custom styles for the labels */
-//  /* Example styles: */
-//  display: inline-block;
-//  cursor: pointer;
-//}
-//.container {
-//  min-height: 100vh;
-//  display: flex;
-//  justify-content: center;
-//  align-items: center;
-//  font-family: 'Poppins', sans-serif;
-//  background: var(--greyLight-1);
-//}
-//
-//.components {
-//  width: 75rem;
-//  height: 40rem;
-//  border-radius: 3rem;
-//  box-shadow:.8rem .8rem 1.4rem var(--greyLight-2),
-//  -.2rem -.2rem 1.8rem var(--white);
-//  padding: 4rem;
-//  display: grid;
-//  grid-template-columns: 17.6rem 19rem 20.4rem;
-//  grid-column-gap: 5rem;
-//  grid-row-gap: 2.5rem;
-//  align-items: center;
-//}
-
-//.btngroup {
-//  /* Other styles */
-//  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-//  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-//}
-
-//.btngroup:hover {
-//  /* Other styles */
-//  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-//}
-
-//.btngroup:active {
-//  /* Other styles */
-//  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.15), 0 3px 3px rgba(0, 0, 0, 0.12);
-//}
-
-
 
 .voice-container{
   display: flex;

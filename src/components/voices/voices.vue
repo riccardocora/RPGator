@@ -13,11 +13,11 @@
       >
         <q-carousel-slide  :name="0" class=" slide">
           <div class = "slide">
-            <voice-module id="0" color="primary"></voice-module>
+            <voice-module id="0" color="primary" :output="output"  ref="voice0"></voice-module>
           </div>
          </q-carousel-slide>
-        <q-carousel-slide :name="1" class=" slide">
-          <voice-module id="1" color="secondary"></voice-module>
+        <q-carousel-slide :name="1" class=" slide" >
+          <voice-module id="1" color="secondary" :output="output" ref="voice1"></voice-module>
         </q-carousel-slide>
 
         <template v-slot:control>
@@ -35,10 +35,10 @@
     </div>
     <div class="control-container">
       <div class="control0 shadow">
-        <voice-controls id="0" color="primary"></voice-controls>
+        <voice-controls id="0" color="primary" :update="updateVoice" ></voice-controls>
       </div>
       <div class="control1 shadow">
-        <voice-controls id="1" color="secondary"></voice-controls>
+        <voice-controls id="1" color="secondary" :update="updateVoice"></voice-controls>
       </div>
     </div>
 </template>
@@ -47,21 +47,35 @@
 import {ref} from "vue";
 import VoiceModule from "../voices/voiceComp.vue";
 import VoiceControls from "@/components/voices/sliders/voiceControls.vue";
+import * as Tone from "tone";
 
 export default{
+  name: "Voices",
   components: {VoiceControls, VoiceModule},
+  props : {
+
+    output : Tone.Gain,
+
+  },
   setup () {
+
+
+
+
+
+
     const slide = ref(0);
 
+
     const updateSlide = (value) =>{
-      console.log('slide updated',value)
-      console.log('slide updated',slide)
+      //console.log('slide updated',value)
+      //console.log('slide updated',slide)
 
     }
 
     return {
       slide,
-      updateSlide
+      updateSlide,
     }
   },
   computed: {
@@ -79,7 +93,37 @@ export default{
       };
     },
   },
+  methods:{
+    updatePattern(pattern, noteLength) {
+      //console.log('pattern updated');
+      pattern.set({
+        values : pattern.values,
+        callback : (time, value) => {
+          if(this.$refs.voice0)this.$refs.voice0.playNote(value, noteLength);
+          if(this.$refs.voice1)this.$refs.voice1.playNote(value, noteLength);
+        }});
+    },
+    updateVoice(id,volume,octave,pan){
+      switch (id) {
+        case "0":
+          if(this.$refs.voice0)this.$refs.voice0.updateControls(volume,octave,pan);
+          break;
+        case "1":
+          if(this.$refs.voice1)this.$refs.voice1.updateControls(volume,octave,pan);
+          break;
+      }
 
+    },
+
+    noteDown(note, velToGain) {
+      if(this.$refs.voice0){this.$refs.voice0.noteDown(note, velToGain)}
+      if(this.$refs.voice1){this.$refs.voice1.noteDown(note, velToGain)}
+    },
+    noteUp(note) {
+      if(this.$refs.voice0){this.$refs.voice0.noteUp(note)}
+      if(this.$refs.voice1){this.$refs.voice1.noteUp(note)}
+    }
+  }
 }
 </script>
 

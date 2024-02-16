@@ -1,21 +1,22 @@
 <template>
   <div class="knob-wrapper">
-    <Knob id="delayTime" :color="color" :min="0" :max="1" :inner-max="1" :value="delay.delayTime" :step="0.01" :thickness="0.1" @updateValue="update" />
+    <Knob id="delayTime" :color="color" :min="0" :max="1" :inner-max="1" :value="effect.delayTime.value" :step="0.01" :thickness="0.1" :update="update" />
     <div class="writings">Delay</div>
   </div>
   <div class="knob-wrapper">
-    <Knob id="feedback" :color="color" :min="0" :max="1" :inner-max="1" :value="delay.feedback" :step="0.1" :thickness="0.1" @updateValue="update" />
+    <Knob id="feedback" :color="color" :min="0" :max="1" :inner-max="1" :value="effect.feedback.value" :step="0.1" :thickness="0.1" :update="update" />
     <div class="writings">Feedback</div>
   </div>
   <div class="knob-wrapper">
-     <Knob id="wet" :color="color" :min="0" :max="1" :inner-max="1" :value="delay.wet" :step="0.1" :thickness="0.1" @updateValue="update" />
+     <Knob id="wet" :color="color" :min="0" :max="1" :inner-max="1" :value="effect.wet.value" :step="0.1" :thickness="0.1" :update="update" />
     <div class="writings">Wet</div>
   </div>
 </template>
 <script>
-import {ref, defineComponent, reactive} from "vue";
-import AudioContextHandler from "../AudioContextHandler.js";
+import {defineComponent, reactive, toRaw} from "vue";
 import Knob from "../controls/Knob.vue";
+import effectChain from "@/components/effects/effectChain.js";
+import * as Tone from "tone";
 export default defineComponent({
   name: "DelayEffect",
   components: {Knob},
@@ -23,30 +24,47 @@ export default defineComponent({
     color: {
       type: String,
       default: "primary"
+    },
+    input : {
+      type: Tone.Gain,
+      required: true
+    },
+    output : {
+      type: Tone.Gain,
+      required: true
     }
   },
-  setup() {
+  setup(props) {
+    const effect = new Tone.FeedbackDelay()
+    console.log("delay", props.input,props.output)
 
-
-    const delay = reactive({
-      delayTime: AudioContextHandler.effectChain.getEffect("delay").delayTime.value,
-      feedback: AudioContextHandler.effectChain.getEffect("delay").feedback.value,
-      wet: AudioContextHandler.effectChain.getEffect("delay").wet.value,
-    });
-    const update = (newValue)=>{
-      delay[newValue.id] = newValue.value;
-      AudioContextHandler.effectChain.setEffect("delay", delay)
-      // console.log("delay", AudioContextHandler.effectChain.getEffect("delay"))
-
-    }
 
 
     return {
-      update,
-      delay
+      effect
     }
+  },
+  methods: {
+    chain() {
+      this.input.disconnect()
+      this.input.connect(this.effect);
+      toRaw(this.effect).connect(this.output);
+    },
+    unchain() {
+      this.input.disconnect(this.effect);
+      this.effect.disconnect(this.output);
+      this.input.connect(this.output);
+    },
+    async update(newValue){
+      await this.effect.set({
+        [newValue.id]: newValue.value
+
+      })
+    }
+
   }
 })
+
 
 
 
