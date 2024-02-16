@@ -17,6 +17,7 @@ export default defineComponent({
   setup(){
     const value = ref(50);
     const updateValue = () => {
+
       //console.log("value", value.value)
     }
     return {value, updateValue}
@@ -25,7 +26,7 @@ export default defineComponent({
 
 </script>
 
-<style lang="scss" >
+<style lang="scss" scoped>
 ////:root {
 ////  --thumb-color: rgb(68, 68, 68);
 ////  --thumb-color-shading: rgb(58, 57, 57);
@@ -71,7 +72,7 @@ export default defineComponent({
   //box-sizing: border-box;
 }
 //
-.slider {
+.slider_0 {
   -webkit-appearance: none;
   width: 100%;
   height: 10px;

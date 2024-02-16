@@ -114,11 +114,10 @@ import * as Tone from "tone";
       }
       const visualCanvas = ref(null);
       onMounted(() => {
-        //initializes the canvas and draws the envelope
-        nextTick(() => {
-          draw();
-        })
+        // Logic that initializes the canvas and draws the envelope
 
+        // Logic to create the Tone.js envelope and oscillator
+        draw();
       });
 
       const draw = () => {
@@ -161,8 +160,10 @@ import * as Tone from "tone";
         ctx.lineTo(currentDecay / total * (canvas.width-100) + current, canvas.height - envelope.sustain * (canvas.height-50));
         current += currentDecay / total * (canvas.width-100);
 
+
         // Sustain
         ctx.lineTo(current +100, canvas.height - envelope.sustain * (canvas.height-50));
+
         //current+=100;
         // Release
         ctx.lineTo(canvas.width, canvas.height);
@@ -172,7 +173,6 @@ import * as Tone from "tone";
         ctx.closePath();
 
       }
-
       const updateEnvelope = (newValue) => {
 
         const attributeId = [newValue.id][0]
@@ -186,14 +186,12 @@ import * as Tone from "tone";
 
       }
 
-
       return {
         envelope,
         visualCanvas,
         updateEnvelope
       };
     },
-
 
   });
   </script>

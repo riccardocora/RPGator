@@ -9,9 +9,9 @@
   </div>
 </template>
 <script>
-import {defineComponent, reactive, toRaw} from "vue";
+import {defineComponent} from "vue";
+
 import Knob from "../controls/Knob.vue";
-import effectChain from "@/components/effects/effectChain.js";
 import * as Tone from "tone";
 
 export default defineComponent({

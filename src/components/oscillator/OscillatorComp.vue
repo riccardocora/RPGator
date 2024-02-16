@@ -192,15 +192,6 @@ export default {
 
     ]);
 
-    // const  updateOscillator =() => {
-    //   //console.log("updateOscillator", toRaw(oscillator));
-    //   //console.log("sourceType.value", sourceType.value);
-    //   if(sourceType.value === "null") {
-    //     toRaw(oscillator).set({sourceType: 'oscillator'});
-    //   }
-    //   toRaw(oscillator).set({sourceType : sourceType.value});
-    //   props.update(oscillator);
-    // }
 
     return {
       sourceTypeOptions,

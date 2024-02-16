@@ -1,8 +1,6 @@
 
 <template>
-
   <div class="effects-container">
-
     <div v-for="effect in effects" v-bind:key="effect" :key="effect" class="effect-container">
       <div class="col-effect">
 
@@ -57,9 +55,6 @@ name: 'Effects',
     }
   },
 
-computed:{
-
-},
   setup () {
 
     const effectMap = new Map([['delay',{input: new Tone.Gain() , output: new Tone.Gain() }],['dist',{input: new Tone.Gain(), output: new Tone.Gain() }],['reverb',{input: new Tone.Gain() , output: new Tone.Gain() }],['vibrato',{input: new Tone.Gain() , output: new Tone.Gain() }]]);
@@ -125,8 +120,6 @@ computed:{
     },
 
   }
-
-
 }
 </script>
 

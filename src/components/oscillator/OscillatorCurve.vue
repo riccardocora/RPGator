@@ -16,7 +16,6 @@ import { onMounted, onUnmounted, ref } from "vue";
 import * as Tone from "tone";
 import {getCssVar} from "quasar";
 
-
 export default {
   name: "OscillatorCurve",
   props: {
@@ -39,7 +38,7 @@ export default {
     const screenContainer = ref(null);
 
     const resizeHandler = () => {
-      //console.log("resizeHandler", screenContainer.value);
+
       if (screenContainer.value) {
         screenContainer.value.style.height = `${screenContainer.value.offsetWidth}px`;
       }

@@ -5,10 +5,13 @@
 
             <RPGator></RPGator>
       </div>
-      <q-btn v-else class="light_on" text-color="black" label="Start" @click="start"></q-btn>
+      <q-btn v-else class="light_on"  text-color="white" label="Start" @click="start">
+      </q-btn>
 
 
     </div>
+
+
 
   </q-page>
 </template>
@@ -60,13 +63,29 @@ export default{
   /*BUTTON*/
   --btn-border-color: rgb(57, 56, 56);
   --btn-color: rgb(30, 30, 30);
-  --btn-color-off: rgb(54, 54, 54);
-  --btn-shadow-color: rgb(0, 0, 0);
+  --btn-color-off: rgb(49, 49, 49);
+  --btn-shadow-color: rgba(35, 35, 35, 0.87);
 
   /*WRITINGS*/
   --text-color-off: rgb(108, 108, 108);
-  --text-color-on: rgb(232, 232, 232);
+  --text-color-on: rgb(225, 225, 225);
+
+
+  /*SLIDER*/
+  --thumb-color: rgb(68, 68, 68);
+  --thumb-color-shading: rgb(58, 57, 57);
+  --thumb-darkshade: rgb(40, 40, 40);
+  --thumb-brightshade:rgb(31, 31, 31);
+  --thumb-lines: rgb(20, 20, 20);
+  --thumb-centerline:  rgb(234, 234, 234);
+
+  --slider-color: rgb(194, 193, 193);
+  --slider-dashes: rgb(139, 138, 138);
+  --slider-line: rgb(0,0,0);
 }
+
+
+
 
 
 .main-container{
@@ -232,5 +251,56 @@ export default{
 
 .q-carousel__slide{
   padding: 0 !important;
+}
+
+
+
+.q-slider__thumb {
+
+}
+
+.q-slider__thumb.q-slider__thumb--v.q-slider__thumb--v-rtl{
+  width:280% !important;
+  height:25% !important;
+  background:
+    linear-gradient(to top, rgba(0, 0, 0, 0.25),  rgba(255, 255, 255, 0.25) 100%),
+    linear-gradient(to top,var(--thumb-darkshade) 18%,
+      transparent 20%,transparent 48.5%,
+      var(--thumb-centerline) 48.5%, var(--thumb-centerline) 51.5%,
+      transparent 51.5%, transparent 78%,var(--thumb-brightshade) 80%),
+      /*SHADES BETWEEN LINES*/
+      /*repeating-linear-gradient(to right, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2),  rgba(255, 255, 255, 0.2) 10%),   */
+      repeating-linear-gradient(to top, var(--thumb-color), var(--thumb-color-shading) 4.25%, var(--thumb-color) 8%,var(--thumb-lines) 8%, var(--thumb-lines) 10%);
+
+  border: 0.1px inset rgba(0, 0, 0, 0.446);
+  border-radius: 5%;
+  box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  outline: none;
+}
+
+
+.q-slider__thumb.q-slider__thumb--h.q-slider__thumb--h-ltr {
+  width: 25% !important;
+  height: 280% !important;
+  background:
+    linear-gradient(to right, rgba(0, 0, 0, 0.25),  rgba(255, 255, 255, 0.25) 100%),
+    linear-gradient(to right,var(--thumb-darkshade) 18%,
+      transparent 20%,transparent 48.5%,
+      var(--thumb-centerline) 48.5%, var(--thumb-centerline) 51.5%,
+      transparent 51.5%, transparent 78%,var(--thumb-brightshade) 80%),
+      /*SHADES BETWEEN LINES*/
+      /*repeating-linear-gradient(to right, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2),  rgba(255, 255, 255, 0.2) 10%),   */
+      repeating-linear-gradient(to right, var(--thumb-color), var(--thumb-color-shading) 4.25%, var(--thumb-color) 8%,var(--thumb-lines) 8%, var(--thumb-lines) 10%);
+
+  border: 0.1px inset rgba(0, 0, 0, 0.446);
+  border-radius: 5%;
+  box-shadow: -4px 0px 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  outline: none;
+}
+
+.q-slider__focus-ring {
+  display: none;
 }
 </style>

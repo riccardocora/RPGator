@@ -49,11 +49,14 @@
 
       <div class="range-container">
         bpm
-        <div class="range-control">
-          <button class="range-button" @click="bpm > 40 ? bpm-- : bpm" @mousedown="startDecreasingBpm" @mouseup="stopChangingBpm">-</button>
-          <div class="range-value" v-text="bpm"></div>
-          <button class="range-button" @click="bpm < 200 ? bpm++ : bpm" @mousedown="startIncreasingBpm" @mouseup="stopChangingBpm">+</button>
+        <div class="bpm">
+          <div class="range-control">
+            <button class="range-button" @click="bpm > 40 ? bpm-- : bpm" @mousedown="startDecreasingBpm" @mouseup="stopChangingBpm">-</button>
+            <div class="range-value" v-text="bpm"></div>
+            <button class="range-button" @click="bpm < 200 ? bpm++ : bpm" @mousedown="startIncreasingBpm" @mouseup="stopChangingBpm">+</button>
+          </div>
         </div>
+
       </div>
 
     </div>
@@ -63,10 +66,10 @@
       <q-checkbox v-model="playing" @update:model-value="togglePlay" checked-icon="radio_button_checked"
                   unchecked-icon="radio_button_unchecked" color="yellow">
         <template v-slot:default>
-          <q-badge outline  label="play" :color="playing?'yellow':'primary'" />
+          <button class="checkmark play" :class="playing?'on':''">PLAY</button>
         </template>
       </q-checkbox>
-      <button class="checkmark reset"  @click="reset">Reset</button> <!-- Add this line -->
+      <button class="checkmark reset" @click="reset">Reset</button> <!-- Add this line -->
 
     </div>
   </div>
@@ -227,9 +230,9 @@ export default {
     increaseOctave() {
       if (this.octave < 7 && this.octave + this.range <= 8) { // Maximum octave value
         this.octave++;
-        ////console.log("this.group before increase", this.group)
+
         this.group = this.group.map(note => Tone.Frequency(note).transpose(12).toNote());
-        ////console.log("this.group after increase", this.group)
+
 
         if (this.range > 1 && this.octave + this.range > 8) { // Decrease range if octave cannot be increased
           this.range = 1;
@@ -242,8 +245,10 @@ export default {
       if (this.octave > 1) { // Minimum octave value
         this.octave--;
         ////console.log("this.group before decrease", this.group)
+
         this.group = this.group.map(note => Tone.Frequency(note).transpose(-12).toNote());
         ////console.log("this.group after decrease", this.group)
+
         this.updatePattern();
       }
     },
@@ -302,7 +307,8 @@ export default {
   flex-direction: column;
   align-items: start;
   justify-content: right;
-    height: 95%;
+  font-size: 11px;
+  height: 95%;
   width: 20%;
 /*  background-color: $r2d-inner;
   border: 0.5px solid rgba(255, 255, 255, 0.37);
@@ -340,7 +346,8 @@ export default {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
+  padding-top: 10% ;
   width: 100%;
   height: 10%;
   //border: 1px solid #000;
@@ -376,7 +383,7 @@ export default {
   flex-direction: row;
   align-items: center;
   width: 50%;
-  padding: 2%;
+
   justify-content: space-between;
   //border: 1px solid #000;
 }
@@ -527,6 +534,43 @@ export default {
 
 }
 
+
+.reset{
+  width: 35%;
+  height: 30px;
+  background-color: rgba(255, 255, 255, 0.34) !important;
+  border-radius: 10%;
+  color: #939393;
+}
+
+.reset:active {
+  color: rgba(255, 0, 0, 0.61); /* Change this to the desired color */
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.16), rgba(0, 0, 0, 0.11))
+  rgba(255, 255, 255, 0.34) !important;
+}
+
+.play{
+  width: 120%;
+  height: 30px;
+  color: #939393;
+  background-color: rgba(255, 255, 255, 0.34) !important;
+  border-radius: 10%;
+}
+
+
+.on {
+  color: $primary; /* Change this to the desired color */
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.16), rgba(0, 0, 0, 0.11))
+  rgba(255, 255, 255, 0.34) !important;
+  border: 1px solid rgba(26, 26, 26, 0.524);
+  box-shadow: inset 0 0 3px 1px var(--btn-shadow-color);
+
+}
+
+
+.bpm{
+
+}
 
 </style>
 

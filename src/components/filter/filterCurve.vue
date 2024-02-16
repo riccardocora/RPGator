@@ -9,7 +9,7 @@
 
 <script>
 
-import {onMounted, onUnmounted, ref, watchEffect} from "vue";
+import {onMounted, onUnmounted, ref} from "vue";
 import {getCssVar} from "quasar";
 import  * as Tone from "tone";
 
@@ -99,7 +99,6 @@ export default {
         // Add a point to the path at the calculated x and y coordinates
         ctx.lineTo(x, y);
 
-        // just the first segment will be black
 
       }
 
@@ -177,10 +176,7 @@ export default {
       // Start the initial drawing
       draw();
     };
-    watchEffect(() => {
-      // This function will run whenever filter.frequency.value or filter.Q.value changes
-      draw();
-    });
+
 
     return {
       id: props.id,

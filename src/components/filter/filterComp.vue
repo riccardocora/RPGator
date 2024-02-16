@@ -114,7 +114,6 @@ export default {
 
 
   setup (props) {
-    //console.log("props",   props.output)
     props.input.connect(props.output);
     const frequency = ref(200);
     const type = ref("lowpass");
@@ -131,22 +130,15 @@ export default {
     const filterLogfreq = ref(1);
 
     function toggleChain(){
-      //console.log("toggleChain")
-      //console.log("chained", chained.value)
       if(!chained.value){
         toRaw(filter).disconnect();
         props.input.disconnect();
         props.input.connect(props.output);
-        //console.log("unchained")
-
-
       }else{
         props.input.disconnect();
 
         toRaw(filter).connect(props.output);
         props.input.connect(toRaw(filter));
-        //console.log("chained")
-
       }
     }
     return{
@@ -156,16 +148,13 @@ export default {
       rolloff,
       filterLogfreq,
       updateRolloff (newValue) {
-        //console.log("updateRolloff", newValue);
-        //console.log("filter.value.rolloff", toRaw(filter).rolloff)
+
         toRaw(filter).rolloff=newValue;
-        //console.log("filter.value.rolloff", filter.rolloff)
       },
       update (newValue) {
         if(newValue.id === "cutoff") {
           filterLogfreq.value = newValue.value;
           filter.frequency.value = Math.trunc(2* Math.pow(10,filterLogfreq.value))
-          //console.log("filter.value.frequency.value", filter.frequency.value)
         } else if(newValue.id === "Q") {
           filter.Q.value = newValue.value;
         }

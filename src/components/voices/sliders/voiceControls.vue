@@ -3,60 +3,71 @@
 <template>
   <div class="voice-controls">
     <div class="vertical-sliders">
+      <div class="octave">
         <q-slider
             v-model="octave"
             :min="-2"
             :max="2"
             :step="1"
+            thumb-path=""
             markers
             vertical
             reverse
-            class="control-slider"
-            switch-marker-labels-side
-            :color="color"
-            :thumb-color="color"
-            label-color="black"
-            :label-text-color="color"
+            label
             marker-labels
-            :marker-labels-class="'text-'+color"
-            selection-color="transparent"
+            switch-marker-labels-side
+            class="control-slider marker-label "
+
             @update:model-value="updateControls"
         />
+        <div class="oct-label">
+          <span>O</span>
+          <span>C</span>
+          <span>T</span>
+          <span>A</span>
+          <span>V</span>
+          <span>E</span>
+        </div>
+      </div>
 
-      <q-slider
+      <div class="gain">
+        <q-slider
           v-model="volume"
           :min="-48"
           :max="0"
           :step="1"
-          :markers="1"
           label
+          thumb-path=""
           vertical
+          label
           reverse
-          :color="color"
-          :thumb-color="color"
-          label-color="black"
-          :label-text-color="color"
-          :marker-labels-class="'text-'+color"
-          selection-color="transparent"
-          class="control-slider"
-          @update:model-value="updateControls"
-      />
+          class="control-slider "
+          @change="updateControls"
+        />
+        <div class="gain-label">
+          <span>G</span>
+          <span>A</span>
+          <span>I</span>
+          <span>N</span>
+        </div>
+      </div>
+
+
     </div>
 
-    <div class="horizontal-slider">
+    <div class="horizontal-slider-container">
+      <div style="padding-right: 5px">L</div>
       <q-slider
           v-model="pan"
           :min="-1"
           :max="1"
           :step="0.01"
-          :color="color"
-          :thumb-color="color"
-          label-color="black"
-          :label-text-color="color"
-          :marker-labels-class="'text-'+color"
-          class="control-slider"
+          thumb-path=""
+          label
+          class="horizontal-slider"
           @update:model-value="updateControls"
       />
+      <div style="padding-left: 5px">R</div>
     </div>
   </div>
 
@@ -102,25 +113,85 @@ export default {
   display: flex;
   flex-direction: row;
   height: 80%;
+  width: 100%;
   justify-content: space-around;
   align-items: center;
 }
-.horizontal-slider{
+
+.horizontal-slider-container{
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
+  font-size: 8px;
+  color: #b2b2b2;
+
   height: 20%;
+  width: 100%;
 }
+
+.horizontal-slider{
+  max-height: 80%;
+  max-width: 60%;
+}
+
 
 .control-slider{
   max-height: 80%;
   max-width: 80%;
-
 }
+
 .voice-controls{
   height: 100%;
   width: 100%;
 
 }
+
+.marker-label{
+  color: #b2b2b2;
+  font-size: 8px;
+}
+
+.oct-label{
+  color: #b2b2b2;
+  font-size: 8px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 40%;
+  text-align: left;
+}
+
+.octave{
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 50%;
+  justify-content: center;
+  align-items: center;
+}
+
+.gain{
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 50%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.gain-label{
+  color: #b2b2b2;
+  font-size: 8px;
+  display: flex;
+  text-align: left;
+  justify-content: center;
+  flex-direction: column;
+  width: 20%;
+}
+
 </style>
+
+
