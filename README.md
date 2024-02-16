@@ -124,6 +124,6 @@ ___
 <br>
 
 ## Team
-- Riccardo Corà - Project Management, Back End Developement, Audio Core Coding and Animated Graphics - `riccardo.cora@mail.polimi.it`
+- Riccardo Corà - Project Management, Interface and Audio Core Developement, Animated Graphics - `riccardo.cora@mail.polimi.it`
 - Riccardo Moschen - Front End Developement, UI Design, Routing and Synth Expert - `riccardo.moschen@mail.polimi.it`
 - Dario Sorce - Front End Developement, UI Design, Routing and Synth Expert - `dario.sorce@mail.polimi.it`
