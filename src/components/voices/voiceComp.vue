@@ -1,55 +1,61 @@
 <template>
-  <div class="voice-container">
-    <div class="button-row">
-      <q-btn
-          round
-          size=40%
-          class="q-ma-sm button_light"
-          color=""
-          :class="chained? 'light_on': ''"
-          @click="toggleChain"
-      >
-      </q-btn>
-      <div>Voice</div>
-      <q-btn-toggle
-          v-model="voiceType"
-          :toggle-color="color"
-          color="black"
-          dense
-          outline
-          push
-          class="q-pa-xs  "
-          size="xs"
-          :options="[
+  <div class="container row full-height ">
+  <div class="voice-container col-8">
+    <div class = "column full-height">
+      <div class="button-row full-width col-2 ">
+        <div style="display: flex; flex-direction: row" >
+
+          <q-checkbox v-model="chained" @update:model-value="toggleChain" >
+
+            <template v-slot:default>
+              <q-btn size=40% round :class="chained ?'light_on':'button_light'" />
+            </template>
+          </q-checkbox>
+          <div style="display: flex; flex-direction: column; justify-content: center"  class="q-px-md">Voice</div>
+
+<!--          <q-btn-->
+<!--              round-->
+<!--              size=40%-->
+<!--              class="q-ma-sm button_light"-->
+<!--              color=""-->
+<!--              toggle-color=""-->
+<!--              :class="chained? 'light_on': ''"-->
+<!--              @click="toggleChain"-->
+<!--              :ripple="false"-->
+<!--          >-->
+<!--          </q-btn>-->
+<!--          <div>Voice</div>-->
+        </div>
+        <div style="display: flex; flex-direction: column; justify-content: center" >
+          <q-btn-toggle
+              v-model="voiceType"
+              :toggle-color="color"
+              color="grey"
+              dense
+              outline
+              rounded
+              class="q-pa-xs"
+              size="xs"
+              :options="[
               {label: 'synth', value: 'synth'},
               {label: 'sampler', value: 'sampler'},
               ]"
-          @update:model-value="switchVoice"
-      />
+          />
 
-    </div>
-    <div class="inner-voice">
-      <synth-comp v-if="voiceType==='synth'" :output ="voice_out" :id="id" :color="color" ref="synth"></synth-comp>
-      <sampler-comp :id="id" :output ="voice_out" v-else ref="sampler"></sampler-comp>
-    </div>
+        </div>
 
+      </div>
+      <div class="inner-voice col-10">
+        <synth-comp v-if="voiceType==='synth'" :output ="voice_out" :id="id" :color="color" ref="synth"></synth-comp>
+        <sampler-comp :id="id" :output ="voice_out" :color="color" v-else ref="sampler"></sampler-comp>
+      </div>
+    </div>
   </div>
 
-<!--  <div class="envelope-container">-->
-<!--    <div class="button-row-envelope">-->
-<!--      Envelope-->
-<!--    </div>-->
-<!--    <div class="envelope">-->
-<!--&lt;!&ndash;      <envelope-comp :id="id" env-type="amp" :color="color"></envelope-comp>&ndash;&gt;-->
-<!--    </div>-->
-
-<!--  </div>-->
-
-  <div class="filter-container ">
-    <div class="filter">
-        <filter-comp :id="id" :color="color" :input="filter_in" :output="filter_out" >
-        </filter-comp>
-    </div>
+  <div class="filter-container col-4">
+      <filter-comp :id="id" :color="color" :input="filter_in" :output="filter_out" >
+      </filter-comp>
+  </div>
   </div>
 
 </template>
@@ -91,12 +97,18 @@ export default {
 
   },
   components: {OscillatorComp, SynthComp, VoiceControls, FilterComp, Knob, EnvelopeComp, SamplerComp},
+  data(){
+    return{
+      transpose: 0,
+      tempTranspose :0
+    }
+  },
 
   setup(props){
 
     ////console.log("pro")
     const chained = ref(true);
-    const octave = 0;
+
 
     const voice_out = new Tone.Gain();
 
@@ -128,15 +140,16 @@ export default {
       voiceType,
       filter_out,
       chained,
-      octave,
+      // octave,
+      // transpose,
       pan
     }
   },
   methods: {
     toRaw,
     toggleChain() {
-      ////console.log("toggleChain",this.chained)
-      if (this.chained) {
+      console.log("toggleChain",this.chained)
+      if (!this.chained) {
         ////console.log("disconnect")
         this.voice_out.disconnect(this.filter_in);
         ////console.log("disconnected")
@@ -146,49 +159,32 @@ export default {
 
         ////console.log("connected")
       }
-      this.chained = !this.chained;
 
     },
 
-    switchVoice(newValue){
-      ////console.log("switchVoice",newValue)
-      // if(this.voiceType === "synth") {
-      //   this.pattern.set({
-      //     callback: (time, note) => {
-      //       ////console.log("pattern", time, note)
-      //       this.$refs.synthComp.playNote(Tone.Frequency(note).transpose(this.octave * 12), this.noteLength, time);
-      //     }
-      //   })
-      // } else{
-      //   this.pattern.set({
-      //     callback: (time, note) => {
-      //       ////console.log("pattern", time, note)
-      //       this.$refs.samplComp.playNote(Tone.Frequency(note).transpose(this.octave * 12), this.noteLength, time);
-      //     }
-      //   })
-      // }
-    },
 
     playNote(note, noteLength) {
+      //console.log("semitones",semitones)
       if(this.voiceType==="synth" && this.$refs.synth){
-        this.$refs.synth.playNote(Tone.Frequency(note).transpose(this.octave * 12), noteLength, "+4n");
+         this.$refs.synth.playNote(Tone.Frequency(note).transpose(this.transpose), noteLength, "+4n");
       } else if(this.voiceType==="sampler" && this.$refs.sampler){
-        this.$refs.sampler.playNote(Tone.Frequency(note).transpose(this.octave * 12), noteLength, "+4n");
+        this.$refs.sampler.playNote(Tone.Frequency(note).transpose(this.transpose), noteLength, "+4n");
       }
 
     },
 
     noteDown(note, velToGain) {
-        let noteFreq = note.hasOwnProperty('frequency') ? note.frequency : note;
-      if(this.$refs[this.voiceType])this.$refs[this.voiceType].noteDown(noteFreq, Tone.now(), velToGain);
+      let noteFreq = note.hasOwnProperty('frequency') ? note.frequency : note;
+      this.tempTranspose = this.transpose;
+      if(this.$refs[this.voiceType])this.$refs[this.voiceType].noteDown(Tone.Frequency(noteFreq).transpose(this.tempTranspose), Tone.now(), velToGain);
     },
     noteUp(note) {
       let noteFreq = note.hasOwnProperty('frequency') ? note.frequency : note;
-      if(this.$refs[this.voiceType])this.$refs[this.voiceType].noteUp(noteFreq, Tone.now());
+      if(this.$refs[this.voiceType])this.$refs[this.voiceType].noteUp(Tone.Frequency(noteFreq).transpose(this.tempTranspose), Tone.now());
     },
-    updateControls(volume,octave, pan) {
-      this.octave = octave;
+    updateControls(volume,octave, pan,semitones) {
       this.pan.pan.value = pan;
+      this.transpose = octave * 12 + semitones;
 
       if(this.$refs.synth)this.$refs.synth.updateVolume(volume);
       if(this.$refs.sampler)this.$refs.sampler.updateVolume(volume);
@@ -236,68 +232,32 @@ export default {
 }
 
 
-.voice-container{
-
-  width: 65%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.envelope-container{
-
-  width: 35%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-
 .filter-container{
-
-  width: 35%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+  //height: 100%;
+  //display: flex;
+  //flex-direction: column;
 }
 
 .button-row{
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  height: 15%;
-}
-
-.button-row-envelope{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  height: 15%;
-  padding-left: 10px;
+  //justify-items: start;
+  //align-items: start;
+  //height: 15%;
 }
 
 .inner-voice{
-  height: 85%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
+  //display: flex;
+  //flex-direction: column;
+  //justify-content: space-around;
+  //align-items: center;
 }
 
-.envelope{
-  height: 85%;
-  display: flex;
-  flex-direction: column;
 
-}
-
-.filter{
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-
+.voice-container{
+  //display: flex;
+  //flex-direction: column;
+  //align-items: center;
+  //height: 100%;
 }
 </style>

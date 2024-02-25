@@ -45,7 +45,7 @@ export default defineComponent({
     chain() {
       this.input.disconnect()
       this.input.connect(this.effect);
-      toRaw(this.effect).connect(this.output);
+      this.effect.connect(this.output);
     },
     unchain() {
       this.input.disconnect(this.effect);

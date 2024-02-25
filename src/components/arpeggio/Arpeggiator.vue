@@ -49,15 +49,12 @@
 
       <div class="range-container">
         bpm
-        <div class="bpm">
           <div class="range-control">
             <button class="range-button" @click="bpm > 40 ? bpm-- : bpm" @mousedown="startDecreasingBpm" @mouseup="stopChangingBpm">-</button>
             <div class="range-value" v-text="bpm"></div>
             <button class="range-button" @click="bpm < 200 ? bpm++ : bpm" @mousedown="startIncreasingBpm" @mouseup="stopChangingBpm">+</button>
           </div>
         </div>
-
-      </div>
 
     </div>
 
@@ -400,7 +397,7 @@ export default {
   background:
       radial-gradient(ellipse at center, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.404)),
       linear-gradient(-45deg, transparent 65%, rgb(255, 255, 255) 135%),
-      var(--btn-color);
+      var(--select-color);
   color: var(--text-color-on);
   appearance: none; /* Remove default appearance */
 }
@@ -420,7 +417,7 @@ export default {
   background:
       radial-gradient(ellipse at center, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.404)),
       linear-gradient(-45deg, transparent 65%, rgb(255, 255, 255) 135%),
-      var(--btn-color);
+      var(--select-color);
   color: var(--text-color-on);
   appearance: none; /* Remove default appearance */
 }

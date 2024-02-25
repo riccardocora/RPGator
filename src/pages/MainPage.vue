@@ -47,7 +47,7 @@ export default{
 :root{
   /*SELECT*/
   --select-border-color: rgba(49, 49, 49, 0.58);
-  --select-color: rgba(44, 59, 54, 0.889);
+  --select-color: rgba(19, 25, 33, 0.89);
   --select-shadow-color: rgba(0, 0, 0, 0.483);
   --select--text-color-off: rgb(136, 136, 136);
   --select--text-color-on: rgba(255, 255, 255, 0.824);
@@ -112,7 +112,7 @@ export default{
     box-shadow: 0 0 0 1px var(--border_color);
 }
 
-.shadow{
+.shade{
   background: radial-gradient(circle, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0));
   box-shadow: inset 0 0 15px 3px rgba(0, 0, 0, 0.49);
 }

@@ -62,6 +62,17 @@ export default {
       required: true
     }
   },
+  watch: {
+
+    input: function () {
+      this.input.disconnect();
+      this.input.connect(this.gainIn);
+    },
+    output: function () {
+      this.gainOut.disconnect()
+      this.gainOut.connect(this.output);
+    }
+  },
   setup (props) {
     // const ec = effectChain;
     console.log("effectName",props.name)
@@ -100,13 +111,13 @@ export default {
   },
   methods:{
     toggleChain(active){
-      console.log("isChained 2", active)
+      //console.log("isChained 2", active)
       if (active){
-        console.log("chaining")
-        console.log(this.$refs[this.name])
+        //console.log("chaining")
+        //console.log(this.$refs[this.name])
         this.$refs[this.name].chain();
       } else {
-        console.log("unchaining")
+        //console.log("unchaining")
         this.$refs[this.name].unchain();
       }
     }

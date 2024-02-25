@@ -1,43 +1,44 @@
 <template>
-    <div class="voices-container shadow">
+    <div class="voices-container shade ">
       <q-carousel
           v-model="slide"
           swipeable
           animated
           keep-alive
-          transition-next="slide-up"
-          transition-prev="slide-down"
           color="$r2d-container"
           class="carousel transparent"
           ref="carousel"
       >
-        <q-carousel-slide  :name="0" class=" slide">
-          <div class = "slide">
+        <q-carousel-slide  :name="0" class="slide full-width full-height">
+          <div class = "slide full-width full-height">
             <voice-module id="0" color="primary" :output="output"  ref="voice0"></voice-module>
           </div>
          </q-carousel-slide>
-        <q-carousel-slide :name="1" class=" slide" >
-          <voice-module id="1" color="secondary" :output="output" ref="voice1"></voice-module>
+        <q-carousel-slide :name="1" class=" slide full-width full-height" >
+          <div class = "slide full-width full-height">
+            <voice-module id="1" color="secondary" :output="output" ref="voice1"></voice-module>
+          </div>
         </q-carousel-slide>
 
         <template v-slot:control>
           <q-carousel-control
-              position="top"
-              :offset="[0,120]"
+              position="bottom-left"
+              :offset="[20,20]"
               class="carousel-control"
             >
+
             <div class="control-btn-container">
-            <q-btn-toggle square dense size="md" class=" control-btn checkmark" v-model="slide" :options="[{label: 'V1', value: 0}, {label: 'V2', value: 1}]"></q-btn-toggle>
+            <q-btn-toggle square :color="getSlideColor" dense rounded :ripple="null" no-caps size="sm" class="checkmark btn " push v-model="slide" :options="[{label: 'V.1', value: 0}, {label: 'V.2', value: 1}]"></q-btn-toggle>
             </div>
           </q-carousel-control>
         </template>
       </q-carousel>
     </div>
     <div class="control-container">
-      <div class="control0 shadow">
+      <div class="control0 shade ">
         <voice-controls id="0" color="primary" :update="updateVoice" ></voice-controls>
       </div>
-      <div class="control1 shadow">
+      <div class="control1 shade">
         <voice-controls id="1" color="secondary" :update="updateVoice"></voice-controls>
       </div>
     </div>
@@ -92,13 +93,13 @@ export default{
           if(this.$refs.voice1)this.$refs.voice1.playNote(value, noteLength);
         }});
     },
-    updateVoice(id,volume,octave,pan){
+    updateVoice(id,volume,octave,pan,transpose){
       switch (id) {
         case "0":
-          if(this.$refs.voice0)this.$refs.voice0.updateControls(volume,octave,pan);
+          if(this.$refs.voice0)this.$refs.voice0.updateControls(volume,octave,pan,transpose);
           break;
         case "1":
-          if(this.$refs.voice1)this.$refs.voice1.updateControls(volume,octave,pan);
+          if(this.$refs.voice1)this.$refs.voice1.updateControls(volume,octave,pan,transpose);
           break;
       }
 
@@ -119,11 +120,12 @@ export default{
 <style lang="scss" scoped>
 .voices-container{
   max-width: 80%;
+  min-width: 80%;
   height: 100%;
   display: flex;
   background-color: $r2d-inner;
   border-radius: 3%;
-  border-top: 3px solid rgba(255, 255, 255, 0.04);
+  border: 3px solid rgba(255, 255, 255, 0.04);
 }
 
 .control-container{
@@ -135,7 +137,7 @@ export default{
   align-content: space-between;
   justify-content: space-between;
   border-radius: 3%;
-  border: 3px solid rgba(255, 255, 255, 0.04);
+  //border: 3px solid rgba(255, 255, 255, 0.04);
 }
 
 .carousel{
@@ -146,8 +148,8 @@ export default{
 
 }
 .slide{
-  display: flex ;
-  flex-direction: row;
+  //display: flex ;
+  //flex-direction: row;
   overflow: hidden;
   padding: 1% 2% 1% 2%;
 }
@@ -160,17 +162,13 @@ export default{
 
 .control-btn{
   align-items: center;
-  flex-direction: column;
+  flex-direction: row;
   width: 100%;
 }
 
 .control-btn-container{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   width: 100%;
-  height: 100%
+  height: 100%;
 }
 
 
@@ -194,6 +192,8 @@ export default{
   border-radius: 3%;
   border: 3px solid rgba(255, 255, 255, 0.04);
 }
+
+
 
 
 

@@ -12,8 +12,8 @@
             thumb-path=""
             markers
             vertical
+            :color="color"
             reverse
-            label
             marker-labels
             switch-marker-labels-side
             class="control-slider marker-label "
@@ -29,6 +29,30 @@
           <span>E</span>
         </div>
       </div>
+      <div class="gain">
+        <q-slider
+            v-model="transpose"
+            :min="-11"
+            :max="11"
+            :step="1"
+            label
+            thumb-path=""
+            vertical
+            :color="color"
+            reverse
+            class="control-slider "
+            @update:model-value="updateControls"
+        />
+        <div class="gain-label">
+          <span>S</span>
+          <span>E</span>
+          <span>M</span>
+          <span>I</span>
+          <span>T</span>
+
+
+        </div>
+      </div>
 
       <div class="gain">
         <q-slider
@@ -38,19 +62,23 @@
           :step="1"
           label
           thumb-path=""
+          :color="color"
           vertical
-          label
           reverse
-          class="control-slider "
-          @change="updateControls"
+          class="control-slider"
+          @update:model-value="updateControls"
         />
         <div class="gain-label">
-          <span>G</span>
-          <span>A</span>
-          <span>I</span>
-          <span>N</span>
+          <span>V</span>
+          <span>O</span>
+          <span>L</span>
+          <span>U</span>
+          <span>M</span>
+          <span>E</span>
+
         </div>
       </div>
+
 
 
     </div>
@@ -64,6 +92,7 @@
           :step="0.01"
           thumb-path=""
           label
+          :color="color"
           class="horizontal-slider"
           @update:model-value="updateControls"
       />
@@ -73,7 +102,7 @@
 
 </template>
 <script>
-import {reactive, ref} from "vue";
+import { ref} from "vue";
 export default {
   name: "VoiceControls",
   props: {
@@ -92,16 +121,18 @@ export default {
   },
   setup(props) {
     const octave = ref(0);
-    const volume = ref(0);
+    const volume = ref(-6);
     const pan = ref(0);
+    const transpose = ref(0);
 
     const updateControls = ()=>{
-      props.update(props.id, volume.value,octave.value,pan.value)
+      props.update(props.id, volume.value,octave.value,pan.value,transpose.value)
     }
     return {
       pan,
       volume,
       octave,
+      transpose,
       updateControls
     }
   }

@@ -1,24 +1,31 @@
 <template>
-  <div class="r2d-container shadow">
+  <div class="r2d-container shade shadow-4">
     <div class="r2d ">
       <div class="top-row row ">
         <div class="voices ">
           <voices :output="voicesOut" ref="voices"></voices>
         </div>
-        <div class="visual shadow" >
-          <visual-trip :input="effectsIn"></visual-trip>
+        <div class="visual shade" >
+          <visual-trip :input="gainOut"></visual-trip>
         </div>
       </div>
       <div class="row bottom-row">
         <div class="arp ">
           <arpeggiator :update="updatePattern" :noteUp ="noteUp" :noteDown="noteDown"></arpeggiator>
         </div>
-        <div class="effects shadow">
+        <div class="effects shade">
           <effects :input="effectsIn" :output="effectsOut"></effects>
         </div>
       </div>
     </div>
   </div>
+  <q-checkbox v-model="rec" @update:model-value="record" >
+
+    <template v-slot:default>
+      REC
+      <q-btn size=40% round :class="rec ?'light_on':'button_light'" />
+    </template>
+  </q-checkbox>
 </template>
 
 <script>
@@ -46,9 +53,12 @@ export default {
     const effectsIn = new Tone.Gain();
     const effectsOut = new Tone.Gain();
     const gainOut = new Tone.Gain(0.5);
+    const recorder = new Tone.Recorder();
+    const rec = ref(false);
     voicesOut.connect(effectsIn);
     effectsOut.connect(gainOut);
     gainOut.toDestination()
+    gainOut.connect(recorder);
 
 
 
@@ -57,6 +67,8 @@ export default {
       effectsIn,
       effectsOut,
       gainOut,
+      rec,
+      recorder
     }
 
   },
@@ -66,11 +78,30 @@ export default {
       this.$refs.voices.updatePattern(pattern, noteLength);
     },
 
-    noteUp(note,velToGain){
-      this.$refs.voices.noteUp(note,velToGain);
+    noteUp(note){
+      this.$refs.voices.noteUp(note);
     },
-    noteDown(note){
-      this.$refs.voices.noteDown(note);
+    noteDown(note,velToGain){
+      this.$refs.voices.noteDown(note,velToGain);
+    },
+    record(){
+      if(this.rec){
+        this.recorder.start();
+        setTimeout(async () => {
+          // the recorded audio is returned as a blob
+          const recording = await this.recorder.stop();
+          // download the recording by creating an anchor element and blob url
+          const url = URL.createObjectURL(recording);
+          const anchor = document.createElement("a");
+          anchor.download = "recording.wav";
+          anchor.href = url;
+          anchor.click();
+        }, 20000);
+      }else{
+        this.recorder.stop();
+
+      }
+
     }
   }
 }

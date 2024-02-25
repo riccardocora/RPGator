@@ -1,20 +1,27 @@
 
 <template>
-  <div class="container">
-    <q-btn-toggle
-        v-model="synthType"
-        toggle-color="primary"
-        class="btn-container"
-        size="xs"
-        unelevated
-        :ripple="false"
-        :options="synthTypes"
-        @update:model-value="updateSynthType"
-    />
-    <div class="oscillatorContainer">
-      <oscillator-comp :id="id" :color="color" :update="updateOscillator"></oscillator-comp>
+  <div class="container row full-height">
+    <div class="synth col-6 row">
+      <div class="btn-container col-2">
+        <q-toggle
+          :model-value="synthType"
+          size="sm"
+          dense
+          true-value="mono"
+          false-value="membrane"
+          :color="color"
+          toggle-text-color=""
+          style="flex-direction: column;"
+          :ripple="false"
+          @update:model-value="updateSynthType"
+
+      />
+      </div>
+      <div class="oscillatorContainer col-10">
+        <oscillator-comp :id="id" :color="color" :update="updateOscillator"></oscillator-comp>
+      </div>
     </div>
-    <div class="envelopeContainer">
+    <div class="envelopeContainer col-6">
       <envelope-comp :id="id" :color="color"  :update="updateEnvelope"></envelope-comp>
     </div>
   </div>
@@ -53,22 +60,10 @@ export default {
   name: "SynthComp",
   components: {OscillatorComp, EnvelopeComp},
   setup(props){
-    const synthType = ref(Tone.MonoSynth);
-    const synthTypes = [
-      {
-        label: "Mono",
-        class:'checkmark',
-        value: Tone.MonoSynth,
-      },
-      {
-        label: "Membrane",
-        class:'checkmark',
-        value: Tone.MembraneSynth,
-      },
+    const synthType = ref("mono");
 
-    ]
 
-    const synth = new Tone.PolySynth(synthType.value,{
+    const synth = new Tone.PolySynth(Tone.MonoSynth,{
       oscillator: {
         type: "sine"
       },
@@ -79,8 +74,9 @@ export default {
         release: 0.8
       }
     })
+    synth.volume.value = -6 ;
     synth.maxPolyphony =1000;
-    console.log("synth",synth)
+    //console.log("synth",synth)
     if(props.input){
       props.input.connect(synth);
     }
@@ -90,7 +86,6 @@ export default {
 
     return {
       synth,
-      synthTypes,
       synthType
     }
   },
@@ -106,10 +101,12 @@ export default {
 
     updateSynthType(newValue) {
       console.log("updateSynthType",newValue)
+      console.log("this.synth type",this.synthType)
+      this.synthType = newValue;
       const prevSynth = this.synth.options;
-      console.log("prevSynth",prevSynth)
-      this.synth = new Tone.PolySynth(toRaw(newValue),prevSynth);
-      console.log("newSynth",this.synth)
+      //console.log("prevSynth",prevSynth)
+      this.synth = new Tone.PolySynth(newValue==="mono" ? Tone.MonoSynth : Tone.MembraneSynth,prevSynth);
+      //console.log("newSynth",this.synth)
       this.synth.maxPolyphony =1000;
       if(this.input){
         this.input.disconnect();
@@ -134,7 +131,7 @@ export default {
       this.synth.triggerRelease(note,Tone.now());
     },
     noteDown(note,time,velToGain) {
-      //console.log('noteDown',note,time)
+      // console.log('noteDown',note,time,velToGain)
       this.synth.triggerAttack(note,time,velToGain);
     }
   }
@@ -144,29 +141,36 @@ export default {
 
 <style lang="scss" scoped>
 
+.synth{
+  //display: flex;
+  //flex-direction: column;
+  //width: 50%
+}
 .container{
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
+  //width: 100%;
+  //display: flex;
+  //flex-direction: row;
 }
 .oscillatorContainer{
-  height:100%;
-  width: 50%;
+  //display: flex;
+  //flex-direction: column;
+  //height:100%;
+  //width: 80%;
 }
 
 .envelopeContainer{
-  height:100%;
-  width: 50%;
+  //height:100%;
+  //width: 50%;
+  //display: flex;
+  //flex-direction: column;
 }
 
-.btn-container{
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  justify-content: space-around;
-  height: 80%;
-  width: 50%;
+.btn-container {
+  //display: flex;
+  //align-items: center;
+  //justify-content: space-around;
+  //height: 100%;
+  //width: 20%;
 }
 
 </style>

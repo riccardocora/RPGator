@@ -62,7 +62,7 @@ export default defineComponent({
       this.effect.set({
         [newValue.id]: newValue.value
       })
-      console.log("vibrato", this.effect)
+      //console.log("vibrato", this.effect)
     }
 
   }

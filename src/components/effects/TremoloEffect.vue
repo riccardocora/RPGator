@@ -42,7 +42,7 @@ export default defineComponent({
   setup(props) {
 
     const effect = new Tone.Distortion()
-    console.log("tremolo", props.input,props.output)
+    //console.log("tremolo", props.input,props.output)
 
 
     return {

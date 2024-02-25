@@ -1,12 +1,12 @@
 
 <template>
-    <div class="voice-container">
-      <div class="col-voice-container">
+    <div class="row full-height q-py-sm q-pb-lg">
+      <div class="col-4">
         <q-btn-toggle
             v-model="oscillator.baseType"
-            toggle-color="primary"
+            :toggle-color="color"
             class="btn-container"
-            size="xs"
+            size="sm"
             unelevated
             :ripple="false"
             :options="baseTypeOptions"
@@ -38,27 +38,31 @@
         </q-btn-toggle>
       </div>
 
-      <div class="modulation">
-        <div class="col-voice-container-type">
+      <div class="col-8 modulation q-px-sm ">
+        <div class="q-px-md col">
           <q-btn-toggle
               v-model="sourceType"
-              toggle-color="primary"
-              size="xs"
+              size="sm"
               unelevated
-              class="btn-container-type"
+              class="btn-container"
               clearable
+              dense
+              stretch
+              spread
               :options="sourceTypeOptions"
               @update:model-value="updateOscillator"
               @clear="updateOscillator"
           />
         </div>
-        <div class="col-voice-container-fm" >
+
+        <div class="q-px-md col full-height">
           <q-btn-toggle
               v-model="oscillator.modulationType"
-              toggle-color="primary"
-              size="xs"
+              :toggle-color="color"
+              size="sm"
               unelevated
-              class="btn-container-fm"
+              stretch
+              class="btn-container"
               clearable
               :options="baseTypeOptions"
               @update:model-value="updateOscillator"
@@ -89,9 +93,11 @@
               </div>
             </template>
           </q-btn-toggle>
+
+        </div>
+
         </div>
       </div>
-    </div>
 
 
 </template>
@@ -204,10 +210,7 @@ export default {
     async updateOscillator() {
       //console.log("updateOscillator", toRaw(oscillator));
       //console.log("sourceType.value", sourceType.value);
-      if(this.sourceType.value === "null") {
-        toRaw(this.oscillator).set({sourceType: 'oscillator'});
-      }
-      toRaw(this.oscillator).set({sourceType : this.sourceType.value});
+      toRaw(this.oscillator).set({sourceType : this.sourceType === "null" ? 'oscillator' : this.sourceType.value});
       await this.update(this.oscillator);
     }
 
@@ -238,8 +241,8 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 90%;
-  width: 30%;
+  //height: 90%;
+  //width: 30%;
 
 }
 
@@ -247,9 +250,11 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: start;
-  height: 90%;
-  width: 60%;
+  align-items: center;
+  border: 2px solid var(--border-color_1);
+  border-radius: 5px;
+  //height: 90%;
+  //width: 60%;
 
 }
 .col-voice-container-type{
@@ -257,8 +262,8 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%;
-  width: 50%;
+  //height: 100%;
+  //width: 50%;
 }
 
 .col-voice-container-fm{
@@ -267,8 +272,8 @@ export default {
   justify-content: center;
   align-items: center;
 
-  height: 100%;
-  width: 50%;
+  //height: 100%;
+  //width: 50%;
 }
 
 
@@ -277,28 +282,11 @@ export default {
   flex-direction: column;
   align-items: start;
   justify-content: space-around;
-  height: 80%;
-  width: 80%;
+  //height: 80%;
+  //width: 80%;
 }
 
-.btn-container-type{
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  justify-content: space-between;
-  height: 60%;
-  width: 70%;
-}
 
-.btn-container-fm{
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  justify-content: space-between;
-
-  height: 60%;
-  width: 50%;
-}
 
 
 

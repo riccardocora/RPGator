@@ -1,9 +1,9 @@
 <template>
-    <div class="screen-container  selector" ref="screenContainer">
+    <div class="screen-container selector " ref="screenContainer">
 
         <canvas class="canvas selector " ref="visualizerCanvas"></canvas>
-        <div class="screen">
-          <div class="screen-frame"></div>
+        <div class="screen shadow-4">
+          <div class="screen-frame "></div>
 
             <div class="screen-inset"></div>
           </div>
@@ -32,7 +32,7 @@ export default {
   setup(props) {
     const visualizerCanvas = ref(null);
 
-    const waveform = new Tone.Waveform()
+    const waveform = new Tone.Waveform(1024)
     props.input.connect(waveform);
     //waveform.toDestination()
     const screenContainer = ref(null);
@@ -68,23 +68,34 @@ export default {
         const canvas = visualizerCanvas.value;
         const canvasContext = canvas.getContext("2d");
         const wavedata = waveform.getValue();
-        ////console.log("waveform:", waveform); // Log the waveform data
-        canvasContext.fillStyle = "black";
-        canvasContext.shadowColor = "white";
-        canvasContext.shadowBlur = 2;
-        // canvasContext.fillRect(0, 0, canvas.width, canvas.height);
-        canvasContext.lineWidth = 2;
-        canvasContext.strokeStyle = getCssVar(props.color);
-          //getCssVar(props.color)
 
         canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+        ////console.log("waveform:", waveform); // Log the waveform data
+        canvasContext.fillStyle = getCssVar("positive"); // Replace 'your-color' with the color you want
+        canvasContext.fillRect(0, 0, canvas.width, canvas.height);
+        canvasContext.shadowColor = getCssVar("secondary");
+        canvasContext.shadowBlur = 3;
+        // canvasContext.fillRect(0, 0, canvas.width, canvas.height);
+        canvasContext.lineWidth = 2 ;
+
+        const gradient = canvasContext.createLinearGradient(0, 0, canvas.width, 0);
+        gradient.addColorStop("0", getCssVar("secondary"));
+        gradient.addColorStop("0.333", getCssVar("primary"));
+        gradient.addColorStop("0.666",getCssVar("primary") );
+        gradient.addColorStop("1",getCssVar("secondary") );
+
+        canvasContext.strokeStyle = gradient;
+
+
+          //getCssVar(props.color)
+
         // Begin a new path for the line graph
         canvasContext.beginPath();
         canvasContext.moveTo(0, canvas.height);
         const sliceWidth = (canvas.width)/ (wavedata.length) ;
         let x = 0;
         let y = canvas.height/2;
-        let margin = canvas.height * 0.7;
+        let margin = 0;
         canvasContext.lineTo(x, y);
         for (let i = 0; i < wavedata.length; i++) {
           const v = (wavedata[i] +1) / 2; // Normalize to [0, 1]
@@ -97,9 +108,9 @@ export default {
         canvasContext.lineTo(canvas.width, (canvas.height) / 2);
         canvasContext.lineTo(canvas.width, canvas.height);
 
+        canvasContext.fillStyle = getCssVar("positive");
+        canvasContext.fill();
         canvasContext.stroke();
-        canvasContext.fillStyle = "black";
-        // canvasContext.fill();
         animationId = requestAnimationFrame(draw);
       }
     };
@@ -125,6 +136,7 @@ export default {
   height:94%;
   border-radius: 50%;
   align-self: center;
+  //background-color: $primary;
 }
 
 .selector {

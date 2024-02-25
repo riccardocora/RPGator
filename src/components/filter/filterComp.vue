@@ -1,30 +1,34 @@
 <template>
-  <div class="button-row">
-    Filter {{chained}}
-    <q-checkbox v-model="chained" @update:model-value="toggleChain" >
+  <div class="column full-height">
+    <div class="button-row col-2">
+      <div style="display: flex; flex-direction: column; justify-content: center"  class="q-px-md">Filter</div>
 
-      <template v-slot:default>
+      <q-checkbox v-model="chained" @update:model-value="toggleChain" >
+
+        <template v-slot:default>
           <q-btn size=40% round :class="chained ?'light_on':'button_light'" />
-      </template>
-    </q-checkbox>
+        </template>
+      </q-checkbox>
 
 
 
-  </div>
-  <div class="parent selector">
-    <div class="button-toggles-top">
+    </div>
+    <div class="q-px-md q-pt-sm col-10 ">
+      <div class="parent selector shadow-1">
+      <div class="button-toggles-top">
         <q-btn-toggle
-          v-model="rolloff"
-          color="dark"
-          text-color="white"
-          :toggle-color="color"
-          size="sm"
-          unelevated
-          stretch
-          spread
-          flat
-          @update:model-value="updateRolloff"
-          :options="[{
+            v-model="rolloff"
+            color="dark"
+            text-color="white"
+            :toggle-color="color"
+            size="sm"
+            unelevated
+            stretch
+            spread
+            dense
+            flat
+            @update:model-value="updateRolloff"
+            :options="[{
                    label: '-12',
                    value: -12,
                   },
@@ -37,50 +41,51 @@
                   value: -48,
                   }]"
 
-      />
-    </div>
-    <div class="curve-row">
-      <div class="button-toggles-side">
-        <q-btn-toggle
-            v-model="filter.type"
-            color="dark"
-            no-caps
-            text-color="white"
-            :toggle-color="color"
-            size="sm"
-            stretch
-            style="flex-direction: column"
-            unelevated
-            flat
-            :options="[
+        />
+      </div>
+      <div class="curve-row">
+        <div class="button-toggles-side">
+          <q-btn-toggle
+              v-model="filter.type"
+              color="dark"
+              no-caps
+              text-color="white"
+              :toggle-color="color"
+              size="sm"
+              dense
+              stretch
+              style="flex-direction: column"
+              unelevated
+              flat
+              :options="[
           {label: 'lp', value: 'lowpass'},
           {label: 'hp', value: 'highpass'},
           {label: 'bp', value: 'bandpass'},]"
-        />
+          />
+        </div>
+        <div class="curve-container">
+          <filter-curve :id="id" :filter="filter" :color="color"></filter-curve>
+        </div>
       </div>
-      <div class="curve-container">
-        <filter-curve :id="id" :filter="filter" :color="color"></filter-curve>
-      </div>
-    </div>
-    <div class="screen">
-      <div class="screen-frame"></div>
+<!--      <div class="screen">-->
+<!--        <div class="screen-frame"></div>-->
 
-      <div class="screen-inset"></div>
+<!--        <div class="screen-inset"></div>-->
+<!--      </div>-->
+    </div>
+      <div class="knob-container q-pt-sm q-px-md">
+        <div class="knob-wrapper">
+
+          <Knob :id="'cutoff'+id" :color="color" :min="1" :max="4" :value="filterLogfreq" :step="0.01" :thickness="0.1" :update="update" :midi="74"/>
+          Cutoff
+        </div>
+        <div class="knob-wrapper">
+          <Knob v-model="filter.Q" :id="'Q'+id" :color="color" :min="0.01" :max="18" :inner-max="18" :step="0.1" :thickness="0.1" :update="update" :midi="75"/>
+          Q
+        </div>
+      </div>
     </div>
   </div>
-
-  <div class="knob-container">
-    <div class="knob-wrapper">
-
-      <Knob id="cutoff" :color="color" :min="1" :max="4" :value="filterLogfreq" :step="0.01" :thickness="0.1" :update="update" />
-      Cutoff
-    </div>
-    <div class="knob-wrapper">
-      <Knob v-model="filter.Q" id="Q" :color="color" :min="0.01" :max="18" :inner-max="18" :step="0.1" :thickness="0.1" :update="update" />
-      Q{{filter.Q.value}}
-    </div>
-  </div>
-
 </template>
 
 <script>
@@ -152,10 +157,10 @@ export default {
         toRaw(filter).rolloff=newValue;
       },
       update (newValue) {
-        if(newValue.id === "cutoff") {
+        if(newValue.id === "cutoff"+props.id) {
           filterLogfreq.value = newValue.value;
           filter.frequency.value = Math.trunc(2* Math.pow(10,filterLogfreq.value))
-        } else if(newValue.id === "Q") {
+        } else if(newValue.id === "Q"+props.id) {
           filter.Q.value = newValue.value;
         }
       }
@@ -171,51 +176,45 @@ export default {
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 97%;
-  max-height: 63.75%;
-  min-width: 100%;
-  min-height: 63.75%;
-  height: 63.75%;
-  padding: 5px;
+  width: 100%;
+  aspect-ratio: 14/9;
+  padding: 2%;
+  border-radius: 3%;
 }
 .button-toggles-top {
   position: relative;
   width: 100%;
-  height: 16%;
+  height: 10%;
   align-items: start;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  background-color: black;
+  background-color: transparent;
 }
 .button-toggles-side {
   position: relative;
   display: flex;
+  width: 14%;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: start;
-  width: 11%;
-  height: 100%;
-  background-color: black;
+  background-color: transparent;
 }
 
 .button-row{
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: end;
   align-items: center;
-  height: 15%;
-  padding: 10px;
+  //height: 15%;
 }
 .curve-row{
   display: flex;
   flex-direction: row;
-  height: 100%;
   width: 100%;
 }
 .curve-container{
-  height: 100%;
-  width: 100%;
+
 }
 
 .knob-container{
@@ -223,7 +222,7 @@ export default {
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  height: 21.25%;
+  //height: 21.25%;
   font-size: 11px;
 
 }
@@ -240,11 +239,13 @@ export default {
   ///* Add a radial gradient to simulate inner light */
   background:
       radial-gradient(ellipse at center, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.404)),
-      linear-gradient(-45deg, transparent 65%, rgb(255, 255, 255) 135%),
+      linear-gradient(-3deg, transparent 85%, rgb(255, 255, 255) 150%),
+      linear-gradient(5deg, transparent 85%, rgb(255, 255, 255) 150%),
+      linear-gradient(90deg, transparent 90%, rgb(255, 255, 255) 180%),
       var(--select-color);
   justify-content: flex-end;
   align-items: center;
-  color: var(--select--text-color-on);
+  color: var(--select--textlor-on-co);
 
 }
 
@@ -254,9 +255,9 @@ export default {
   position: absolute
 }
 .screen, .screen-inset {
-  top: 3%;
-  width: 95%;
-  height: 95%;
+  //top: %;
+  width: 100%;
+  height: 100%;
 }
 .screen {
   background-image:
@@ -264,7 +265,7 @@ export default {
       radial-gradient(110% 65% at 60% 150%, rgba(255, 255, 255, 0.71) 1%,#fff0),
       //radial-gradient(100% 100% at 50% 50%,#0000 25%,#000 50%),
       radial-gradient(100% 100% at 50% 50%,#0000 20%,#000 80%);
-  z-index: -1;
+  z-index: 1;
 }
 .screen-inset {
   //box-shadow: 0 0.1em 0.1em 0.6em rgba(35, 34, 34, 0.42) inset;

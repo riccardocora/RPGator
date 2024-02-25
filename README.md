@@ -7,7 +7,7 @@ R2D is thought as a playful yet powerful tool to discover sound synthesis and ge
 <br>
 
 <p align="center">
-    <img width="90%" src="public/images/project images/UI.png" alt="Splash Image">
+    <img width="90%" src="public/images/project-images/UI.png" alt="Splash Image">
 </p>
 
 <br>

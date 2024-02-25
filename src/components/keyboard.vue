@@ -147,7 +147,7 @@
 import AudioKeys from "audiokeys";
 import * as Tone from "tone";
 import {nextTick, onMounted, ref} from "vue";
-
+import MIDIAccess from "@/components/controls/MIDIAccess.js";
 export default {
   name: "Keyboard",
   props: {
@@ -195,21 +195,52 @@ export default {
     const buttonRefs = {};
     // const v = voices;
 
-      for (let octave of [1, 2, 3, 4, 5, 6, 7]) {
+    for (let octave of [1, 2, 3, 4, 5, 6, 7]) {
       for (let note of notes) {
         buttonRefs[note + octave] = ref(null);
       }
     }
 
+
+
     onMounted(() => {
       nextTick(() => {
+        const midi = new MIDIAccess({ onDeviceInput });
+        midi.start().then(() => {
+          console.log('STARTED!');
+        }).catch(console.error);
+
+        function map(value, sourceMin, sourceMax, targetMin, targetMax) {
+          //     // Scale the input value from the source range to the target range
+          return (value - sourceMin) / (sourceMax - sourceMin) * (targetMax - targetMin) + targetMin;
+        }
+
+        function onDeviceInput({type, input, value }) {
+          console.log("MIDI INPUT VALUE",type, input, value);
+          if(type!==144 && type!==128) return;
+          if(input >= 0 && input <=120){
+            if(value > 0  && type===144){
+              const n = Tone.Frequency(input, "midi").toNote();
+              const velToGain = map(value, 0, 127, 0, 1);
+
+              // const btn =  buttonRefs[n];
+              if(n){
+                // btn.value[0].$el.click()
+                props.noteDown(n,velToGain);
+              }
+            }
+            else if(type===128){
+              const n = Tone.Frequency(input, "midi").toNote();
+              if(n){
+                props.noteUp(n);
+              }
+            }
+          }
+        }
 
         const keyboard = new AudioKeys({polyphony: 4});
         // AudioContextHandler.voices.connectKeyboard(keyboard);
-        function map(value, sourceMin, sourceMax, targetMin, targetMax) {
-        //     // Scale the input value from the source range to the target range
-            return (value - sourceMin) / (sourceMax - sourceMin) * (targetMax - targetMin) + targetMin;
-        }
+
         keyboard.down(note => {
           const n = Tone.Frequency(note.note, "midi").toNote();
           const velToGain = map(note.velocity, 0, 127, 0, 1);

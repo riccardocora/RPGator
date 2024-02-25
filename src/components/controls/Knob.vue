@@ -1,4 +1,6 @@
 <script>
+
+import MIDIAccess from "@/components/controls/MIDIAccess.js";
 import {ref, defineComponent, computed} from "vue";
 
 export default defineComponent({
@@ -43,16 +45,40 @@ export default defineComponent({
     update:{
       type: Function,
       required: true,
+    },
+    midi: {
+      type: Number,
+      required: false,
     }
   },
   setup(props){
-    const value = ref(props.value);
-    const rotation = computed(() => value.value * 360/props.max); // Assuming the knob's value is between 0 and 100, this will give a rotation angle between 0 and 360 degrees
+    const knobValue = ref(props.value);
+    const rotation = computed(() => knobValue.value * 360/props.max); // Assuming the knob's value is between 0 and 100, this will give a rotation angle between 0 and 360 degrees
 
+    if(props.midi && props.midi >= 70 && props.midi <= 76 ){
+      const midi = new MIDIAccess({ onDeviceInput });
+      midi.start().then(() => {
+        console.log('STARTED!');
+      }).catch(console.error);
+    }
     const updateValue = (newValue) => {
       props.update({id: props.id,value:newValue})
     }
-    return {value, updateValue,rotation}
+
+    function onDeviceInput({ type,input, value }) {
+      // console.log('MIDI event',type, input, value);
+      if(type!==176)return;
+      if(props.midi === input){
+        const newValue = (value/ 127) *(props.max - props.min) + props.min;
+        knobValue.value = newValue;
+        updateValue(newValue);
+      }
+    }
+    // const handleMouseDown = (event) => {
+    //   if (value.value === props.min) {
+    //   }
+    // };
+    return {knobValue, updateValue,rotation,}
   }
 })
 
@@ -61,7 +87,7 @@ export default defineComponent({
 <template>
   <div class="knobContainer">
     <!--    <input type="range" min="1" max="100" value="50" class="slider" id="myRange">-->
-    <q-knob :color="color" size="40px" class="knob" :min="min" :angle="225" :inner-max="max" :max="max *360/270" :step="step" :thickness="thickness" show-value  v-model="value"  @update:model-value="updateValue" >
+    <q-knob :color="color" size="40px" class="knob" :min="min" :angle="225" :inner-max="max" :max="max *360/270" :step="step"  :thickness="thickness" show-value v-model="knobValue" @update:model-value="updateValue">
       <template v-slot:default>
 <!--        <div class="knob">-->
 <!--          <div class="knob__indicator" >-->

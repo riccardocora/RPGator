@@ -1,29 +1,24 @@
 
 <template>
-  <div class="container">
-    <div class="sampler">
+  <div class="container row">
+    <div class="sampler col-6">
       <div class="button-grid">
-        <q-btn
-            v-for="button in buttons"
-            :key="button.id"
-            @click="changeInstrument(button.id)"
-            :icon="'img:icons/'+button.instr+'/'+button.instr+'-96.png'"
-            class="checkmark"
-            :color="button.active ? 'primary' : ''"
-            :class="{'active-icon': button.active }"
-
-        />
+        <div  v-for="button in buttons" class="checkbox-container">
+          <button
+              :key="button.id"
+              @click="changeInstrument(button.id)"
+              class="checkmark"
+          >
+            <img :src="'icons/'+button.instr+'/'+button.instr+'-50.png'" alt="Instrument Icon" class="sampler-icons">
+          </button>
+        </div>
       </div>
 
     </div>
-    <div class="envelope">
-      <envelope-comp :id="id"  :input="envGainIn" :output="envGainOut" :update="updateEnvelope" ref="envelope"></envelope-comp>
-
+    <div class="envelope col-6">
+      <envelope-comp :id="id" :color="color"  :update="updateEnvelope" ref="envelope"></envelope-comp>
     </div>
   </div>
-
-
-
 </template>
 
 <script>
@@ -60,11 +55,11 @@ import * as Tone from "tone";
      setup(props) {
 
 
-      const sampler = SoundLoader.load({instruments: 'piano'});
+      let sampler = SoundLoader.load({instruments: 'piano'});
 
 
       if(props.input){
-        props.input.connect(toRaw(sampler));
+        props.input.connect(sampler);
       }
       if(props.output){
         sampler.connect(props.output);
@@ -79,24 +74,11 @@ import * as Tone from "tone";
        })));
 
 
-       const changeInstrument = async(buttonId) => {
-        //console.log("changeInstrument", buttonId);
-         buttons.forEach((button) => {
-           button.active = button.id === buttonId;
-         });
-         sampler.value = await SoundLoader.load({
-           instruments: buttonId,
-           onload: () => {
 
-             //console.log('loaded');
-           }
-         });
-      }
       return {
         instrument: ref("piano"),
         instrumentOptions,
         buttons,
-        changeInstrument,
         sampler,
       }
     },
@@ -109,6 +91,7 @@ import * as Tone from "tone";
       },
       playNote(note,duration,time){
         //console.log("playNote sampler",note,duration,time)
+        if (this.sampler.loaded === false) return
         this.sampler.triggerAttackRelease(note, duration,time);
       },
       updateVolume(volume) {
@@ -116,11 +99,35 @@ import * as Tone from "tone";
       },
 
       noteUp(note,time){
-        this.synth.triggerRelease(note,time);
+        if (this.sampler.loaded === false) return
+
+        this.sampler.triggerRelease(note,time);
       },
       noteDown(note,time,velToGain) {
         //console.log('noteDown',note,time)
-        this.synth.triggerAttack(note,time,velToGain);
+        if (this.sampler.loaded === false) return
+
+        this.sampler.triggerAttack(note,time,velToGain);
+      },
+      async changeInstrument(buttonId){
+        //console.log("changeInstrument", buttonId);
+        this.buttons.forEach((button) => {
+          button.active = button.id === buttonId;
+        });
+        this.sampler  = await SoundLoader.load({
+          instruments: buttonId,
+          onload: () => {
+            console.log('loaded');
+          }
+
+        });
+
+        this.sampler.connect(this.output);
+
+        // console.log("newsampl",newsampl.get())
+        // sampler = newsampl;
+        //console.log("sampler",this.sampler)
+
       }
 
 
@@ -155,97 +162,57 @@ import * as Tone from "tone";
 <style lang="scss">
 .button-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  height: 90%;
-  width: 85%;
-  padding: 10px;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  aspect-ratio: 1/1;
+      height: 90%;
+      width: 85%;
 }
 
-.container{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  height: 100%;
-  width: 100%;
+.sampler-icons{
+  height: 25px;
+  width: 25px;
 }
 
 .sampler{
-  height:100%;
-  width: 50%;
-}
-.envelope{
-  height:100%;
-  width: 50%;
-}
-.samplerButton {
-  /* Other styles */
-  //box-shadow: 0 10px 30px rgba(0, 0, 0, 0.19), 0 6px 20px rgba(0, 0, 0, 0.23);
-  //transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-}
-
-//.samplerButton:hover {
-//  /* Other styles */
-//  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25), 0 10px 30px rgba(0, 0, 0, 0.22);
-//}
-
-.samplerButton:active {
-  /* Other styles */
-  //box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15), 0 3px 10px rgba(0, 0, 0, 0.12);
-}
-//.samplerButton {
-//  display: inline-block;
-//  padding: 15px 45px;
-//  color: #FCFBE7;
-//  font-size: 2em;
-//  text-align: center;
-//  text-decoration: none;
-//  position: relative;
-//  margin-bottom: 30px;
-//  text-transform: capitalize;
-//  border-radius: 10px;
-//}
-//.blue {
-//  background-color: #6DBCDB;
-//  box-shadow: 1px 1px 0 #437487, 2px 2px 0 #437487, 3px 3px 0 #437487, 4px 4px 0 #437487;
-//
-//  text-shadow: 1px 2px rgba(67,116,135,.8);
-//}
-//
-//.blue:hover {
-//  margin-top: 1px;
-//  box-shadow: 1 px 1px 0 #437487, 2px 2px 0 #437487;
-//  margin-top: 2px;
-//  margin-left: 2px;
-//}
-//
-//
-//.blue:active {
-//  margin-top: 4px;
-//  margin-left: 4px;
-//}
-//
-//.samplerButton:active {
-//  margin-top: 4px;
-//  border: none;
-//  box-shadow: none;
-//}
-.sampler-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  padding: 1%;
   height: 100%;
-  width: 100%;
+}
+
+.checkmark {
+  position: relative;
+  pointer-events: auto;
+  border-radius: 8%;
+  background:
+      radial-gradient(circle, rgba(164, 164, 164, 0),rgba(0, 0, 0, 0.349)),
+      var(--select-color) !important;
+  border: 1px solid rgba(26, 26, 26, 0.524);
+  box-shadow: inset 0 0 3px 1px var(--btn-shadow-color) !important;
+  /* Text */
   display: flex;
   justify-content: center;
-  align-items: start;
+  align-items: center;
+  color: var(--text-color-off) !important;
 }
 
-.active-icon {
-    color: white !important;
-    /* Add any other styles for the active state */
+
+.checkmark:hover{
+  background: var(--select-color) !important;
+  box-shadow: inset 0 0 3px 1px var(--btn-shadow-color) !important;
 }
 
-.checkmark{
-  background-color: #2f2f2f ;
+.checkbox-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  padding: 0;
 }
+
 
 </style>

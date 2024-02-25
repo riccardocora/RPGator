@@ -38,7 +38,7 @@ export default defineComponent({
   setup(props) {
 
     const effect = new Tone.Reverb()
-    console.log("reverb", props.input,props.output)
+    //console.log("reverb", props.input,props.output)
 
 
 
@@ -58,7 +58,7 @@ export default defineComponent({
       this.input.connect(this.output);
     },
     update(newValue){
-      console.log("reverb", this.effect)
+      //console.log("reverb", this.effect)
       this.effect.set({
         [newValue.id]: newValue.value
       })

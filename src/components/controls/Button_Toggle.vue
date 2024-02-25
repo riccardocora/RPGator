@@ -15,7 +15,7 @@ export default defineComponent({
 
 </script>
 
-<style >
+<style lang="scss" scoped>
 
 .checkbox-container {
   text-transform: uppercase;

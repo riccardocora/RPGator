@@ -1,5 +1,6 @@
   <template>
-      <div class="screen-container selector">
+    <div class="q-px-md q-pt-sm ">
+      <div class="screen-container selector shadow-1">
         <canvas class="curve" ref="visualCanvas"></canvas>
           <div class="screen">
             <div class="screen-frame"></div>
@@ -7,21 +8,21 @@
             <div class="screen-inset"></div>
           </div>
       </div>
-      <div class="knob-container">
+      <div class="knob-container q-mt-sm q-px-md">
         <div class="knob-wrapper">
-          <Knob v-model="envelope.attack"  id="attack" :color="color" :min="0" :max="2"   :step="0.01" :thickness="0.1" :update="updateEnvelope" />
+          <Knob v-model="envelope.attack" :value="envelope.decay" :id="'attack'+id" :color="color" :min="0" :max="2"   :step="0.01" :thickness="0.1" :update="updateEnvelope" :midi="70"/>
           A
         </div>
         <div class="knob-wrapper">
-          <Knob v-model="envelope.decay" :value="envelope.decay" id="decay" :color="color" :min="0" :max="2"  :step="0.01" :thickness="0.1" :update="updateEnvelope" />
+          <Knob v-model="envelope.decay" :value="envelope.decay" :id="'decay'+id" :color="color" :min="0" :max="2"  :step="0.01" :thickness="0.1" :update="updateEnvelope"  :midi="71"/>
           D
         </div>
         <div class="knob-wrapper">
-          <Knob v-model="envelope.sustain" :value="envelope.sustain" id="sustain" :color="color" :min="0" :max="1"   :step="0.01" :thickness="0.1" :update="updateEnvelope" />
+          <Knob v-model="envelope.sustain" :value="envelope.sustain" :id="'sustain'+id" :color="color" :min="0" :max="1"   :step="0.01" :thickness="0.1" :update="updateEnvelope"  :midi="72"/>
           S
         </div>
         <div class="knob-wrapper">
-          <Knob v-model="envelope.release" :value="envelope.release"  id="release" :color="color" ::min="0" :max="5" :step="0.01" :thickness="0.1" :update="updateEnvelope" />
+          <Knob v-model="envelope.release" :value="envelope.release"  :id="'release'+id" :color="color" ::min="0" :max="5" :step="0.01" :thickness="0.1" :update="updateEnvelope"  :midi="73"/>
           R
         </div>
       </div>
@@ -58,11 +59,13 @@
 
 <!--        </div>-->
 <!--      </div>-->
+
+    </div>
   </template>
 
   <script>
 
-  import {ref, onMounted, defineComponent, reactive, nextTick, watch, toRaw} from "vue";
+  import {ref, onMounted, defineComponent} from "vue";
   import {getCssVar} from "quasar";
   import Knob from "../controls/Knob.vue";
 import * as Tone from "tone";
@@ -132,9 +135,10 @@ import * as Tone from "tone";
         const total = (currentAttack + currentDecay + currentRelease).toFixed(2)
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = "black";
-        ctx.shadowColor = "white";
-        ctx.shadowBlur = 6;
+
+        ctx.fillStyle = getCssVar(props.color);
+        ctx.shadowColor = getCssVar(props.color);
+        ctx.shadowBlur = 2;
         // // Stroke
         ctx.lineWidth = 3;
         // ctx.fillRect(0, 0, canvas.width, canvas.height)
@@ -175,8 +179,14 @@ import * as Tone from "tone";
       }
       const updateEnvelope = (newValue) => {
 
-        const attributeId = [newValue.id][0]
-
+        const attributeId = newValue.id.match(/[a-zA-Z]+/)[0]; // Extracts the literal part
+        const idNumber = newValue.id.match(/\d+/)[0]; // Extracts the numerical par
+        console.log("idNumber",idNumber)
+        console.log("props.id",props.id)
+        console.log("attributeId",attributeId)
+        if (idNumber !== props.id) {
+          return; // If the numerical part does not match props.id, exit the function
+        }
         envelope[attributeId] = newValue.value;
 
 
@@ -203,10 +213,14 @@ import * as Tone from "tone";
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 97%;
-  height: 75%;
+  width: 100%;
+  max-height: 10em;
+  aspect-ratio: 14/9;
   align-self: center;
-  padding: 5px;
+  padding: 2%;
+  border-radius: 3%;
+
+  //padding: 5px;
 }
 
 .knob-container{
@@ -214,7 +228,7 @@ import * as Tone from "tone";
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  height: 25%;
+  //height: 25%;
   font-size: 11px;
 }
 
@@ -225,23 +239,20 @@ import * as Tone from "tone";
   align-self: center;
 }
 
-
 .selector {
 
   border: #030303 1px solid;
-
-
-  /* your existing styles */
-
   /* Add multiple inset box shadows to create an inner "screen" effect */
-  //box-shadow: inset 0 0 8px 1px var(--select-shadow-color),
-  //inset 0 0 15px 1px var(--select-shadow-color), /* inner shadow */
-  //0 0 0 2px inset var(--select-border-color); /* inner shadow */
+  box-shadow: inset 0 0 8px 1px var(--select-shadow-color),
+  inset 0 0 15px 1px var(--select-shadow-color), /* inner shadow */
+  0 0 0 2px inset var(--select-border-color); /* inner shadow */
 
   ///* Add a radial gradient to simulate inner light */
   background:
       radial-gradient(ellipse at center, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.404)),
-      linear-gradient(-45deg, transparent 65%, rgb(255, 255, 255) 135%),
+      linear-gradient(-3deg, transparent 85%, rgb(255, 255, 255) 150%),
+      linear-gradient(5deg, transparent 85%, rgb(255, 255, 255) 150%),
+      linear-gradient(-90deg, transparent 90%, rgb(255, 255, 255) 180%),
       var(--select-color);
   justify-content: flex-end;
   align-items: center;
@@ -251,10 +262,8 @@ import * as Tone from "tone";
 
 
 .screen, .screen-inset {
-  top: 2%;
-  left: 2%;
-  width: 98%;
-  height: 98%;
+  width: 100%;
+  height: 100%;
 }
 .screen {
   background-image:
