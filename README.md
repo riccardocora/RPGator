@@ -43,12 +43,12 @@ R2D ARP is a dual-voice arpeggiator featuring selectable components in each voic
 The arpeggiator is a versatile tool designed for creating arpeggios with ease. It features a keyboard with two octaves, allowing users to play individual notes or select multiple notes simultaneously to define the arpeggio. Additionally, it includes various control buttons for selecting arpeggio patterns, note length, rate, octave range, and starting octave. Tempo can be adjusted from 40 to 200 BPM, and a play/stop button initiates or halts the arpeggio sequence. Finally, a button is provided to release selected notes and reset the sequence.
 
 
-|   |   |
-|---|---|
-|<p align="center"> <img src="public/images/project images/Keyboard.png"  padding='5%' width='70%' > | “Keyboard” - Two octaves for playing individual notes or selecting multiple notes for the arpeggio pattern. |
-| <p align="center"><img src="public/images/project images/Selection buttons arp.png" width='50%' > | Selection Buttons: 1. Patterns: “Pattern Selector” - Selects the arpeggio pattern. 2. Note Length: "Length Selector” - Sets the duration of each note. 3. Rate: "Rate Selector” - Adjusts the interval between notes.  |
-| <p align="center"><img src="public/images/project images/Octave selector.png" width='50%' > | Octave Controls: 1. “Octave Repeat Control” - Sets the number of octaves each note repeats. 2. “Starting Octave Control” - Determines the initial octave for the keyboard and it refers to the first key button. Tempo Control: “BPM Adjuster” - Adjusts tempo from 40 to 200 BPM. |
-|<p align="center"><img src="public/images/project images/Play:reset.png" width='50%' > | “Play/Stop Button” - Initiates or halts the arpeggio sequence. “Reset Button” - Releases selected notes and resets the sequence. |
+|                                                                                                     |   |
+|-----------------------------------------------------------------------------------------------------|---|
+| <p align="center"> <img src="public/images/project images/Keyboard.png"  padding='5%' width='70%' > | “Keyboard” - Two octaves for playing individual notes or selecting multiple notes for the arpeggio pattern. |
+| <p align="center"><img src="public/images/project images/Selection buttons arp.png" width='50%' >   | Selection Buttons: 1. Patterns: “Pattern Selector” - Selects the arpeggio pattern. 2. Note Length: "Length Selector” - Sets the duration of each note. 3. Rate: "Rate Selector” - Adjusts the interval between notes.  |
+| <p align="center"><img src="public/images/project images/Octave selector.png" width='50%' >         | Octave Controls: 1. “Octave Repeat Control” - Sets the number of octaves each note repeats. 2. “Starting Octave Control” - Determines the initial octave for the keyboard and it refers to the first key button. Tempo Control: “BPM Adjuster” - Adjusts tempo from 40 to 200 BPM. |
+| <p align="center"><img src="public/images/project images/Play-reset.png" width='50%' >              | “Play/Stop Button” - Initiates or halts the arpeggio sequence. “Reset Button” - Releases selected notes and resets the sequence. |
 
 <br>
 
