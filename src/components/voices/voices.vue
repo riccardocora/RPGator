@@ -76,16 +76,14 @@ export default{
             return 'primary';
           case 1:
             return 'secondary';
-          // Add more cases if you have more slides
           default:
-            return 'white'; // Default color if no match is found
+            return 'white';
         }
       };
     },
   },
   methods:{
     updatePattern(pattern, noteLength) {
-      //console.log('pattern updated');
       pattern.set({
         values : pattern.values,
         callback : (time, value) => {

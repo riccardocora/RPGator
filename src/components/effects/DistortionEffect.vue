@@ -30,11 +30,9 @@ export default defineComponent({
       required: true
     }
   },
-  setup(props){
+  setup(){
 
       const effect = new Tone.Distortion()
-    console.log("dist", props.input,props.output)
-
 
 
     return {

@@ -1,10 +1,7 @@
 <template>
-<!--  <div class="column full-height justify-center" >-->
-
     <div class="screen-container " ref="screenContainer">
       <canvas class="canvas" ref="visualizerCanvas"></canvas>
     </div>
-<!--  </div>-->
 </template>
 
 <script>
@@ -28,7 +25,6 @@ export default {
   watch: {
 
     filter: function () {
-      //console.log("watching filter");
       this.draw();
     }
   },
@@ -52,16 +48,8 @@ export default {
       const canvas = visualizerCanvas.value;
       if(canvas === null) return;
       const ctx = canvas.getContext("2d");
-      // let start = props.type==="lowpass"? 0: canvas.width;
-      // const tot_x = 4;
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      // ctx.fillStyle = getCssVar("positive"); // Replace 'your-color' with the color you want
-      //
-      // ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      // ctx.fillStyle = getCssVar("positive"); // Replace 'your-color' with the color you want
-      // ctx.fillRect(0, 0, canvas.width, canvas.height);
-
       ctx.fillStyle = getCssVar(props.color);
       ctx.shadowColor = getCssVar(props.color);
       // ctx.shadowColor = getCssVar("primary");
@@ -70,9 +58,7 @@ export default {
       ctx.lineWidth = 3;
       ctx.strokeStyle = getCssVar(props.color);
       //getCssVar(props.color)
-      // Clear the canvas
-      // Clear the canvas
-      // Begin a new path for the line graph
+
       ctx.beginPath();
       ctx.moveTo(0, canvas.height);
       // Find the minimum and maximum values in the freqResp array
@@ -102,13 +88,11 @@ export default {
         const y = canvas.height - normalizedFreqResp * canvas.height * 0.8;
 
 
-        // Add a point to the path at the calculated x and y coordinates
         ctx.lineTo(x, y);
 
 
       }
 
-      // Stroke the path to draw the line graph
       ctx.lineTo(canvas.width, canvas.height);
       ctx.closePath();
 
@@ -119,12 +103,10 @@ export default {
     }
 
     const initializeAudio = () => {
-      // Start the initial drawing
       draw();
     };
 
     watchEffect(() => {
-      // This function will run whenever filter.frequency.value or filter.Q.value changes
       draw();
     });
     return {

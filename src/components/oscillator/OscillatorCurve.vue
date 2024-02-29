@@ -51,13 +51,11 @@ export default {
 
     onMounted(() => {
       window.addEventListener('resize', resizeHandler);
-      // Call the handler once to set the initial height
       resizeHandler();
       initializeAudio();
     });
 
     onUnmounted(() => {
-      // Cleanup on component unmount
       cancelAnimationFrame(animationId);
     });
 
@@ -70,12 +68,10 @@ export default {
         const wavedata = waveform.getValue();
 
         canvasContext.clearRect(0, 0, canvas.width, canvas.height);
-        ////console.log("waveform:", waveform); // Log the waveform data
-        canvasContext.fillStyle = getCssVar("positive"); // Replace 'your-color' with the color you want
+        canvasContext.fillStyle = getCssVar("positive");
         canvasContext.fillRect(0, 0, canvas.width, canvas.height);
         canvasContext.shadowColor = getCssVar("secondary");
         canvasContext.shadowBlur = 3;
-        // canvasContext.fillRect(0, 0, canvas.width, canvas.height);
         canvasContext.lineWidth = 2 ;
 
         const gradient = canvasContext.createLinearGradient(0, 0, canvas.width, 0);
@@ -86,8 +82,6 @@ export default {
 
         canvasContext.strokeStyle = gradient;
 
-
-          //getCssVar(props.color)
 
         // Begin a new path for the line graph
         canvasContext.beginPath();
@@ -100,6 +94,7 @@ export default {
         for (let i = 0; i < wavedata.length; i++) {
           const v = (wavedata[i] +1) / 2; // Normalize to [0, 1]
           y = v * (canvas.height - margin) + margin / 2;
+
           canvasContext.lineTo(x, y);
 
           x += sliceWidth;

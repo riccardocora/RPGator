@@ -65,7 +65,7 @@ export default defineComponent({
 
 /* On mouse-over, add a grey background color */
 .checkmark:active {
-  box-shadow: inset 0 0 10px 0px var(--btn-shadow-color);
+  box-shadow: inset 0 0 10px 0 var(--btn-shadow-color);
   background:
     radial-gradient(circle, rgba(255, 255, 255, 0.15),rgba(0, 0, 0, 0.431)),
     var(--btn-color) ;
@@ -82,7 +82,7 @@ export default defineComponent({
     radial-gradient(circle, rgba(255, 255, 255, 0.342),rgba(0, 0, 0, 0.15)),
     var(--btn-color);
     box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.458), /* top shadow */
-    0 0px 2px 0px rgba(0, 0, 0, 0.467);
+    0 0 2px 0 rgba(0, 0, 0, 0.467);
   z-index: 1;
 }
 

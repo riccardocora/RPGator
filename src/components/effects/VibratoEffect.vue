@@ -16,9 +16,8 @@
   </div>
 </template>
 <script>
-import {defineComponent, reactive, toRaw} from "vue";
+import {defineComponent} from "vue";
 import Knob from "../controls/Knob.vue";
-import effectChain from "@/components/effects/effectChain.js";
 import * as Tone from "tone";
 
 export default defineComponent({
@@ -37,12 +36,9 @@ export default defineComponent({
       required: true
     }
   },
-  setup(props) {
+  setup() {
 
-    const effect = new Tone.Vibrato()
-    console.log("vibrato  ", props.input,props.output)
-
-
+    const effect = new Tone.Vibrato();
     return {
       effect
     }
@@ -62,7 +58,6 @@ export default defineComponent({
       this.effect.set({
         [newValue.id]: newValue.value
       })
-      //console.log("vibrato", this.effect)
     }
 
   }

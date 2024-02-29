@@ -1,15 +1,15 @@
 <template>
-  <div class="r2d-container shade shadow-4">
+  <div class="r2d-container shade shadow-4 ">
     <div class="r2d ">
       <div class="top-row row ">
-        <div class="voices ">
+        <div class="voices text-info">
           <voices :output="voicesOut" ref="voices"></voices>
         </div>
         <div class="visual shade" >
           <visual-trip :input="gainOut"></visual-trip>
         </div>
       </div>
-      <div class="row bottom-row">
+      <div class="row bottom-row text-info">
         <div class="arp ">
           <arpeggiator :update="updatePattern" :noteUp ="noteUp" :noteDown="noteDown"></arpeggiator>
         </div>
@@ -24,6 +24,7 @@
     <template v-slot:default>
       REC
       <q-btn size=40% round :class="rec ?'light_on':'button_light'" />
+      {{formattedTime}}/10:00
     </template>
   </q-checkbox>
 </template>
@@ -35,7 +36,7 @@ import Effects from "../components/effects/effects.vue";
 import Arpeggiator from "../components/arpeggio/Arpeggiator.vue";
 import VisualTrip from "../components/visualUnit/visual.vue";
 import * as Tone from "tone";
-import {reactive, ref, toRaw} from "vue";
+import {computed, reactive, ref} from "vue";
 
 export default {
   name: 'RPGator',
@@ -45,17 +46,25 @@ export default {
     Effects,
     Voices,
   },
-  computed:{
-
-  },
   setup() {
     const voicesOut = new Tone.Gain();
+    const scale = new Tone.Scale(0, 0.9);
     const effectsIn = new Tone.Gain();
     const effectsOut = new Tone.Gain();
     const gainOut = new Tone.Gain(0.5);
     const recorder = new Tone.Recorder();
+    const recordingSeconds = ref(0);
+    const formattedTime = computed(() => {
+      const minutes = Math.floor(recordingSeconds.value / 60);
+      const seconds = recordingSeconds.value % 60;
+      return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    });
     const rec = ref(false);
-    voicesOut.connect(effectsIn);
+    let intervalId = null;
+    let timeoutId = null;
+    let isRecording = null;
+    voicesOut.connect(scale);
+    scale.connect(effectsIn);
     effectsOut.connect(gainOut);
     gainOut.toDestination()
     gainOut.connect(recorder);
@@ -68,13 +77,17 @@ export default {
       effectsOut,
       gainOut,
       rec,
-      recorder
+      recorder,
+      recordingSeconds,
+      isRecording,
+      formattedTime,
+      timeoutId,
+      intervalId
     }
 
   },
   methods: {
     updatePattern(pattern, noteLength) {
-      ////console.log('pattern updated')
       this.$refs.voices.updatePattern(pattern, noteLength);
     },
 
@@ -84,22 +97,33 @@ export default {
     noteDown(note,velToGain){
       this.$refs.voices.noteDown(note,velToGain);
     },
-    record(){
+    async record(){
       if(this.rec){
-        this.recorder.start();
-        setTimeout(async () => {
-          // the recorded audio is returned as a blob
+        this.isRecording = await this.recorder.start();
+        this.recordingSeconds = 0;
+        this.intervalId = setInterval(() => {
+          this.recordingSeconds++;
+        }, 1000);
+        this.timeoutId = setTimeout(async () => {
           const recording = await this.recorder.stop();
-          // download the recording by creating an anchor element and blob url
           const url = URL.createObjectURL(recording);
           const anchor = document.createElement("a");
           anchor.download = "recording.wav";
           anchor.href = url;
           anchor.click();
-        }, 20000);
-      }else{
-        this.recorder.stop();
+        }, 600000);
 
+      } else if(this.isRecording !== null){
+        clearInterval(this.intervalId);
+        clearTimeout(this.timeoutId);
+        const recording = await this.recorder.stop();
+        const url = URL.createObjectURL(recording);
+        const anchor = document.createElement("a");
+        anchor.download = "recording.wav";
+        anchor.href = url;
+        anchor.click();
+        this.recordingSeconds = 0;
+        this.isRecording = null;
       }
 
     }

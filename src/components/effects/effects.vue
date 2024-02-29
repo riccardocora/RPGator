@@ -91,31 +91,19 @@ name: 'Effects',
   },
   methods:{
     getInput(effect) {
-      //console.log("getInpput effect",effect)
       const index = this.effects.indexOf(effect);
-      //console.log("index",index)
       if (index > 0) {
-        //console.log("previous effect",this.effects[index -1]);
-        //console.log("previous output ",this.effectMap.get(this.effects[index -1]).output)
 
         return this.effectMap.get(this.effects[index -1]).output;
       }
-      //console.log("previous effect(input)",this.input);
 
       return this.input
     },
     getOutput(effect) {
-      //console.log("getOutput effect",effect)
       const index = this.effects.indexOf(effect);
       if (index < this.effects.length - 1) {
-        //console.log("getOutput next effect ",this.effects[index + 1])
-
-
-
         return this.getInput(this.effects[index + 1])
       }
-      //console.log("getOutput next input (output)",this.output)
-
       return this.output
     },
 

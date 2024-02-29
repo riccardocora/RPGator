@@ -63,7 +63,6 @@ import * as Tone from "tone";
       }
       if(props.output){
         sampler.connect(props.output);
-        //console.log(" env out connected")
       }
 
       const instrumentOptions = SoundLoader.getInstruments();
@@ -104,29 +103,25 @@ import * as Tone from "tone";
         this.sampler.triggerRelease(note,time);
       },
       noteDown(note,time,velToGain) {
-        //console.log('noteDown',note,time)
         if (this.sampler.loaded === false) return
 
         this.sampler.triggerAttack(note,time,velToGain);
       },
       async changeInstrument(buttonId){
-        //console.log("changeInstrument", buttonId);
+
         this.buttons.forEach((button) => {
           button.active = button.id === buttonId;
         });
         this.sampler  = await SoundLoader.load({
           instruments: buttonId,
           onload: () => {
-            console.log('loaded');
+            console.log('instrument loaded');
           }
 
         });
 
         this.sampler.connect(this.output);
 
-        // console.log("newsampl",newsampl.get())
-        // sampler = newsampl;
-        //console.log("sampler",this.sampler)
 
       }
 

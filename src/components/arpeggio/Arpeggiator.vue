@@ -80,7 +80,7 @@
 <script>
 import {reactive, ref, toRaw} from 'vue'
 import * as Tone from "tone";
-import Keyboard from "../keyboard.vue";
+import Keyboard from "../controls/Keyboard.vue";
 
 export default {
   name:'Arpeggiator',
@@ -140,7 +140,6 @@ export default {
   },
 
   methods: {
-    // ...
     handleNoteSelected(event) {
       // event.note, event.octave, and event.selected contain the emitted data
       // You can now use the emitted data in your parent component
@@ -159,15 +158,11 @@ export default {
       // Convert the group set back to an array
       this.group = Array.from(groupSet);
 
-      // Sort the group array by ascending pitch
 
-      ////console.log("group  ", this.group)
       this.updatePattern()
     },
 
     updatePattern() {
-      ////console.log("updatePattern")
-      ////console.log("this.group", this.group)
       const tempGroup = toRaw(this.group);
       tempGroup.sort((noteA, noteB) => {
         // Convert the notes to frequencies
@@ -177,18 +172,15 @@ export default {
         // Compare the frequencies
         return freqA - freqB;
       });
-      ////console.log("this.group 2", tempGroup)
       this.pattern.set({
         values: tempGroup,
         pattern: (this.type),
         interval: toRaw(this.interval)
       })
-      ////console.log("this.pattern", this.pattern)
       this.update(toRaw(this.pattern),toRaw(this.noteLength))
     },
 
     togglePlay(playing){
-      ////console.log("togglePlay",this.pattern)
       if (playing){
         this.updatePattern();
         Tone.Transport.start();
@@ -241,10 +233,7 @@ export default {
     decreaseOctave() {
       if (this.octave > 1) { // Minimum octave value
         this.octave--;
-        ////console.log("this.group before decrease", this.group)
-
         this.group = this.group.map(note => Tone.Frequency(note).transpose(-12).toNote());
-        ////console.log("this.group after decrease", this.group)
 
         this.updatePattern();
       }

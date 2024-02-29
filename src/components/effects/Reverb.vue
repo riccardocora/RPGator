@@ -14,9 +14,8 @@
 
 </template>
 <script>
-import {defineComponent, reactive, toRaw} from "vue";
+import {defineComponent, toRaw} from "vue";
 import Knob from "../controls/Knob.vue";
-import effectChain from "@/components/effects/effectChain.js";
 import * as Tone from "tone";
 export default defineComponent({
   name:'ReverbEffect',
@@ -35,13 +34,8 @@ export default defineComponent({
       required: true
     }
   },
-  setup(props) {
-
+  setup() {
     const effect = new Tone.Reverb()
-    //console.log("reverb", props.input,props.output)
-
-
-
     return {
       effect
     }
@@ -58,7 +52,6 @@ export default defineComponent({
       this.input.connect(this.output);
     },
     update(newValue){
-      //console.log("reverb", this.effect)
       this.effect.set({
         [newValue.id]: newValue.value
       })

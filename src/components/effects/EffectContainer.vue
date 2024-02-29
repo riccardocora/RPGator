@@ -48,7 +48,6 @@ export default {
   name : "EffectContainer",
   components: {DelayEffect, Delay, ChorusEffect, DistortionEffect, VibratoEffect, TremoloEffect,ReverbEffect},
   props: {
-    // Define a prop for the input node
     name: {
       type: String,
       required: true
@@ -74,15 +73,6 @@ export default {
     }
   },
   setup (props) {
-    // const ec = effectChain;
-    console.log("effectName",props.name)
-    console.log("input",props.input)
-    console.log("output",props.output)
-
-    // console.log("effectChain  ", ec.effects )
-    // console.log("effectChain ", ec.effects.get(props.name) )
-
-    // const effect = ec.effects.get(props.name)
 
     const chained = ref(false);
 
@@ -94,15 +84,6 @@ export default {
 
     gainIn.connect(gainOut);
 
-    // console.log("effect.chained: ",effect)
-    // effect.toggleChain()
-    // const active = ref(false);
-    //
-    //
-    // console.log("isChained 1", active.value)
-
-
-
     return {
       chained,
       gainOut,
@@ -111,13 +92,9 @@ export default {
   },
   methods:{
     toggleChain(active){
-      //console.log("isChained 2", active)
       if (active){
-        //console.log("chaining")
-        //console.log(this.$refs[this.name])
         this.$refs[this.name].chain();
       } else {
-        //console.log("unchaining")
         this.$refs[this.name].unchain();
       }
     }
@@ -132,8 +109,6 @@ export default {
   align-items: center;
   justify-content: space-evenly;
   height: 20%;
-
-  //margin: 10px;
 }
 
 .effect{

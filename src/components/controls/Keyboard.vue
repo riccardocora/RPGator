@@ -173,7 +173,6 @@ export default {
         selectedNotes[note + octave] = false;
       }
     }
-    //console.log("selelctednotes",selectedNotes)
     return {
       localOctave: this.octave,
       selectedNotes,
@@ -182,7 +181,6 @@ export default {
   },
   watch: {
     octave(newVal) {
-      //console.log("newVal",newVal)
       this.localOctave = newVal;
       this.octaves = [this.localOctave,this.localOctave+1]
 
@@ -216,16 +214,12 @@ export default {
         }
 
         function onDeviceInput({type, input, value }) {
-          console.log("MIDI INPUT VALUE",type, input, value);
           if(type!==144 && type!==128) return;
           if(input >= 0 && input <=120){
             if(value > 0  && type===144){
               const n = Tone.Frequency(input, "midi").toNote();
               const velToGain = map(value, 0, 127, 0, 1);
-
-              // const btn =  buttonRefs[n];
               if(n){
-                // btn.value[0].$el.click()
                 props.noteDown(n,velToGain);
               }
             }
@@ -239,7 +233,6 @@ export default {
         }
 
         const keyboard = new AudioKeys({polyphony: 4});
-        // AudioContextHandler.voices.connectKeyboard(keyboard);
 
         keyboard.down(note => {
           const n = Tone.Frequency(note.note, "midi").toNote();
@@ -267,9 +260,7 @@ export default {
 
 
     const handleMouseDown = (evt) => {
-      //console.log("evt", evt.target);
       const note = Tone.Frequency(evt.target.id).toFrequency();
-      //console.log("note",note);
       if(note){
         props.noteDown(note);
       }
@@ -292,9 +283,6 @@ export default {
 
   methods: {
     handleNoteSelected(note, octave) {
-      //console.log("handleNoteSelected");
-      //console.log("octave",octave)
-      //console.log("note",note)
       this.$emit('note-selected', { note, octave, selected: this.selectedNotes[note + octave] });
     },
     resetSelectedNotes() {

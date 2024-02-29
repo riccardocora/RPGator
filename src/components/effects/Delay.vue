@@ -13,9 +13,8 @@
   </div>
 </template>
 <script>
-import {defineComponent, reactive, toRaw} from "vue";
+import {defineComponent, toRaw} from "vue";
 import Knob from "../controls/Knob.vue";
-import effectChain from "@/components/effects/effectChain.js";
 import * as Tone from "tone";
 export default defineComponent({
   name: "DelayEffect",
@@ -34,11 +33,8 @@ export default defineComponent({
       required: true
     }
   },
-  setup(props) {
+  setup() {
     const effect = new Tone.FeedbackDelay()
-    console.log("delay", props.input,props.output)
-
-
 
     return {
       effect
@@ -58,7 +54,6 @@ export default defineComponent({
     async update(newValue){
       await this.effect.set({
         [newValue.id]: newValue.value
-
       })
     }
 

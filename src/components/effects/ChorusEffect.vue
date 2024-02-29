@@ -17,9 +17,8 @@
 
 </template>
 <script>
-import {defineComponent, reactive, toRaw} from "vue";
+import {defineComponent, toRaw} from "vue";
 import Knob from "../controls/Knob.vue";
-import effectChain from "@/components/effects/effectChain.js";
 import * as Tone from "tone";
 export default defineComponent({
   components: {Knob},
@@ -37,10 +36,9 @@ export default defineComponent({
       required: true
     }
   },
-  setup(props) {
+  setup() {
 
     const effect = new Tone.Chorus(4, 2.5, 0.5)
-    console.log("chorus", props.input,props.output)
     effect.set({feedback  : 0.2});
 
 
@@ -63,7 +61,6 @@ export default defineComponent({
       this.effect.set({
         [newValue.id]: newValue.value
       })
-      console.log("chorus", this.effect)
     }
 
   }

@@ -1,5 +1,5 @@
   <template>
-    <div class="q-px-md q-pt-sm ">
+    <div class="q-px-md q-pt-sm text-info">
       <div class="screen-container selector shadow-1">
         <canvas class="curve" ref="visualCanvas"></canvas>
           <div class="screen">
@@ -11,55 +11,23 @@
       <div class="knob-container q-mt-sm q-px-md">
         <div class="knob-wrapper">
           <Knob v-model="envelope.attack" :value="envelope.decay" :id="'attack'+id" :color="color" :min="0" :max="2"   :step="0.01" :thickness="0.1" :update="updateEnvelope" :midi="70"/>
-          A
+          <div>A</div>
         </div>
         <div class="knob-wrapper">
           <Knob v-model="envelope.decay" :value="envelope.decay" :id="'decay'+id" :color="color" :min="0" :max="2"  :step="0.01" :thickness="0.1" :update="updateEnvelope"  :midi="71"/>
-          D
+          <div>D</div>
         </div>
         <div class="knob-wrapper">
           <Knob v-model="envelope.sustain" :value="envelope.sustain" :id="'sustain'+id" :color="color" :min="0" :max="1"   :step="0.01" :thickness="0.1" :update="updateEnvelope"  :midi="72"/>
-          S
+          <div>S</div>
+
         </div>
         <div class="knob-wrapper">
           <Knob v-model="envelope.release" :value="envelope.release"  :id="'release'+id" :color="color" ::min="0" :max="5" :step="0.01" :thickness="0.1" :update="updateEnvelope"  :midi="73"/>
-          R
+          <div>R</div>
+
         </div>
       </div>
-<!--      <div class="row justify-between q-pa-sm" >-->
-<!--          <div class="column inline q-pr-sm" >-->
-
-<!--          <div>-->
-<!--            <q-badge outline color="accent" label="A"/>-->
-
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="column inline q-px-sm">-->
-
-<!--          <div>-->
-<!--            <q-badge outline :color="color" label="D"/>-->
-
-<!--          </div>-->
-
-<!--        </div>-->
-<!--        <div class="column inline q-px-sm">-->
-
-<!--          <div>-->
-<!--            <q-badge outline color="accent" label="S"/>-->
-
-<!--          </div>-->
-
-<!--        </div>-->
-<!--        <div class="column inline q-pl-sm">-->
-
-<!--          <div>-->
-<!--            <q-badge outline color="accent" label="R"/>-->
-
-<!--          </div>-->
-
-<!--        </div>-->
-<!--      </div>-->
-
     </div>
   </template>
 
@@ -117,9 +85,6 @@ import * as Tone from "tone";
       }
       const visualCanvas = ref(null);
       onMounted(() => {
-        // Logic that initializes the canvas and draws the envelope
-
-        // Logic to create the Tone.js envelope and oscillator
         draw();
       });
 
@@ -131,7 +96,6 @@ import * as Tone from "tone";
         const currentAttack = envelope.attack
         const currentDecay = envelope.decay
         const currentRelease = envelope.release
-        // Reset variables
         const total = (currentAttack + currentDecay + currentRelease).toFixed(2)
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -139,13 +103,7 @@ import * as Tone from "tone";
         ctx.fillStyle = getCssVar(props.color);
         ctx.shadowColor = getCssVar(props.color);
         ctx.shadowBlur = 2;
-        // // Stroke
         ctx.lineWidth = 3;
-        // ctx.fillRect(0, 0, canvas.width, canvas.height)
-        // const gradient = ctx.createLinearGradient(0, 0, 170, 0);
-        // gradient.addColorStop("0", "gold");
-        // gradient.addColorStop("0.5", "blue");
-        // gradient.addColorStop("1.0", "purple");
         ctx.strokeStyle = getCssVar(props.color);
 
 
@@ -181,9 +139,6 @@ import * as Tone from "tone";
 
         const attributeId = newValue.id.match(/[a-zA-Z]+/)[0]; // Extracts the literal part
         const idNumber = newValue.id.match(/\d+/)[0]; // Extracts the numerical par
-        console.log("idNumber",idNumber)
-        console.log("props.id",props.id)
-        console.log("attributeId",attributeId)
         if (idNumber !== props.id) {
           return; // If the numerical part does not match props.id, exit the function
         }
@@ -214,11 +169,12 @@ import * as Tone from "tone";
   justify-content: center;
   align-items: center;
   width: 100%;
-  max-height: 10em;
-  aspect-ratio: 14/9;
+  //max-height: 10em;
   align-self: center;
   padding: 2%;
   border-radius: 3%;
+  //flex-direction: column;
+  aspect-ratio: 14 / 9;
 
   //padding: 5px;
 }

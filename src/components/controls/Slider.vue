@@ -18,7 +18,6 @@ export default defineComponent({
     const value = ref(50);
     const updateValue = () => {
 
-      //console.log("value", value.value)
     }
     return {value, updateValue}
   }

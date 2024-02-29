@@ -1,7 +1,8 @@
 
 <template>
     <div class="row full-height q-py-sm q-pb-lg">
-      <div class="col-4">
+
+      <div class="col-4 carrier">
         <q-btn-toggle
             v-model="oscillator.baseType"
             :toggle-color="color"
@@ -39,6 +40,7 @@
       </div>
 
       <div class="col-8 modulation q-px-sm ">
+
         <div class="q-px-md col">
           <q-btn-toggle
               v-model="sourceType"
@@ -55,7 +57,7 @@
           />
         </div>
 
-        <div class="q-px-md col full-height">
+        <div class="q-px-md col">
           <q-btn-toggle
               v-model="oscillator.modulationType"
               :toggle-color="color"
@@ -207,11 +209,11 @@ export default {
     };
   },
   methods: {
-    async updateOscillator() {
-      //console.log("updateOscillator", toRaw(oscillator));
-      //console.log("sourceType.value", sourceType.value);
-      toRaw(this.oscillator).set({sourceType : this.sourceType === "null" ? 'oscillator' : this.sourceType.value});
-      await this.update(this.oscillator);
+    updateOscillator() {
+
+      const source = this.sourceType === null ? "oscillator" : this.sourceType;
+      toRaw(this.oscillator).sourceType = source;
+      this.update(this.oscillator);
     }
 
   }
@@ -286,7 +288,12 @@ export default {
   //width: 80%;
 }
 
-
+.carrier{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
 
 

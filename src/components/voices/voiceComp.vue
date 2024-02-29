@@ -1,5 +1,5 @@
 <template>
-  <div class="container row full-height ">
+  <div class="container row full-height text-info">
   <div class="voice-container col-8">
     <div class = "column full-height">
       <div class="button-row full-width col-2 ">
@@ -148,16 +148,10 @@ export default {
   methods: {
     toRaw,
     toggleChain() {
-      console.log("toggleChain",this.chained)
       if (!this.chained) {
-        ////console.log("disconnect")
         this.voice_out.disconnect(this.filter_in);
-        ////console.log("disconnected")
       } else {
-        ////console.log("connect")
         this.voice_out.connect(this.filter_in);
-
-        ////console.log("connected")
       }
 
     },

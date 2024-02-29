@@ -91,8 +91,7 @@ export default {
   },
   methods: {
     async updateOscillator(newValue) {
-
-      this.synth.set({oscillator: toRaw(newValue).get()});
+      await this.synth.set({oscillator: toRaw(newValue).get()});
     },
     updateEnvelope(newValue) {
       //////console.log("updateEnvelope", toRaw(newValue))
@@ -100,13 +99,10 @@ export default {
     },
 
     updateSynthType(newValue) {
-      console.log("updateSynthType",newValue)
-      console.log("this.synth type",this.synthType)
+
       this.synthType = newValue;
       const prevSynth = this.synth.options;
-      //console.log("prevSynth",prevSynth)
       this.synth = new Tone.PolySynth(newValue==="mono" ? Tone.MonoSynth : Tone.MembraneSynth,prevSynth);
-      //console.log("newSynth",this.synth)
       this.synth.maxPolyphony =1000;
       if(this.input){
         this.input.disconnect();
@@ -118,20 +114,16 @@ export default {
     },
 
     playNote(note,duration,time) {
-      //console.log('synth output',this.output)
 
       this.synth.triggerAttackRelease(note, duration,time);
     },
     updateVolume(volume) {
-      //console.log('updateVolume',this.synth.volume,volume)
       this.synth.volume.value = volume;
     },
     noteUp(note,time){
-      //console.log("noteUp synth",note,time)
       this.synth.triggerRelease(note,Tone.now());
     },
     noteDown(note,time,velToGain) {
-      // console.log('noteDown',note,time,velToGain)
       this.synth.triggerAttack(note,time,velToGain);
     }
   }

@@ -1,7 +1,7 @@
 <template>
-  <div class="column full-height">
+  <div class="column full-height text-info">
     <div class="button-row col-2">
-      <div style="display: flex; flex-direction: column; justify-content: center"  class="q-px-md">Filter</div>
+      <div style="display: flex; flex-direction: column; justify-content: center" class="q-px-md">Filter</div>
 
       <q-checkbox v-model="chained" @update:model-value="toggleChain" >
 
@@ -19,8 +19,8 @@
         <q-btn-toggle
             v-model="rolloff"
             color="dark"
-            text-color="white"
             :toggle-color="color"
+            text-color="info"
             size="sm"
             unelevated
             stretch
@@ -49,10 +49,10 @@
               v-model="filter.type"
               color="dark"
               no-caps
-              text-color="white"
               :toggle-color="color"
               size="sm"
               dense
+              text-color="info"
               stretch
               style="flex-direction: column"
               unelevated
@@ -231,12 +231,10 @@ export default {
 .selector {
 
   border: #030303 1px solid;
-  /* Add multiple inset box shadows to create an inner "screen" effect */
   box-shadow: inset 0 0 8px 1px var(--select-shadow-color),
-  inset 0 0 15px 1px var(--select-shadow-color), /* inner shadow */
-  0 0 0 2px inset var(--select-border-color); /* inner shadow */
+  inset 0 0 15px 1px var(--select-shadow-color),
+  0 0 0 2px inset var(--select-border-color);
 
-  ///* Add a radial gradient to simulate inner light */
   background:
       radial-gradient(ellipse at center, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.404)),
       linear-gradient(-3deg, transparent 85%, rgb(255, 255, 255) 150%),

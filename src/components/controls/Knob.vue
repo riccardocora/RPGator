@@ -74,10 +74,7 @@ export default defineComponent({
         updateValue(newValue);
       }
     }
-    // const handleMouseDown = (event) => {
-    //   if (value.value === props.min) {
-    //   }
-    // };
+
     return {knobValue, updateValue,rotation,}
   }
 })
@@ -86,11 +83,8 @@ export default defineComponent({
 
 <template>
   <div class="knobContainer">
-    <!--    <input type="range" min="1" max="100" value="50" class="slider" id="myRange">-->
     <q-knob :color="color" size="40px" class="knob" :min="min" :angle="225" :inner-max="max" :max="max *360/270" :step="step"  :thickness="thickness" show-value v-model="knobValue" @update:model-value="updateValue">
       <template v-slot:default>
-<!--        <div class="knob">-->
-<!--          <div class="knob__indicator" >-->
           <div class="q-pa-md">
 
           <q-icon size="md" :style="{ transform: `rotate(${rotation*(270/360) - 135}deg)` }">
@@ -98,15 +92,9 @@ export default defineComponent({
           </q-icon>
         </div>
 
-<!--          </div>-->
-<!--        </div>-->
-
-
-<!--          <div class="knob__value">{{ value }}</div>-->
       </template>
     </q-knob>
   </div>
-<!--  <p>Value: {{value}}</p>-->
 
 </template>
 

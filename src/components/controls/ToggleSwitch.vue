@@ -10,12 +10,12 @@
 </template>
 
 <script>
-import {ref, defineComponent } from "vue";
+import {defineComponent } from "vue";
 export default defineComponent({
   name: "ToggleSwitch",
   setup() {
     return {
-      toggleState: false, // Initial state, you can set it to true if you want it to be initially on
+      toggleState: false,
       toggleOptions: [
         { label: "On", value: true },
         { label: "Off", value: false },
@@ -26,5 +26,4 @@ export default defineComponent({
 </script>
 
 <style scoped>
-/* Add your scoped styles here if needed */
 </style>
