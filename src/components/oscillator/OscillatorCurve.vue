@@ -34,7 +34,6 @@ export default {
 
     const waveform = new Tone.Waveform(1024)
     props.input.connect(waveform);
-    //waveform.toDestination()
     const screenContainer = ref(null);
 
     const resizeHandler = () => {
@@ -52,48 +51,56 @@ export default {
     onMounted(() => {
       window.addEventListener('resize', resizeHandler);
       resizeHandler();
-      initializeAudio();
+      canvas = visualizerCanvas.value;
+      canvasContext = canvas.getContext("2d");
+      canvasContext.fillStyle = getCssVar("positive");
+      canvasContext.shadowColor = getCssVar("secondary");
+      canvasContext.shadowBlur = 3;
+      canvasContext.lineWidth = 2;
+
+// Create the gradient once and reuse it
+      gradient = canvasContext.createLinearGradient(0, 0, canvas.width, 0);
+      gradient.addColorStop("0", getCssVar("secondary"));
+      gradient.addColorStop("0.333", getCssVar("primary"));
+      gradient.addColorStop("0.666",getCssVar("primary") );
+      gradient.addColorStop("1",getCssVar("secondary") );
+      canvasContext.strokeStyle = gradient;
+      // canvasContext.globalCompositeOperation = "destination-out";
+// Clear and fill the canvas once
+      canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+      canvasContext.fillRect(0, 0, canvas.width, canvas.height);
+
+      draw();
     });
 
     onUnmounted(() => {
       cancelAnimationFrame(animationId);
     });
 
+    let canvasContext;
     let animationId;
+    let canvas;
+    let gradient;
 
     const draw = () => {
+
       if (waveform) {
-        const canvas = visualizerCanvas.value;
-        const canvasContext = canvas.getContext("2d");
-        const wavedata = waveform.getValue();
-
-        canvasContext.clearRect(0, 0, canvas.width, canvas.height);
-        canvasContext.fillStyle = getCssVar("positive");
-        canvasContext.fillRect(0, 0, canvas.width, canvas.height);
-        canvasContext.shadowColor = getCssVar("secondary");
-        canvasContext.shadowBlur = 3;
-        canvasContext.lineWidth = 2 ;
-
-        const gradient = canvasContext.createLinearGradient(0, 0, canvas.width, 0);
-        gradient.addColorStop("0", getCssVar("secondary"));
-        gradient.addColorStop("0.333", getCssVar("primary"));
-        gradient.addColorStop("0.666",getCssVar("primary") );
-        gradient.addColorStop("1",getCssVar("secondary") );
-
-        canvasContext.strokeStyle = gradient;
-
-
         // Begin a new path for the line graph
         canvasContext.beginPath();
         canvasContext.moveTo(0, canvas.height);
-        const sliceWidth = (canvas.width)/ (wavedata.length) ;
+        canvasContext.fillStyle = getCssVar("positive");
+        canvasContext.fillRect(0, 0, canvas.width, canvas.height);
+        canvasContext.shadowColor = getCssVar("secondary");
+        canvasContext.shadowBlur = 10;
+        canvasContext.lineWidth = 2 ;
+        const wavedata = waveform.getValue();
+        const sliceWidth = (canvas.width) / (wavedata.length);
         let x = 0;
-        let y = canvas.height/2;
-        let margin = 0;
+        let y = canvas.height / 2;
         canvasContext.lineTo(x, y);
         for (let i = 0; i < wavedata.length; i++) {
-          const v = (wavedata[i] +1) / 2; // Normalize to [0, 1]
-          y = v * (canvas.height - margin) + margin / 2;
+          const v = (wavedata[i] + 1) / 2; // Normalize to [0, 1]
+          y = canvas.height - v * canvas.height
 
           canvasContext.lineTo(x, y);
 
@@ -103,21 +110,17 @@ export default {
         canvasContext.lineTo(canvas.width, (canvas.height) / 2);
         canvasContext.lineTo(canvas.width, canvas.height);
 
-        canvasContext.fillStyle = getCssVar("positive");
-        canvasContext.fill();
+        // Only stroke the path on every frame
         canvasContext.stroke();
+
         animationId = requestAnimationFrame(draw);
       }
     };
 
-    const initializeAudio = () => {
-      // Start the initial drawing
-      draw();
-    };
+
 
     return {
       visualizerCanvas,
-      initializeAudio,
       screenContainer
     };
   },

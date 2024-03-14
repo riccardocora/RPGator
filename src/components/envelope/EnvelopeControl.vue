@@ -158,6 +158,15 @@ import * as Tone from "tone";
       };
     },
 
+    methods:{
+      noteDown(time,velToGain){
+        this.envelope.triggerAttack(time,velToGain);
+      },
+      noteUp(time){
+        this.envelope.triggerRelease(time);
+      }
+    }
+
   });
   </script>
 

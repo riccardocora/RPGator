@@ -68,7 +68,7 @@ import Knob from "../controls/Knob.vue";
 import FilterComp from "../filter/filterComp.vue";
 
 import VoiceControls from "../voices/sliders/voiceControls.vue";
-import SynthComp from "@/components/synthetizer/Synth.vue";
+import SynthComp from "@/components/synthesizer/Synth.vue";
 import OscillatorComp from "@/components/oscillator/OscillatorComp.vue";
 import * as Tone from "tone";
 

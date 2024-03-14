@@ -2,51 +2,51 @@
   <div class="octaves-container">
     <div v-for="octave in octaves" class="octave-container" :key="octave">
 
-      <div class = "octave">
+      <div class="octave">
 
         <div id="C" ref="C" class="key div1">
-            <q-btn :id="`C${octave}`" :ref="buttonRefs['C'+octave]" stack  push text-color="primary" class="w"  @mousedown="handleMouseDown" @mouseup="handleMouseLeave" @mouseleave="handleMouseLeave" >
+            <q-btn :id="`C${octave}`" :ref="buttonRefs['C'+octave]" stack activeClass="pressed" push :ripple="false" class="w"  @mousedown="handleMouseDown" @mouseup="handleMouseLeave" @mouseleave="handleMouseLeave" >
           </q-btn>
 
         </div>
         <div id="D" ref="D" class="key div2">
-          <q-btn :id="`D${octave}`" :ref="buttonRefs['D'+octave]" push stack class="w" text-color="primary" @mousedown="handleMouseDown" @mouseup="handleMouseLeave" @mouseleave="handleMouseLeave"/>
+          <q-btn :id="`D${octave}`" :ref="buttonRefs['D'+octave]" push stack class="w" :ripple="false" @mousedown="handleMouseDown" @mouseup="handleMouseLeave" @mouseleave="handleMouseLeave"/>
 
         </div>
         <div id="E" ref="E" class="key div3" >
-          <q-btn :id="`E${octave}`" :ref="buttonRefs['E'+octave]" push stack class="w" text-color="primary" @mousedown="handleMouseDown" @mouseup="handleMouseLeave" @mouseleave="handleMouseLeave"/>
+          <q-btn :id="`E${octave}`" :ref="buttonRefs['E'+octave]" push stack class="w" :ripple="false" @mousedown="handleMouseDown" @mouseup="handleMouseLeave" @mouseleave="handleMouseLeave"/>
 
         </div>
         <div id="F" ref="F" class="key div4" >
-          <q-btn :id="`F${octave}`" :ref="buttonRefs['F'+octave]" push stack class="w" text-color="primary" @mousedown="handleMouseDown" @mouseup="handleMouseLeave" @mouseleave="handleMouseLeave"/>
+          <q-btn :id="`F${octave}`" :ref="buttonRefs['F'+octave]" push stack class="w" :ripple="false" @mousedown="handleMouseDown" @mouseup="handleMouseLeave" @mouseleave="handleMouseLeave"/>
 
         </div>
         <div id="G" ref="G" class="key div5">
-          <q-btn :id="`G${octave}`" :ref="buttonRefs['G'+octave]" push stack class="w" text-color="primary" @mousedown="handleMouseDown" @mouseup="handleMouseLeave" @mouseleave="handleMouseLeave"/>
+          <q-btn :id="`G${octave}`" :ref="buttonRefs['G'+octave]" push stack class="w" :ripple="false" @mousedown="handleMouseDown" @mouseup="handleMouseLeave" @mouseleave="handleMouseLeave"/>
         </div>
         <div id="A" ref="A" class="key div6">
-          <q-btn :id="`A${octave}`" :ref="buttonRefs['A'+octave]" push stack class="w" text-color="primary" @mousedown="handleMouseDown" @mouseup="handleMouseLeave" @mouseleave="handleMouseLeave"/>
+          <q-btn :id="`A${octave}`" :ref="buttonRefs['A'+octave]" push stack class="w" :ripple="false" @mousedown="handleMouseDown" @mouseup="handleMouseLeave" @mouseleave="handleMouseLeave"/>
         </div>
         <div id="B" ref="B" class="key div7" >
-          <q-btn :id="`B${octave}`" :ref="buttonRefs['B'+octave]" push stack class="w" text-color="primary" @mousedown="handleMouseDown" @mouseup="handleMouseLeave" @mouseleave="handleMouseLeave"/>
+          <q-btn :id="`B${octave}`" :ref="buttonRefs['B'+octave]" push stack class="w" :ripple="false" @mousedown="handleMouseDown" @mouseup="handleMouseLeave" @mouseleave="handleMouseLeave"/>
         </div>
         <div id="C#" ref="Cs" class="key div8" >
-          <q-btn :id="`C#${octave}`" :ref="buttonRefs['C#'+octave]" push stack class=" b" text-color="primary" @mousedown="handleMouseDown" @mouseup="handleMouseLeave" @mouseleave="handleMouseLeave"/>
+          <q-btn :id="`C#${octave}`" :ref="buttonRefs['C#'+octave]" push stack class=" b" :ripple="false" @mousedown="handleMouseDown" @mouseup="handleMouseLeave" @mouseleave="handleMouseLeave"/>
         </div>
         <div id="D#" ref="Ds" class="key div9" >
-          <q-btn :id="`D#${octave}`" :ref="buttonRefs['D#'+octave]" push stack class=" b" text-color="primary" @mousedown="handleMouseDown" @mouseup="handleMouseLeave" @mouseleave="handleMouseLeave"/>
+          <q-btn :id="`D#${octave}`" :ref="buttonRefs['D#'+octave]" push stack class=" b" :ripple="false" @mousedown="handleMouseDown" @mouseup="handleMouseLeave" @mouseleave="handleMouseLeave"/>
 
         </div>
         <div id="F#" ref="Fs" class="key div10" >
-          <q-btn :id="`F#${octave}`" :ref="buttonRefs['F#'+octave]" push stack class="b" text-color="primary" @mousedown="handleMouseDown" @mouseup="handleMouseLeave" @mouseleave="handleMouseLeave"/>
+          <q-btn :id="`F#${octave}`" :ref="buttonRefs['F#'+octave]" push stack class="b" :ripple="false" @mousedown="handleMouseDown" @mouseup="handleMouseLeave" @mouseleave="handleMouseLeave"/>
 
         </div>
         <div id="G#" ref="Gs" class="key div11" >
-          <q-btn :id="`G#${octave}`" :ref="buttonRefs['G#'+octave]" push stack class=" b" text-color="primary" @mousedown="handleMouseDown" @mouseup="handleMouseLeave" @mouseleave="handleMouseLeave"/>
+          <q-btn :id="`G#${octave}`" :ref="buttonRefs['G#'+octave]" push stack class=" b" :ripple="false"  @mousedown="handleMouseDown" @mouseup="handleMouseLeave" @mouseleave="handleMouseLeave"/>
 
         </div>
         <div id="A#" ref="As" class="key div12">
-          <q-btn :id="`A#${octave}`" :ref="buttonRefs['A#'+octave]" push stack class=" b" text-color="primary" @mousedown="handleMouseDown" @mouseup="handleMouseLeave" @mouseleave="handleMouseLeave"/>
+          <q-btn :id="`A#${octave}`" :ref="buttonRefs['A#'+octave]" push stack class=" b" :ripple="false" @mousedown="handleMouseDown" @mouseup="handleMouseLeave" @mouseleave="handleMouseLeave"/>
         </div>
 
 
@@ -191,9 +191,8 @@ export default {
     const octaves = [props.octave, props.octave + 1];
     const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
     const buttonRefs = {};
-    // const v = voices;
 
-    for (let octave of [1, 2, 3, 4, 5, 6, 7]) {
+    for (let octave of [0,1, 2, 3, 4, 5, 6, 7]) {
       for (let note of notes) {
         buttonRefs[note + octave] = ref(null);
       }
@@ -239,7 +238,8 @@ export default {
           const velToGain = map(note.velocity, 0, 127, 0, 1);
           const btn =  buttonRefs[n];
           if(n){
-            btn.value[0].$el.click()
+            console.log("btn",btn.value[0])
+            btn.value[0].$el.classList.add("active")
             props.noteDown(n,velToGain);
           }
         })
@@ -247,7 +247,10 @@ export default {
         keyboard.up(note => {
 
           if(note){
+
             const n = Tone.Frequency(note.note, "midi").toNote();
+            const btn =  buttonRefs[n];
+            btn.value[0].$el.classList.remove("active")
 
             props.noteUp(n);
           }
@@ -367,14 +370,14 @@ export default {
   z-index: 1;
 }
 
-//.w:active{
-//  background-color: rgb(205, 255, 118);
-//}
-//
-//.b:active{
-//  background-color: rgb(205, 255, 118);
-//
-//}
+.w:active{
+  background-color: $warning;
+}
+
+.b:active{
+  background-color: $negative;
+
+}
 
 .span {
   display: grid;
@@ -476,7 +479,7 @@ export default {
 }
 
    /* Default styling for the checkbox */
- input[type="checkbox"] {
+input[type="checkbox"] {
    display: none; /* Hide the default checkbox */
  }
 
@@ -496,7 +499,7 @@ input[type="checkbox"]:checked + label.checkbox-label {
 }
 
 .active{
-  background-color: #8eff8e;
+  background-color: $warning;
 }
 .light_on{
   background:

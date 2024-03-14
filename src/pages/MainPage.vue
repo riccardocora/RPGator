@@ -34,6 +34,8 @@ export default{
   },
   methods: {
     async start() {
+      // const context = new Tone.Context({ latencyHint: "balanced" });
+      // Tone.setContext(context);
       await Tone.start();
       this.started = true;
 
@@ -301,6 +303,10 @@ export default{
 }
 
 .q-slider__focus-ring {
+  display: none;
+}
+
+.q-radio__inner{
   display: none;
 }
 </style>

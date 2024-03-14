@@ -47,8 +47,9 @@ export default {
     Voices,
   },
   setup() {
+
     const voicesOut = new Tone.Gain();
-    const scale = new Tone.Scale(0, 0.9);
+    const compressor = new Tone.Compressor(-30, 3)
     const effectsIn = new Tone.Gain();
     const effectsOut = new Tone.Gain();
     const gainOut = new Tone.Gain(0.5);
@@ -63,8 +64,8 @@ export default {
     let intervalId = null;
     let timeoutId = null;
     let isRecording = null;
-    voicesOut.connect(scale);
-    scale.connect(effectsIn);
+    voicesOut.connect(compressor);
+    compressor.connect(effectsIn);
     effectsOut.connect(gainOut);
     gainOut.toDestination()
     gainOut.connect(recorder);

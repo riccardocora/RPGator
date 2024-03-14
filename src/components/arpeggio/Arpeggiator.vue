@@ -63,7 +63,7 @@
       <q-checkbox v-model="playing" @update:model-value="togglePlay" checked-icon="radio_button_checked"
                   unchecked-icon="radio_button_unchecked" color="yellow">
         <template v-slot:default>
-          <button class="checkmark play" :class="playing?'on':''">PLAY</button>
+          <button class="checkmark play" :class="playing?'on text-primary':''">PLAY</button>
         </template>
       </q-checkbox>
       <button class="checkmark reset" @click="reset">Reset</button> <!-- Add this line -->
@@ -184,6 +184,8 @@ export default {
       if (playing){
         this.updatePattern();
         Tone.Transport.start();
+        console.log("start")
+        console.log(this.pattern)
         this.pattern.start("0.05")
       } else {
         this.pattern.stop(0)
@@ -526,11 +528,11 @@ export default {
   height: 30px;
   background-color: rgba(255, 255, 255, 0.34) !important;
   border-radius: 10%;
-  color: #939393;
+  color: $info !important;
 }
 
 .reset:active {
-  color: rgba(255, 0, 0, 0.61); /* Change this to the desired color */
+  color: rgba(182, 2, 2, 0.61) !important;/* Change this to the desired color */
   background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.16), rgba(0, 0, 0, 0.11))
   rgba(255, 255, 255, 0.34) !important;
 }
@@ -538,19 +540,18 @@ export default {
 .play{
   width: 120%;
   height: 30px;
-  color: #939393;
+  color: $info !important;
   background-color: rgba(255, 255, 255, 0.34) !important;
   border-radius: 10%;
 }
 
 
 .on {
-  color: $primary; /* Change this to the desired color */
+  color: $primary !important; /* Change this to the desired color */
   background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.16), rgba(0, 0, 0, 0.11))
   rgba(255, 255, 255, 0.34) !important;
   border: 1px solid rgba(26, 26, 26, 0.524);
   box-shadow: inset 0 0 3px 1px var(--btn-shadow-color);
-
 }
 
 
