@@ -375,7 +375,7 @@ export default {
 }
 
 .b:active{
-  background-color: $negative;
+  background-color: $warning;
 
 }
 

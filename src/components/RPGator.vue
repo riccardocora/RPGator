@@ -111,7 +111,7 @@ export default {
           const anchor = document.createElement("a");
           anchor.download = "recording.wav";
           anchor.href = url;
-          anchor.click();
+          anchor.click(); 
         }, 600000);
 
       } else if(this.isRecording !== null){

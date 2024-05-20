@@ -495,9 +495,10 @@ export default {
   //flex-direction: row;
   justify-content: start;
   align-items: center;
-  border: 2px solid var(--border-color_1);
-  border-radius: 5px;
-  font-size: x-small;
+  border-left: 1px solid var(--border-color_1);
+  border-right: 2px solid var(--border-color_1);
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;  font-size: x-small;
   //height: 90%;
   //width: 60%;
 }
@@ -506,8 +507,11 @@ export default {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  border: 2px solid var(--border-color_1);
-  border-radius: 5px;
+  border-left: 2px solid var(--border-color_1);
+  border-right: 1px solid var(--border-color_1);
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+
   font-size: x-small;
 
   //height: 100%;
@@ -559,7 +563,7 @@ export default {
       radial-gradient(circle, rgba(255, 255, 255, 0.2),rgba(0, 0, 0, 0.05)),
       linear-gradient(to right,rgba(0, 0, 0, 0.05) 0%, rgba(203, 203, 203, 0.2) 50%, rgba(0, 0, 0, 0.05) 100%),
           '$'+v-bind(color) !important;
-  box-shadow: 0 0 8px 2px rgb(178, 149, 75), 0 0 0 2px var(--border_color);
+  //box-shadow: 0 0 8px 2px rgb(178, 149, 75), 0 0 0 2px var(--border_color);
 }
 
 .option-grid{
